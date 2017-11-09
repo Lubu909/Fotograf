@@ -1,10 +1,10 @@
-package pl.edu.ug.fotograf.manager;
+package pl.edu.ug.fotograf.dao;
 
 import pl.edu.ug.fotograf.model.ORDER_2;
 
 import java.util.List;
 
-public interface Order_2Manager {
+public interface Order_2DAO {
     public void addOrder_2(ORDER_2 order);
     public void delOrder_2(ORDER_2 order);
     public ORDER_2 getOrder_2(int id);

@@ -3,10 +3,11 @@ package pl.edu.ug.fotograf.model;
 import javax.persistence.*;
 import java.util.Date;
 
-// @Entity
-// @NamedQuery(name = "order_2.all", query = "SELECT o2 FROM ORDER_2 o2")
+@Entity
+@NamedQuery(name = "order_2.all", query = "SELECT o2 FROM ORDER_2 o2")
 public class ORDER_2 {
     private int id;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date datetime;
     private String description;
 
@@ -18,6 +19,8 @@ public class ORDER_2 {
         this.description = description;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
