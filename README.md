@@ -2,4 +2,4 @@
 ## Diagram UseCase
 ![UseCase](Dokumentacja/UseCase.png)
 ## Diagram ERD
-![DbSchema](Dokumentacja/db_schema.png)
+![DbSchema](Dokumentacja/ERD.png)
