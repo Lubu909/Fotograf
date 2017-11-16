@@ -1,4 +1,7 @@
 package pl.edu.ug.dao;
 
-public interface CommentDao {
+import org.springframework.data.jpa.repository.JpaRepository;
+import pl.edu.ug.model.Comment;
+
+public interface CommentDao extends JpaRepository<Comment, Long> {
 }

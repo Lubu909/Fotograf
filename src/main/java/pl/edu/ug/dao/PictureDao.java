@@ -1,4 +1,7 @@
 package pl.edu.ug.dao;
 
-public interface PictureDao {
+import org.springframework.data.jpa.repository.JpaRepository;
+import pl.edu.ug.model.Picture;
+
+public interface PictureDao extends JpaRepository<Picture, Long> {
 }
