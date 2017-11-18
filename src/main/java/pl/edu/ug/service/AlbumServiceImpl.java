@@ -2,8 +2,11 @@ package pl.edu.ug.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import pl.edu.ug.dao.AlbumDao;
 import pl.edu.ug.model.Album;
+import pl.edu.ug.model.User;
 
 import java.util.List;
 
@@ -13,6 +16,7 @@ public class AlbumServiceImpl implements AlbumService {
     @Autowired
     private AlbumDao albumDao;
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public void add(Album album) {
         albumDao.save(album);
@@ -34,7 +38,22 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
+    public Album findByName(String name) {
+        return albumDao.findByName(name);
+    }
+
+    @Override
+    public Album findByName(String name, User author) {
+        return albumDao.findByNameAndAuthor(name,author);
+    }
+
+    @Override
     public List<Album> getAll() {
         return albumDao.findAll();
+    }
+
+    @Override
+    public List<Album> getAll(User user) {
+        return albumDao.findByAuthor(user);
     }
 }
