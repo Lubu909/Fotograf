@@ -38,6 +38,46 @@
             </div>
         </spring:bind>
 
+        <spring:bind path="name">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="name" class="form-control"
+                            placeholder="Enter your name"></form:input>
+                <form:errors path="name"></form:errors>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="surname">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="surname" class="form-control"
+                            placeholder="Enter your surname"></form:input>
+                <form:errors path="name"></form:errors>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="city">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="city" class="form-control"
+                            placeholder="Enter your city"></form:input>
+                <form:errors path="name"></form:errors>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="email">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="email" class="form-control"
+                            placeholder="Enter your e-mail"></form:input>
+                <form:errors path="name"></form:errors>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="tel">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="tel" class="form-control"
+                            placeholder="Enter your phone number"></form:input>
+                <form:errors path="name"></form:errors>
+            </div>
+        </spring:bind>
+
         <spring:bind path="password">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="password" path="password" class="form-control" placeholder="Password"></form:input>

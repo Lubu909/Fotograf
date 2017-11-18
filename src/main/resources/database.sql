@@ -40,6 +40,47 @@ ENGINE = InnoDB;
 -- Table `fotograf`.`roles`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `fotograf`.`roles` ;
+<<<<<<< HEAD
+
+CREATE TABLE IF NOT EXISTS `fotograf`.`roles` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fotograf`.`user_roles`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fotograf`.`user_roles` ;
+
+CREATE TABLE IF NOT EXISTS `fotograf`.`user_roles` (
+  `user_id` INT NOT NULL,
+  `role_id` INT NOT NULL,
+  INDEX `fk_User_Role_User_idx` (`user_id` ASC),
+  INDEX `fk_User_Role_Role1_idx` (`role_id` ASC),
+  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC),
+  CONSTRAINT `fk_User_Role_User`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `fotograf`.`users` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_User_Role_Role1`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `fotograf`.`roles` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+START TRANSACTION;
+USE `fotograf`;
+
+INSERT INTO `fotograf`.`roles` (`id`, `name`) VALUES (1, 'ROLE_USER');
+INSERT INTO `fotograf`.`roles` (`id`, `name`) VALUES (2, 'ROLE_ADMIN');
+INSERT INTO users VALUES (1, 'admin', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG', 'admin', 'admin', NULL, NULL, NULL, NULL);
+INSERT INTO user_roles VALUES (1, 2);
+COMMIT;
+=======
 
 CREATE TABLE IF NOT EXISTS `fotograf`.`roles` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -224,3 +265,4 @@ INSERT INTO `fotograf`.`roles` (`id`, `name`) VALUES (2, 'ROLE_ADMIN');
 
 COMMIT;
 
+>>>>>>> 8f3b73c457330941bd6d8f7ca19b4cf6cab4e927

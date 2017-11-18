@@ -1,6 +1,7 @@
 package pl.edu.ug.model;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Set;
 
 @Entity
@@ -19,6 +20,25 @@ public class User {
 
     @Transient
     private String confirmPassword;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @Lob
+    @Column(name = "photo")
+    private byte[] photo;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "tel")
+    private String tel;
 
     @ManyToMany
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
@@ -72,5 +92,65 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
+    public String getSurname() { return surname; }
+
+    public void setSurname(String surname) { this.surname = surname; }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", photo=" + Arrays.toString(photo) +
+                ", city='" + city + '\'' +
+                ", email='" + email + '\'' +
+                ", tel='" + tel + '\'' +
+                ", roles=" + roles +
+                ", albums=" + albums +
+                ", comments=" + comments +
+                ", scores=" + scores +
+                '}';
     }
 }

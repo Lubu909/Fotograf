@@ -1,17 +1,9 @@
-<%@ page pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
-
-<c:set var="url" value="${pageContext.request.requestURL}" />
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
-<tag:Layout>
-    <h1>Strona główna</h1>
-</tag:Layout>
-
-<%--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -26,20 +18,28 @@
 </head>
 <body>
 
-<div class="container">
 
-    <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <form id="logoutForm" method="POST" action="${contextPath}/logout">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
-        <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
-        </h2>
+<c:if test="${pageContext.request.userPrincipal.name != null}">
+    <form id="logoutForm" method="POST" action="${contextPath}/logout">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
+    <form method="GET" action="${contextPath}/usersList">
+        <h2 class="form-heading">Users List</h2>
+        <c:forEach items="${usersList}" var="type">
+            NAME is ${type.username}
+            EMAIL is ${type.email}
 
-    </c:if>
+            <c:forEach items="${type.roles}" var="role">
+                ${role.name}
+            </c:forEach>
+            </br>
+        </c:forEach>
+    </form>
 
-</div>
+</c:if>
+
+<%--</div>--%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
-</html>--%>
-
+</html>

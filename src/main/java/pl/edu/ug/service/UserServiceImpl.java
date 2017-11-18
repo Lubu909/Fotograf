@@ -1,5 +1,7 @@
 package pl.edu.ug.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import pl.edu.ug.model.Role;
 import pl.edu.ug.model.User;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -35,5 +38,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        List<User> users = userDao.findAll();
+        return users;
     }
 }
