@@ -1,6 +1,7 @@
 package pl.edu.ug.model;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Set;
 
 @Entity
@@ -131,5 +132,25 @@ public class User {
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", photo=" + Arrays.toString(photo) +
+                ", city='" + city + '\'' +
+                ", email='" + email + '\'' +
+                ", tel='" + tel + '\'' +
+                ", roles=" + roles +
+                ", albums=" + albums +
+                ", comments=" + comments +
+                ", scores=" + scores +
+                '}';
     }
 }

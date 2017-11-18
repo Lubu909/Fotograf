@@ -5,12 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.ug.model.Role;
 import pl.edu.ug.model.User;
 import pl.edu.ug.service.SecurityService;
 import pl.edu.ug.service.UserService;
 import pl.edu.ug.validator.UserValidator;
 
 import java.security.Principal;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -67,5 +69,13 @@ public class UserController {
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String admin(Model model) {
         return "admin";
+    }
+
+
+    @RequestMapping(value = "/usersList", method = RequestMethod.GET)
+    public String getUsersList(Model model) {
+        List<User> usersList = userService.getUsers();
+        model.addAttribute("usersList", usersList);
+        return "usersList";
     }
 }
