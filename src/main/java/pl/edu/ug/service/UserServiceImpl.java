@@ -9,6 +9,7 @@ import pl.edu.ug.model.Role;
 import pl.edu.ug.model.User;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -35,5 +36,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return userDao.findAll();
     }
 }
