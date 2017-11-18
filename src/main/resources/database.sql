@@ -40,6 +40,7 @@ ENGINE = InnoDB;
 -- Table `fotograf`.`roles`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `fotograf`.`roles` ;
+<<<<<<< HEAD
 
 CREATE TABLE IF NOT EXISTS `fotograf`.`roles` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -79,3 +80,189 @@ INSERT INTO `fotograf`.`roles` (`id`, `name`) VALUES (2, 'ROLE_ADMIN');
 INSERT INTO users VALUES (1, 'admin', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG', 'admin', 'admin', NULL, NULL, NULL, NULL);
 INSERT INTO user_roles VALUES (1, 2);
 COMMIT;
+=======
+
+CREATE TABLE IF NOT EXISTS `fotograf`.`roles` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fotograf`.`user_roles`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fotograf`.`user_roles` ;
+
+CREATE TABLE IF NOT EXISTS `fotograf`.`user_roles` (
+  `user_id` INT NOT NULL,
+  `role_id` INT NOT NULL,
+  INDEX `fk_User_Role_User_idx` (`user_id` ASC),
+  INDEX `fk_User_Role_Role1_idx` (`role_id` ASC),
+  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC),
+  CONSTRAINT `fk_User_Role_User`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `fotograf`.`users` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_User_Role_Role1`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `fotograf`.`roles` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fotograf`.`orders`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fotograf`.`orders` ;
+
+CREATE TABLE IF NOT EXISTS `fotograf`.`orders` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `date` DATETIME NULL,
+  `description` VARCHAR(255) NULL,
+  `user_roles_user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Order_User_Role1_idx` (`user_roles_user_id` ASC),
+  CONSTRAINT `fk_Order_User_Role1`
+    FOREIGN KEY (`user_roles_user_id`)
+    REFERENCES `fotograf`.`user_roles` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fotograf`.`office`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fotograf`.`office` ;
+
+CREATE TABLE IF NOT EXISTS `fotograf`.`office` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `calendar` DATE NULL,
+  `order_id` INT NOT NULL,
+  `user_roles_User_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Office_Order1_idx` (`order_id` ASC),
+  INDEX `fk_office_user_roles1_idx` (`user_roles_User_id` ASC),
+  CONSTRAINT `fk_Office_Order1`
+    FOREIGN KEY (`order_id`)
+    REFERENCES `fotograf`.`orders` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_office_user_roles1`
+    FOREIGN KEY (`user_roles_User_id`)
+    REFERENCES `fotograf`.`user_roles` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fotograf`.`albums`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fotograf`.`albums` ;
+
+CREATE TABLE IF NOT EXISTS `fotograf`.`albums` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NULL,
+  `description` VARCHAR(255) NULL,
+  `user_roles_user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Album_User_Role1_idx` (`user_roles_user_id` ASC),
+  CONSTRAINT `fk_Album_User_Role1`
+    FOREIGN KEY (`user_roles_user_id`)
+    REFERENCES `fotograf`.`user_roles` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fotograf`.`pictures`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fotograf`.`pictures` ;
+
+CREATE TABLE IF NOT EXISTS `fotograf`.`pictures` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) NULL,
+  `photo` BLOB NULL,
+  `album_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Picture_Album1_idx` (`album_id` ASC),
+  CONSTRAINT `fk_Picture_Album1`
+    FOREIGN KEY (`album_id`)
+    REFERENCES `fotograf`.`albums` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fotograf`.`scores`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fotograf`.`scores` ;
+
+CREATE TABLE IF NOT EXISTS `fotograf`.`scores` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `value` DOUBLE NULL,
+  `user_roles_user_id` INT NOT NULL,
+  `album_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Score_User_Role1_idx` (`user_roles_user_id` ASC),
+  INDEX `fk_Score_Album1_idx` (`album_id` ASC),
+  CONSTRAINT `fk_Score_User_Role1`
+    FOREIGN KEY (`user_roles_user_id`)
+    REFERENCES `fotograf`.`user_roles` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Score_Album1`
+    FOREIGN KEY (`album_id`)
+    REFERENCES `fotograf`.`albums` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fotograf`.`comments`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fotograf`.`comments` ;
+
+CREATE TABLE IF NOT EXISTS `fotograf`.`comments` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `description` TEXT NULL,
+  `user_roles_user_id` INT NOT NULL,
+  `album_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Comment_User_Role1_idx` (`user_roles_user_id` ASC),
+  INDEX `fk_Comment_Album1_idx` (`album_id` ASC),
+  CONSTRAINT `fk_Comment_User_Role1`
+    FOREIGN KEY (`user_roles_user_id`)
+    REFERENCES `fotograf`.`user_roles` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Comment_Album1`
+    FOREIGN KEY (`album_id`)
+    REFERENCES `fotograf`.`albums` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `fotograf`.`roles`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `fotograf`;
+INSERT INTO `fotograf`.`roles` (`id`, `name`) VALUES (1, 'ROLE_USER');
+INSERT INTO `fotograf`.`roles` (`id`, `name`) VALUES (2, 'ROLE_ADMIN');
+
+COMMIT;
+
+>>>>>>> 8f3b73c457330941bd6d8f7ca19b4cf6cab4e927

@@ -44,6 +44,15 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private Set<Album> albums;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private Set<Comment> comments;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private Set<Score> scores;
+
     public Long getId() {
         return id;
     }
