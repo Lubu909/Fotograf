@@ -9,20 +9,13 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <tag:Layout>
-    <h2>Stwórz album</h2>
-    <form:form method="post" modelAttribute="albumForm">
-        <spring:bind path="name">
+    <h2>Oceń album</h2>
+    <form:form method="post" modelAttribute="scoreForm">
+        <spring:bind path="value">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="name" class="form-control" placeholder="Nazwa albumu"
+                <form:input type="range" path="value" class="form-control" min="0" max="10" step="0.5"
                             autofocus="true"/>
-                <form:errors path="name"/>
-            </div>
-        </spring:bind>
-        <spring:bind path="description">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="description" class="form-control" placeholder="Opis albumu"
-                            autofocus="true"/>
-                <form:errors path="description"/>
+                <form:errors path="value"/>
             </div>
         </spring:bind>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>

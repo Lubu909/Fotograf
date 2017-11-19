@@ -27,7 +27,9 @@ public class AlbumValidator implements Validator {
         if(album.getName().length() < 3 || album.getName().length() > 255)
             errors.rejectValue("name", "Size.albumForm.name");
 
+        /*
         if(albumService.findByName(album.getName()) != null)
             errors.rejectValue("name", "Duplicate.albumForm.name");
+            */
     }
 }

@@ -20,7 +20,10 @@
             <tr>
                 <td><b>${album.name}</b></td>
                 <td>${album.description}</td>
-                <td><a href="/${user}/${album.name}">View</a> | <a href="/${user}/${album.name}/edit">Edit</a> | <a href="/${user}/${album.name}" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a></td>
+                <td><a href="/${user}/${album.id}">View</a> | <a href="/${user}/${album.id}/edit">Edit</a> | <form method="post" action="/${user}/${album.id}/delete">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Delete</button>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form></td>
             </tr>
         </c:forEach>
     </table>

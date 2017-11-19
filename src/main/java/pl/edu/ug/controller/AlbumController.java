@@ -33,20 +33,6 @@ public class AlbumController {
     //Create Album
     @RequestMapping(value = "/createAlbum", method = RequestMethod.GET)
     public String createAlbum(Model model){
-        /*
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth != null) {
-            if(auth.isAuthenticated()) {
-                Album album = new Album();
-                album.setAuthor(userService.findByUsername(auth.getName()));
-                if(album.getAuthor() != null) {
-                    model.addAttribute("albumForm", album);
-                    return "Album/createAlbum";
-                }
-            }
-        }
-        return "redirect:/welcome";
-        */
         model.addAttribute("albumForm", new Album());
         return "Album/create";
     }
@@ -69,22 +55,17 @@ public class AlbumController {
 
         albumService.add(albumForm);
 
-        return "redirect:/" + albumForm.getAuthor().getUsername() + "/" + albumForm.getName();
+        return "redirect:/" + albumForm.getAuthor().getUsername() + "/" + albumForm.getId();
     }
 
     //Read Album
     //TODO: Dokończyć - lista zdjęć, komentarze, ocena
-    @RequestMapping(value = "/{username}/{albumName}", method = RequestMethod.GET)
-    public String viewAlbum(@PathVariable String username, @PathVariable String albumName, Model model){
-        /*
-        User user = userService.findByUsername(username);
-        Album album = albumService.findByName(albumName);
-        if(user != null && album != null) return "Album/viewAlbum";
-        else return "Album/notFound";
-        */
-        User user = userService.findByUsername(username);
-        if(user != null) {
-            Album album = albumService.findByName(albumName, user);
+    @RequestMapping(value = "/{username}/{albumID}", method = RequestMethod.GET)
+    public String viewAlbum(@PathVariable String username, @PathVariable Long albumID, Model model){
+        Album album = albumService.get(albumID);
+        //User user = userService.findByUsername(username);
+        if(album != null) {
+            //Album album = albumService.get(albumID);
             model.addAttribute("album", album);
             return "Album/view";
         }
@@ -103,72 +84,44 @@ public class AlbumController {
     }
 
     //Update Album
-    @RequestMapping(value = "/{username}/{albumName}/edit", method = RequestMethod.GET)
-    public String editAlbum(@PathVariable String username, @PathVariable String albumName, Model model){
+    @RequestMapping(value = "/{username}/{albumID}/edit", method = RequestMethod.GET)
+    public String editAlbum(@PathVariable String username, @PathVariable Long albumID, Model model){
         User user = userService.findByUsername(username);
-        Album album = albumService.findByName(albumName);
+        Album album = albumService.get(albumID);
         if(user != null && album != null){
             model.addAttribute("albumForm", album);
-            return "Album/editAlbum";
+            return "Album/edit";
         }
         else return "Album/notFound";
     }
 
-    @RequestMapping(value = "/{username}/{albumName}/edit",
-            method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH})
-    public String editAlbum(@PathVariable String username, @PathVariable String albumName,
+    @RequestMapping(value = "/{username}/{albumID}/edit", method = RequestMethod.POST)
+    public String editAlbum(@PathVariable String username, @PathVariable Long albumID,
                             @ModelAttribute("albumForm") Album albumForm, BindingResult bindingResult){
         albumValidator.validate(albumForm, bindingResult);
 
-        //System.out.println("Sprawdza");
-        //if(albumForm.getAuthor() != null) System.out.println("Autor: " + albumForm.getAuthor().getUsername());
-
         if (bindingResult.hasErrors()) {
-            return "redirect:/" + username + "/" + albumName + "/edit";
+            return "redirect:/" + username + "/" + albumID + "/edit";
         }
 
-        //System.out.println("Zapisuje");
+        albumForm.setAuthor(userService.findByUsername(albumForm.getAuthor().getUsername()));
 
         albumService.add(albumForm);
 
-        return "redirect:/" + username + "/" + albumName;
+        return "redirect:/" + albumForm.getAuthor().getUsername() + "/" + albumForm.getId();
     }
 
     //Delete Album
-    /*
-    @RequestMapping(value = "{username}/{albumName}/delete", method = RequestMethod.GET)
-    public String deleteAlbum(@PathVariable String username, @PathVariable String albumName, Model model){
-        User user = userService.findByUsername(username);
-        if(user != null) {
-            Album album = albumService.findByName(albumName, user);
-            if(album != null){
-                model.addAttribute("album", album);
-                return "Album/deleteAlbum";
-            }
-        }
-        //Album album = albumService.findByName(albumName);
-
-        //model.addAttribute("albumForm", album);
-        //User user = userService.findByUsername(username);
-        //if(user != null && album != null) return "deleteAlbum";
-        return "Album/notFound";
-    }
-    */
-
-    //TODO: Dokończyć
-    @RequestMapping(value = "{username}/{albumName}/delete", method = {RequestMethod.DELETE, RequestMethod.POST})
-    public String deleteAlbum(@PathVariable String username, @PathVariable String albumName){
-        System.out.println("Wchodzi w usuwanie");
+    @RequestMapping(value = "{username}/{albumID}/delete", method = {RequestMethod.DELETE, RequestMethod.POST})
+    public String deleteAlbum(@PathVariable String username, @PathVariable Long albumID){
         User user = userService.findByUsername(username);
         if(user != null) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if(auth != null) {
                 if(auth.isAuthenticated()) {
-                    System.out.println("Sprawdzanie username");
                     if(auth.getName().equals(username)) {
-                        Album album = albumService.findByName(albumName, user);
+                        Album album = albumService.get(albumID);
                         if (album != null) {
-                            System.out.println("Usuwam");
                             albumService.delete(album);
                             return "redirect:/" + username + "/albums";
                         }
@@ -176,12 +129,6 @@ public class AlbumController {
                 }
             }
         }
-        /*
-        if(user != null && album != null){
-            albumService.delete(album);
-            return "redirect:/welcome";
-        }
-        */
         return "Album/notFound";
     }
 
