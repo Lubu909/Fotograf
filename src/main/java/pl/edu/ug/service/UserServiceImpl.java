@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.edu.ug.dao.RoleDao;
 import pl.edu.ug.dao.UserDao;
 import pl.edu.ug.model.Role;
@@ -27,6 +28,7 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
+    @Transactional
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Set<Role> roles = new HashSet<>();
@@ -36,13 +38,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
     }
 
     @Override
+    @Transactional
     public List<User> getUsers() {
         List<User> users = userDao.findAll();
         return users;
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        User user = userDao.getOne(id);
+        if (user != null) {
+            userDao.delete(id);
+        }
+    }
+
+    @Override
+    @Transactional
+    public User getOne(Long id) {
+        return userDao.getOne(id);
     }
 }
