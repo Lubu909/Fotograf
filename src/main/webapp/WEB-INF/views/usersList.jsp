@@ -33,61 +33,61 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
 
-    <form:form method="POST" modelAttribute="user" class="form-signin">
+    <form:form method="POST" action="/usersList" modelAttribute="user" class="form-signin">
         <h2 class="form-signin-heading">Create your account</h2>
 
         <spring:bind path="id">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="id" class="form-control" placeholder="Id"></form:input>
-                <form:errors path="id"></form:errors>
+                <form:input type="text" path="id" class="form-control" placeholder="Id"/>
+                <form:errors path="id"/>
             </div>
         </spring:bind>
 
         <spring:bind path="username">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="username" class="form-control" placeholder="Username"
-                            autofocus="true"></form:input>
-                <form:errors path="username"></form:errors>
+                            autofocus="true"/>
+                <form:errors path="username"/>
             </div>
         </spring:bind>
 
         <spring:bind path="name">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="name" class="form-control"
-                            placeholder="Enter your name"></form:input>
-                <form:errors path="name"></form:errors>
+                            placeholder="Enter your name"/>
+                <form:errors path="name"/>
             </div>
         </spring:bind>
 
         <spring:bind path="surname">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="surname" class="form-control"
-                            placeholder="Enter your surname"></form:input>
-                <form:errors path="name"></form:errors>
+                            placeholder="Enter your surname"/>
+                <form:errors path="name"/>
             </div>
         </spring:bind>
 
         <spring:bind path="city">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="city" class="form-control"
-                            placeholder="Enter your city"></form:input>
-                <form:errors path="name"></form:errors>
+                            placeholder="Enter your city"/>
+                <form:errors path="name"/>
             </div>
         </spring:bind>
 
         <spring:bind path="email">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="email" class="form-control"
-                            placeholder="Enter your e-mail"></form:input>
-                <form:errors path="name"></form:errors>
+                            placeholder="Enter your e-mail"/>
+                <form:errors path="email"/>
             </div>
         </spring:bind>
 
         <spring:bind path="tel">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="tel" class="form-control"
-                            placeholder="Enter your phone number"></form:input>
-                <form:errors path="name"></form:errors>
+                            placeholder="Enter your phone number"/>
+                <form:errors path="tel"/>
             </div>
         </spring:bind>
 
