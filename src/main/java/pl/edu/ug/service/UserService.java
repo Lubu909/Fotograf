@@ -13,6 +13,8 @@ public interface UserService {
     List<User> getUsers();
 
     void delete(Long id);
+    void delete(User user);
+    void deleteById(Long id);
 
     User getOne(Long id);
 

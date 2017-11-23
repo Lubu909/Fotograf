@@ -5,4 +5,5 @@ import pl.edu.ug.model.User;
 
 public interface UserDao extends JpaRepository<User, Long> {
     User findByUsername(String username);
+    void deleteById(Long id);
 }

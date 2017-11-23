@@ -52,7 +52,7 @@ public class UsersManageController {
 
     @RequestMapping("/remove/{id}")
     public String removeUser(@PathVariable("id") Long id) {
-        userService.delete(id);
+        userService.deleteById(id);
         return "redirect:/usersList";
     }
 

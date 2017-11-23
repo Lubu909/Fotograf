@@ -40,7 +40,7 @@ ENGINE = InnoDB;
 -- Table `fotograf`.`roles`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `fotograf`.`roles` ;
-<<<<<<< HEAD
+
 
 CREATE TABLE IF NOT EXISTS `fotograf`.`roles` (
   `id` INT NOT NULL AUTO_INCREMENT,
