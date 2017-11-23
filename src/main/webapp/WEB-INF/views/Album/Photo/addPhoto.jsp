@@ -13,6 +13,7 @@
     <form:form method="post" enctype="multipart/form-data" modelAttribute="photoForm">
         <spring:bind path="title">
             <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:label path="title">Nazwa zdjęcia: </form:label>
                 <form:input type="text" path="title" class="form-control" placeholder="${photoForm.title}"
                             autofocus="true"/>
                 <form:errors path="title"/>
@@ -20,7 +21,8 @@
         </spring:bind>
         <spring:bind path="photo">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="file" path="photo" class="form-control"/>
+                <form:label path="photo">Plik: </form:label>
+                <form:input type="file" path="photo"/>
                 <form:errors path="photo"/>
             </div>
         </spring:bind>

@@ -13,9 +13,9 @@
     <h3>Album użytkownika ${album.author.username}</h3>
     <h5>${album.description}</h5>
 
-    <%--<jsp:include page="Photo/list"/> --%>
-    <%--<jsp:include page="Comment/list"/>--%>
-    <%--<jsp:include page="Score/view"/>--%>
+    <%--<jsp:include page="Photo/list.jsp"/> --%>
+    <%--<jsp:include page="Comment/list.jsp"/>--%>
+    <%--<jsp:include page="Score/view.jsp"/>--%>
 
     <a href="/${album.author.username}/${album.id}/rateAlbum">Rate this album</a>
 

@@ -10,6 +10,7 @@ import pl.edu.ug.model.Picture;
 import pl.edu.ug.service.AlbumService;
 import pl.edu.ug.service.PictureService;
 import pl.edu.ug.service.UserService;
+import pl.edu.ug.validator.PictureValidator;
 
 @Controller
 public class PictureController {
@@ -23,6 +24,9 @@ public class PictureController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PictureValidator pictureValidator;
+
     //Create Picture
     @RequestMapping(value = "/{username}/{albumID}/add", method = RequestMethod.GET)
     public String addPhoto(@PathVariable String username, @PathVariable Long albumID, Model model){
@@ -34,7 +38,11 @@ public class PictureController {
     @RequestMapping(value = "/{username}/{albumID}/add", method = RequestMethod.POST)
     public String addPhoto(@PathVariable String username,@PathVariable Long albumID,
                            @ModelAttribute("photoForm") Picture photoForm, BindingResult bindingResult){
-        //TODO: Validator
+        pictureValidator.validate(photoForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "Album/Photo/addPhoto";
+        }
 
         //photoForm.setAlbum(albumService.get(albumID, userService.findByUsername(username)));
         photoForm.setAlbum(albumService.get(albumID));

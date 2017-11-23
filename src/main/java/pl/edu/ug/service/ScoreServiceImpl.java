@@ -3,7 +3,9 @@ package pl.edu.ug.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.ug.dao.ScoreDao;
+import pl.edu.ug.model.Album;
 import pl.edu.ug.model.Score;
+import pl.edu.ug.model.User;
 
 import java.util.List;
 
@@ -31,6 +33,23 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     public Score get(Long id) {
         return scoreDao.getOne(id);
+    }
+
+    @Override
+    public Score getUserScore(Album album, User author) {
+        return scoreDao.getByAlbumAndAuthor(album,author);
+    }
+
+    @Override
+    public List<Score> getGlobalScoresList(Album album) {
+        return scoreDao.getByAlbum(album);
+    }
+
+    @Override
+    public double getGlobalScore(Album album) {
+        List<Score> list = scoreDao.getByAlbum(album);
+        return list.stream().mapToDouble(s -> s.getValue()).average().getAsDouble();
+        //return scoreDao.getAverage(album);
     }
 
     @Override

@@ -3,7 +3,9 @@ package pl.edu.ug.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.ug.dao.CommentDao;
+import pl.edu.ug.model.Album;
 import pl.edu.ug.model.Comment;
+import pl.edu.ug.model.User;
 
 import java.util.List;
 
@@ -31,6 +33,16 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment get(Long id) {
         return commentDao.getOne(id);
+    }
+
+    @Override
+    public Comment getComment(Album album, User author) {
+        return commentDao.getByAlbumAndAuthor(album,author);
+    }
+
+    @Override
+    public List<Comment> getCommentList(Album album) {
+        return commentDao.getByAlbum(album);
     }
 
     @Override
