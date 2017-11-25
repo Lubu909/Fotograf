@@ -19,11 +19,11 @@
                 <form:errors path="title"/>
             </div>
         </spring:bind>
-        <spring:bind path="photo">
+        <spring:bind path="photoFile">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:label path="photo">Plik: </form:label>
-                <form:input type="file" path="photo"/>
-                <form:errors path="photo"/>
+                <form:label path="photoFile">Plik: </form:label>
+                <form:input type="file" path="photoFile"/>
+                <form:errors path="photoFile"/>
             </div>
         </spring:bind>
         <%--<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>--%>

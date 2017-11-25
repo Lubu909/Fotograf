@@ -27,9 +27,8 @@ public class User {
     @Column(name = "surname")
     private String surname;
 
-    @Lob
-    @Column(name = "photo")
-    private byte[] photo;
+    @Column(name = "photoPath")
+    private String photo;
 
     @Column(name = "city")
     private String city;
@@ -102,11 +101,11 @@ public class User {
 
     public void setSurname(String surname) { this.surname = surname; }
 
-    public byte[] getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
@@ -143,7 +142,7 @@ public class User {
                 ", confirmPassword='" + confirmPassword + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", photo=" + Arrays.toString(photo) +
+                //", photo=" + Arrays.toString(photo) +
                 ", city='" + city + '\'' +
                 ", email='" + email + '\'' +
                 ", tel='" + tel + '\'' +

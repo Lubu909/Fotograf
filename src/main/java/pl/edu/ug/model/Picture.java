@@ -1,5 +1,7 @@
 package pl.edu.ug.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,7 +12,11 @@ public class Picture {
     private Long id;
 
     private String title;
-    private byte[] photo;
+    @Column(name = "photoPath")
+    private String photo;
+
+    @Transient
+    private MultipartFile photoFile;
 
     @ManyToOne
     @JoinColumn(name = "album_id")
@@ -32,11 +38,11 @@ public class Picture {
         this.title = title;
     }
 
-    public byte[] getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
@@ -46,5 +52,13 @@ public class Picture {
 
     public void setAlbum(Album album) {
         this.album = album;
+    }
+
+    public MultipartFile getPhotoFile() {
+        return photoFile;
+    }
+
+    public void setPhotoFile(MultipartFile photoFile) {
+        this.photoFile = photoFile;
     }
 }
