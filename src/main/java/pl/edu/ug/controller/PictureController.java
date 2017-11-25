@@ -1,6 +1,8 @@
 package pl.edu.ug.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,13 +10,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.edu.ug.model.Album;
 import pl.edu.ug.model.Picture;
+import pl.edu.ug.model.User;
 import pl.edu.ug.service.AlbumService;
 import pl.edu.ug.service.PictureService;
 import pl.edu.ug.service.UserService;
 import pl.edu.ug.validator.PictureValidator;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 @Controller
 public class PictureController {
@@ -71,22 +77,46 @@ public class PictureController {
         file.transferTo(out);
         return path;
     }
-
+    
     //Read Picture
-    public String getPhoto(){
-        return "Album/Photo/view";
+    //TODO: response body wywala całą stronę?
+    /*
+    @ResponseBody
+    @RequestMapping(value = "/{username}/{albumID}/{pictureID}", method = RequestMethod.GET)
+    public byte[] getPhoto(@PathVariable String username,@PathVariable Long albumID, @PathVariable Long pictureID) throws IOException {
+        Picture pic = pictureService.get(pictureID);
+        File file = new File(pic.getPhoto());
+        if(file.exists()) return Files.readAllBytes(file.toPath());
+        return null;
     }
+    */
 
+    //TODO: edit picture name + form
     //Update Picture
-    public String editPhoto(){
+    public String editPhoto(@PathVariable String username,@PathVariable Long albumID, @PathVariable Long pictureID){
         //change name
         return "Album/Photo/view";
     }
     //Delete Picture
-    public String deletePhoto(){
-        //delete file
-        //delete db record
-        return "placeholder";
-        //return "redirect:/" + username + "/" + albumID;
+    @RequestMapping(value = "/{username}/{albumID}/{pictureID}/delete", method = RequestMethod.POST)
+    public String deletePhoto(@PathVariable String username,@PathVariable Long albumID, @PathVariable Long pictureID) {
+        User user = userService.findByUsername(username);
+        if (user != null) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth != null) {
+                if (auth.isAuthenticated()) {
+                    if (auth.getName().equals(username)) {
+                        //delete file
+                        Picture pic = pictureService.get(pictureID);
+                        File file = new File(pic.getPhoto());
+                        if (file.exists()) file.delete();
+                        //delete db record
+                        pictureService.delete(pic);
+                        return "redirect:/" + username + "/" + albumID;
+                    }
+                }
+            }
+        }
+        return "notFound";
     }
 }

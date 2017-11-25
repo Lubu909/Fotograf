@@ -13,9 +13,22 @@
     <h3>Album użytkownika ${album.author.username}</h3>
     <h5>${album.description}</h5>
 
+    <div id="scoreView">
+        <%--<h3>Global score : ${globalScore}</h3>--%>
+        <%--<h5>Your score : ${userScore}</h5>--%>
+    </div>
+
     <%--<jsp:include page="Photo/list.jsp"/> --%>
-    <%--<jsp:include page="Comment/list.jsp"/>--%>
-    <%--<jsp:include page="Score/view.jsp"/>--%>
+    <div id="photoList" class="row">
+        <c:forEach var="photo" items="${album.pictures}">
+            <div class="col-md-4">
+                <div class="thumbnail">
+                    <img src="/${album.author.username}/${album.id}/${photo.id}" alt="${photo.title}">
+                    <h3>${photo.title}</h3>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
 
     <a href="/${album.author.username}/${album.id}/rateAlbum">Rate this album</a>
 
@@ -27,4 +40,23 @@
         </form>
         <h3><a href="/${user}/${album.id}/add">Add photo</a></h3>
     </c:if>
+
+
+
+    <div id="commentList">
+        <table>
+            <c:forEach var="comment" items="${album.comments}">
+                <tr>
+                    <td><b>${comment.author.name}</b></td>
+                    <td>${comment.description}</td>
+                    <td><a href="/${comment.author.username}/${comment.album.id}/comment">Edit</a> |
+                        <form method="post" action="/${comment.author.username}/${comment.album.id}/commentList/${comment.id}">
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Delete</button>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 </tag:Layout>

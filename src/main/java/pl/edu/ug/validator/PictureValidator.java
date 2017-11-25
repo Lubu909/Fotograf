@@ -30,4 +30,10 @@ public class PictureValidator implements Validator {
         if(!contentType.equals(MIME_IMAGE_JPEG) && !contentType.equals(MIME_IMAGE_PNG))
             errors.rejectValue("photoFile","PhotoFile.pictureForm.Type");
     }
+
+    public void validateEdit(Object o, Errors errors){
+        Picture picture = (Picture) o;
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "Title.pictureForm.Empty");
+    }
 }
