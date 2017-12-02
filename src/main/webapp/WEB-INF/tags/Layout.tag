@@ -48,6 +48,22 @@
         </c:otherwise>
     </c:choose>
 
+    <c:if test="${error != null}">
+        <div class="alert alert-danger">
+            <strong>Error!</strong> ${error}
+        </div>
+    </c:if>
+    <c:if test="${message != null}">
+        <div class="alert alert-info">
+            <strong>Info!</strong> ${message}
+        </div>
+    </c:if>
+    <c:if test="${success != null}">
+        <div class="alert alert-success">
+            <strong>Success!</strong> ${success}
+        </div>
+    </c:if>
+
     <jsp:doBody/>
 
 </div>

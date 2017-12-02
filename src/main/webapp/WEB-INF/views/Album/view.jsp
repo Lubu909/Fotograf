@@ -15,46 +15,67 @@
 
     <div id="scoreView">
         <%--<h3>Global score : ${globalScore}</h3>--%>
-        <%--<h5>Your score : ${userScore}</h5>--%>
+        <c:if test="${user != null}">
+            <%--<c:if test="${userScore != null}">--%>
+                <%--<h5>Your score : ${userScore}</h5>--%>
+            <%--</c:if>--%>
+            <%-- Zamienić na zawartość urla --%>
+            <a href="/${album.author.username}/${album.id}/rateAlbum">Rate this album</a>
+        </c:if>
     </div>
+
+    <c:if test="${user == album.author.username}">
+        <h3><a href="/${user}/${album.id}/add">Add photo</a></h3>
+    </c:if>
 
     <%--<jsp:include page="Photo/list.jsp"/> --%>
     <div id="photoList" class="row">
         <c:forEach var="photo" items="${album.pictures}">
             <div class="col-md-4">
                 <div class="thumbnail">
-                    <img src="/${album.author.username}/${album.id}/${photo.id}" alt="${photo.title}">
+                    <img src="/${album.author.username}/${album.id}/photo${photo.id}" alt="${photo.title}">
                     <h3>${photo.title}</h3>
+                    <c:if test="${user == album.author.username}">
+                        <div class="btn-group text-nowrap">
+                            <a href="/${user}/${album.id}/${photo.id}/edit" class="btn btn-lg btn-primary">Edit</a>
+                            <form method="post" action="/${user}/${album.id}/${photo.id}/delete">
+                                <button class="btn btn-lg btn-primary" type="submit">Delete</button>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            </form>
+                        </div>
+                    </c:if>
                 </div>
             </div>
         </c:forEach>
     </div>
 
-    <a href="/${album.author.username}/${album.id}/rateAlbum">Rate this album</a>
-
     <c:if test="${user == album.author.username}">
-        <h3><a href="/${user}/${album.id}/edit">Edit</a></h3>
-        <form method="post" action="/${user}/${album.id}/delete">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Delete</button>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
-        <h3><a href="/${user}/${album.id}/add">Add photo</a></h3>
+        <div class="btn-group text-nowrap">
+            <a href="/${user}/${album.id}/edit" class="btn btn-lg btn-primary">Edit album</a>
+            <form method="post" action="/${user}/${album.id}/delete">
+                <button class="btn btn-lg btn-primary" type="submit">Delete album</button>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
+        </div>
     </c:if>
 
 
 
     <div id="commentList">
+        <h2>Komentarze: </h2>
         <table>
             <c:forEach var="comment" items="${album.comments}">
                 <tr>
                     <td><b>${comment.author.name}</b></td>
                     <td>${comment.description}</td>
-                    <td><a href="/${comment.author.username}/${comment.album.id}/comment">Edit</a> |
-                        <form method="post" action="/${comment.author.username}/${comment.album.id}/commentList/${comment.id}">
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">Delete</button>
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        </form>
-                    </td>
+                    <c:if test="${user == comment.author.username}">
+                        <td class="btn-group text-nowrap">
+                            <a href="/${comment.author.username}/${comment.album.id}/comment" class="btn btn-lg btn-primary">Edit</a> <form method="post" action="/${comment.author.username}/${comment.album.id}/commentList/${comment.id}">
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Delete</button>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            </form>
+                        </td>
+                    </c:if>
                 </tr>
             </c:forEach>
         </table>

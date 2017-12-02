@@ -1,6 +1,11 @@
 package pl.edu.ug.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -8,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.edu.ug.model.Album;
 import pl.edu.ug.model.Picture;
 import pl.edu.ug.model.User;
@@ -50,7 +56,8 @@ public class PictureController {
 
     @RequestMapping(value = "/{username}/{albumID}/add", method = RequestMethod.POST)
     public String addPhoto(@PathVariable String username,@PathVariable Long albumID,
-                           @ModelAttribute("photoForm") Picture photoForm, BindingResult bindingResult) throws IOException {
+                           @ModelAttribute("photoForm") Picture photoForm, BindingResult bindingResult,
+                            RedirectAttributes redirectAttributes) throws IOException {
         pictureValidator.validate(photoForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -62,7 +69,9 @@ public class PictureController {
         photoForm.setPhoto(savePhoto(photoForm.getPhotoFile(), albumID, photoForm.getTitle()));
         pictureService.add(photoForm);
 
-        return "redirect:/" + username + "/" + albumID;
+        redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
+        redirectAttributes.addFlashAttribute("success", "Successfully added photo to album");
+        return "redirect:/{username}/{albumID}";
     }
 
     private String savePhoto(MultipartFile file, Long albumID, String nazwa) throws IOException {
@@ -79,27 +88,83 @@ public class PictureController {
     }
     
     //Read Picture
-    //TODO: response body wywala całą stronę?
-    /*
-    @ResponseBody
-    @RequestMapping(value = "/{username}/{albumID}/{pictureID}", method = RequestMethod.GET)
-    public byte[] getPhoto(@PathVariable String username,@PathVariable Long albumID, @PathVariable Long pictureID) throws IOException {
-        Picture pic = pictureService.get(pictureID);
-        File file = new File(pic.getPhoto());
-        if(file.exists()) return Files.readAllBytes(file.toPath());
-        return null;
-    }
-    */
+    @RequestMapping(value = "/{username}/{albumID}/photo{pictureID}", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> getPhoto(@PathVariable String username, @PathVariable Long albumID, @PathVariable Long pictureID){
+        ResponseEntity<byte[]> responseEntity = null;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+        try {
+            Picture pic = pictureService.get(pictureID);
+            File file = new File(pic.getPhoto());
 
-    //TODO: edit picture name + form
-    //Update Picture
-    public String editPhoto(@PathVariable String username,@PathVariable Long albumID, @PathVariable Long pictureID){
-        //change name
-        return "Album/Photo/view";
+            responseEntity = new ResponseEntity<>(Files.readAllBytes(file.toPath()), headers, HttpStatus.OK);
+        } catch (IOException e) {
+            System.out.println("Nie udało się załadować zdjęcia o ID " + pictureID);
+            responseEntity = new ResponseEntity<>(null, headers, HttpStatus.NO_CONTENT);
+        }
+        return responseEntity;
     }
+
+    //Update Picture
+    @RequestMapping(value = "/{username}/{albumID}/{pictureID}/edit", method = RequestMethod.GET)
+    public String editPhoto(@PathVariable String username,@PathVariable Long albumID, @PathVariable Long pictureID,
+                            Model model, RedirectAttributes redirectAttributes){
+        User user = userService.findByUsername(username);
+        if (user != null) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth != null) {
+                if (auth.isAuthenticated()) {
+                    if (auth.getName().equals(username)) {
+                        Picture picture = pictureService.get(pictureID);
+                        if (picture != null) {
+                            if (picture.getAlbum().getId() == albumID) {
+                                model.addAttribute("photoForm", picture);
+                                return "Album/Photo/edit";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        redirectAttributes.addFlashAttribute("error", "Cannot edit photo - not found");
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/{username}/{albumID}/{pictureID}/edit", method = RequestMethod.POST)
+    public String editPhoto(@PathVariable String username,@PathVariable Long albumID, @PathVariable Long pictureID,
+                            @ModelAttribute("photoForm") Picture photoForm, BindingResult bindingResult,
+                            RedirectAttributes redirectAttributes){
+        User user = userService.findByUsername(username);
+        if (user != null) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth != null) {
+                if (auth.isAuthenticated()) {
+                    if (auth.getName().equals(username)) {
+                        pictureValidator.validateEdit(photoForm, bindingResult);
+
+                        if (bindingResult.hasErrors()) {
+                            return "Album/Photo/edit";
+                        }
+
+                        Picture picture = pictureService.get(pictureID);
+                        picture.setTitle(photoForm.getTitle());
+                        pictureService.add(picture);
+
+                        redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
+                        redirectAttributes.addFlashAttribute("success", "Successfully edited photo");
+                        return "redirect:/{username}/{albumID}";
+                    }
+                }
+            }
+        }
+        redirectAttributes.addFlashAttribute("error", "Cannot edit photo - not found");
+        return "redirect:/";
+    }
+
     //Delete Picture
     @RequestMapping(value = "/{username}/{albumID}/{pictureID}/delete", method = RequestMethod.POST)
-    public String deletePhoto(@PathVariable String username,@PathVariable Long albumID, @PathVariable Long pictureID) {
+    public String deletePhoto(@PathVariable String username,@PathVariable Long albumID, @PathVariable Long pictureID,
+                              RedirectAttributes redirectAttributes) {
         User user = userService.findByUsername(username);
         if (user != null) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -112,11 +177,15 @@ public class PictureController {
                         if (file.exists()) file.delete();
                         //delete db record
                         pictureService.delete(pic);
-                        return "redirect:/" + username + "/" + albumID;
+
+                        redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
+                        redirectAttributes.addFlashAttribute("success", "Successfully removed photo");
+                        return "redirect:/{username}/{albumID}";
                     }
                 }
             }
         }
-        return "notFound";
+        redirectAttributes.addFlashAttribute("error", "Cannot delete photo");
+        return "redirect:/";
     }
 }
