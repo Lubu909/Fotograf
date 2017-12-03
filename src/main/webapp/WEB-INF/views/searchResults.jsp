@@ -24,7 +24,7 @@
         <c:forEach items="${users}" var="user">
             <tr>
                 <%--<td>${user.id}</td>--%>
-                <td>${user.username}</td>
+                <td><a href="/${user.username}/albums">${user.username}</a></td>
                 <td>${user.name}</td>
                 <td>${user.surname}</td>
                 <td>${user.city}</td>

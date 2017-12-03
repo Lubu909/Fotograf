@@ -88,4 +88,12 @@ public class UserController {
 
         return "searchResults";
     }
+
+    @RequestMapping(value = "/searchJSON", method = RequestMethod.GET)
+    @ResponseBody
+    public List<User> searchJSON(@RequestParam(value = "query") String search){
+        Node rootNode = new RSQLParser().parse(search);
+        Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
+        return userService.search(spec);
+    }
 }

@@ -37,9 +37,9 @@
                     <h3>${photo.title}</h3>
                     <c:if test="${user == album.author.username}">
                         <div class="btn-group text-nowrap">
-                            <a href="/${user}/${album.id}/${photo.id}/edit" class="btn btn-lg btn-primary">Edit</a>
+                            <a href="/${user}/${album.id}/${photo.id}/edit" class="btn btn-primary">Edit</a>
                             <form method="post" action="/${user}/${album.id}/${photo.id}/delete">
-                                <button class="btn btn-lg btn-primary" type="submit">Delete</button>
+                                <button class="btn btn-primary" type="submit">Delete</button>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>
                         </div>
@@ -62,22 +62,25 @@
 
 
     <div id="commentList">
+        <table class="table table-striped">
         <h2>Komentarze: </h2>
-        <table>
+            <tbody>
             <c:forEach var="comment" items="${album.comments}">
                 <tr>
                     <td><b>${comment.author.name}</b></td>
                     <td>${comment.description}</td>
                     <c:if test="${user == comment.author.username}">
                         <td class="btn-group text-nowrap">
-                            <a href="/${comment.author.username}/${comment.album.id}/comment" class="btn btn-lg btn-primary">Edit</a> <form method="post" action="/${comment.author.username}/${comment.album.id}/commentList/${comment.id}">
-                                <button class="btn btn-lg btn-primary btn-block" type="submit">Delete</button>
+                            <a href="/${comment.author.username}/${comment.album.id}/comment" class="btn btn-primary">Edit</a>
+                            <form method="post" action="/${comment.author.username}/${comment.album.id}/commentList/${comment.id}">
+                                <button class="btn btn-primary" type="submit">Delete</button>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>
                         </td>
                     </c:if>
                 </tr>
             </c:forEach>
+            </tbody>
         </table>
     </div>
 </tag:Layout>
