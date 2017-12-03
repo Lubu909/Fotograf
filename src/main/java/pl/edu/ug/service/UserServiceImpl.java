@@ -3,6 +3,7 @@ package pl.edu.ug.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +49,11 @@ public class UserServiceImpl implements UserService {
     public List<User> getUsers() {
         List<User> users = userDao.findAll();
         return users;
+    }
+
+    @Override
+    public List<User> search(Specification<User> userSpecification) {
+        return userDao.findAll(userSpecification);
     }
 
     @Override
