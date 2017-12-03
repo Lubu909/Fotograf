@@ -65,7 +65,10 @@ public class AlbumController {
         Album album = albumService.get(albumID);
         //User user = userService.findByUsername(username);
         if(album != null) {
-            //Album album = albumService.get(albumID);
+            /*
+            double global = scoreService.getGlobalScore(album);
+            model.addAttribute("globalScore", global);
+            */
             model.addAttribute("album", album);
             return "Album/view";
         }

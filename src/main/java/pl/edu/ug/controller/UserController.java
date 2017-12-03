@@ -1,14 +1,24 @@
 package pl.edu.ug.controller;
 
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.ug.model.User;
+import pl.edu.ug.search.RsqlVisitor;
+import pl.edu.ug.search.SearchOperation;
+import pl.edu.ug.search.UserSpecificationsBuilder;
 import pl.edu.ug.service.SecurityService;
 import pl.edu.ug.service.UserService;
 import pl.edu.ug.validator.UserValidator;
+
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 public class UserController {
@@ -67,4 +77,23 @@ public class UserController {
         return "admin";
     }
 
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String search(@RequestParam(value = "query") String search, Model model){
+        Node rootNode = new RSQLParser().parse(search);
+        Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
+        List<User> users = userService.search(spec);
+
+        model.addAttribute("users", users);
+        System.out.println("Wyszukiwanie - znaleziono " + users.size() + " elementów");
+
+        return "searchResults";
+    }
+
+    @RequestMapping(value = "/searchJSON", method = RequestMethod.GET)
+    @ResponseBody
+    public List<User> searchJSON(@RequestParam(value = "query") String search){
+        Node rootNode = new RSQLParser().parse(search);
+        Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
+        return userService.search(spec);
+    }
 }
