@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "images")
+@Table(name = "pictures")
 public class Picture {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
