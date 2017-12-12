@@ -1,7 +1,5 @@
 package pl.edu.ug.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,11 +29,23 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleDao.getOne(1L));
-        user.setRoles(roles);
+        if (findByUsername(user.getUsername()) == null) {
+            if(user.getRoleId() == 1){
+                user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+                Set<Role> roles = new HashSet<>();
+                roles.add(roleDao.getOne(1L));
+                user.setRoles(roles);
+            }
+            if(user.getRoleId() == 3){
+                user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+                Set<Role> roles = new HashSet<>();
+                roles.add(roleDao.getOne(3L));
+                user.setRoles(roles);
+
+            }
+        }
         userDao.save(user);
+
     }
 
     @Override

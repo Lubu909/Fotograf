@@ -1,5 +1,7 @@
 package pl.edu.ug.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Set;
@@ -28,8 +30,23 @@ public class User {
     private String surname;
 
     @Lob
+    @Basic(fetch = FetchType.EAGER)
     @Column(name = "photo")
     private byte[] photo;
+
+    @Transient
+    private MultipartFile photoFile;
+
+    @Transient
+    private Integer roleId;
+
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
 
     @Column(name = "city")
     private String city;
@@ -40,7 +57,40 @@ public class User {
     @Column(name = "tel")
     private String tel;
 
+    public MultipartFile getPhotoFile() {
+        return photoFile;
+    }
+
+    public void setPhotoFile(MultipartFile photoFile) {
+        this.photoFile = photoFile;
+    }
+
+    public Set<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(Set<Album> albums) {
+        this.albums = albums;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Set<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(Set<Score> scores) {
+        this.scores = scores;
+    }
+
     @ManyToMany
+
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;

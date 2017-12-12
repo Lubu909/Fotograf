@@ -23,6 +23,8 @@
         <property name="maxInMemorySize" value="1048576" /> <!-- 1MB -->
     </bean>
 
+
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
             <value>/WEB-INF/views/</value>

@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "pictures")
+@Table(name = "images")
 public class Picture {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -61,4 +61,5 @@ public class Picture {
     public void setPhotoFile(MultipartFile photoFile) {
         this.photoFile = photoFile;
     }
+
 }
