@@ -3,7 +3,7 @@ package pl.edu.ug.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "pictures")
+@Table(name = "images")
 public class Picture {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,4 +47,5 @@ public class Picture {
     public void setAlbum(Album album) {
         this.album = album;
     }
+
 }

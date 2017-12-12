@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `fotograf`.`users` (
   `password` VARCHAR(255) NULL,
   `name` VARCHAR(255) NULL,
   `surname` VARCHAR(255) NULL,
-  `photo` BLOB NULL,
+  `photo` LONGBLOB NULL,
   `city` VARCHAR(255) NULL,
   `email` VARCHAR(255) NULL,
   `tel` VARCHAR(20) NULL,
@@ -77,10 +77,12 @@ USE `fotograf`;
 
 INSERT INTO `fotograf`.`roles` (`id`, `name`) VALUES (1, 'ROLE_USER');
 INSERT INTO `fotograf`.`roles` (`id`, `name`) VALUES (2, 'ROLE_ADMIN');
+INSERT INTO `fotograf`.`roles` (`id`, `name`) VALUES (3, 'ROLE_PHOTOGRAPHER');
+
 INSERT INTO users VALUES (1, 'admin', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG', 'admin', 'admin', NULL, NULL, NULL, NULL);
 INSERT INTO user_roles VALUES (1, 2);
 COMMIT;
-=======
+
 
 CREATE TABLE IF NOT EXISTS `fotograf`.`roles` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -180,7 +182,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `fotograf`.`pictures`
+-- Table `fotograf`.`images`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `fotograf`.`pictures` ;
 
@@ -258,11 +260,11 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 -- Data for table `fotograf`.`roles`
 -- -----------------------------------------------------
-START TRANSACTION;
-USE `fotograf`;
-INSERT INTO `fotograf`.`roles` (`id`, `name`) VALUES (1, 'ROLE_USER');
-INSERT INTO `fotograf`.`roles` (`id`, `name`) VALUES (2, 'ROLE_ADMIN');
+#START TRANSACTION;
+#USE `fotograf`;
+#INSERT INTO `fotograf`.`roles` (`id`, `name`) VALUES (1, 'ROLE_USER');
+#INSERT INTO `fotograf`.`roles` (`id`, `name`) VALUES (2, 'ROLE_ADMIN');
 
-COMMIT;
+#COMMIT;
 
->>>>>>> 8f3b73c457330941bd6d8f7ca19b4cf6cab4e927
+
