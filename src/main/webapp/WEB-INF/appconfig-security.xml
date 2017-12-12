@@ -15,6 +15,7 @@
         <intercept-url pattern="/viewAlbum" access="permitAll()"/>
         <intercept-url pattern="/usersList" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/addImg" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
+        <intercept-url pattern="/search" access="permitAll()"/>
 
         <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error"
                     username-parameter="username" password-parameter="password"/>
