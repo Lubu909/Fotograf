@@ -5,28 +5,22 @@
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<c:set var="user" value="${pageContext.request.userPrincipal.name}"/>
+<c:set var="url" value="${pageContext.request.requestURL}" />
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="user" value="${pageContext.request.userPrincipal.name}"/>
 
 <tag:Layout>
-    <h2>Dodaj zdjęcie</h2>
-    <form:form method="post" enctype="multipart/form-data" modelAttribute="photoForm">
+    <h1>Edit photo</h1>
+    <form:form method="POST" modelAttribute="photoForm">
+        <img src="/${photoForm.album.author.username}/${photoForm.album.id}/photo${photoForm.id}" alt="${photoForm.title}">
         <spring:bind path="title">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:label path="title">Nazwa zdjęcia: </form:label>
+                <form:label path="title">Tytuł zdjęcia</form:label>
                 <form:input type="text" path="title" class="form-control" placeholder="${photoForm.title}"
                             autofocus="true"/>
                 <form:errors path="title"/>
             </div>
         </spring:bind>
-        <spring:bind path="photoFile">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:label path="photoFile">Plik: </form:label>
-                <form:input type="file" path="photoFile"/>
-                <form:errors path="photoFile"/>
-            </div>
-        </spring:bind>
-        <%--<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>--%>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     </form:form>
 </tag:Layout>

@@ -50,7 +50,7 @@
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="surname" class="form-control"
                             placeholder="Enter your surname"></form:input>
-                <form:errors path="name"></form:errors>
+                <form:errors path="surname"></form:errors>
             </div>
         </spring:bind>
 
@@ -58,7 +58,7 @@
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="city" class="form-control"
                             placeholder="Enter your city"></form:input>
-                <form:errors path="name"></form:errors>
+                <form:errors path="city"></form:errors>
             </div>
         </spring:bind>
 
@@ -66,7 +66,7 @@
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="email" class="form-control"
                             placeholder="Enter your e-mail"></form:input>
-                <form:errors path="name"></form:errors>
+                <form:errors path="email"></form:errors>
             </div>
         </spring:bind>
 
@@ -74,7 +74,17 @@
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="tel" class="form-control"
                             placeholder="Enter your phone number"></form:input>
-                <form:errors path="name"></form:errors>
+                <form:errors path="tel"></form:errors>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="roleId">
+            <div class="form-group" ${status.error ? 'has-error' : ''}>
+                Looking for a good photographer </br>
+                <form:radiobutton name="roleId" path="roleId" value="1" checked="checked"></form:radiobutton> </br>
+                I'am photographer </br>
+                <form:radiobutton name="roleId" path="roleId" value="3"></form:radiobutton>
+                <form:errors path="roleId"></form:errors>
             </div>
         </spring:bind>
 

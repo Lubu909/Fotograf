@@ -21,32 +21,73 @@
 
 <div class="container">
 
-    <c:choose>
-        <c:when test="${pageContext.request.userPrincipal.name != null}">
-            <form id="logoutForm" method="POST" action="${contextPath}/logout">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            </form>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Fotograf</a>
+            </div>
+        <c:choose>
+            <c:when test="${pageContext.request.userPrincipal.name != null}">
+                <form id="logoutForm" method="POST" action="${contextPath}/logout">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
 
-            <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
-            </h2>
+                <ul class="nav navbar-nav">
+                    <li><a href="/${pageContext.request.userPrincipal.name}/albums">My albums</a></li>
+                    <li><a href="/createAlbum">Create album</a></li>
+                    <form class="navbar-form navbar-left">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">Welcome ${pageContext.request.userPrincipal.name}</a></li>
+                    <li><a onclick="document.forms['logoutForm'].submit()">Logout</a></li>
+                </ul>
+            </c:when>
+            <c:otherwise>
+                <ul class="nav navbar-nav">
+                    <form class="navbar-form navbar-left">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/registration">Register</a></li>
+                </ul>
+            </c:otherwise>
+        </c:choose>
+        </div>
+    </nav>
 
-            <ul>
-                <li><a href="/${pageContext.request.userPrincipal.name}/albums">My albums</a></li>
-                <li><a href="/createAlbum">Create album</a></li>
-                <div class="wrap">
-                    <div class="search">
-                        <input type="text" class="searchTerm" placeholder="Wyszukiwarka">
-                        <button type="submit" class="searchButton">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </ul>
-        </c:when>
-        <c:otherwise>
-            <a href="/login">Login</a>
-        </c:otherwise>
-    </c:choose>
+    <c:if test="${error != null}">
+        <div class="alert alert-danger">
+            <strong>Error!</strong> ${error}
+        </div>
+    </c:if>
+    <c:if test="${message != null}">
+        <div class="alert alert-info">
+            <strong>Info!</strong> ${message}
+        </div>
+    </c:if>
+    <c:if test="${success != null}">
+        <div class="alert alert-success">
+            <strong>Success!</strong> ${success}
+        </div>
+    </c:if>
 
     <jsp:doBody/>
 
