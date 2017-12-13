@@ -12,6 +12,8 @@
 
     <import resource="appconfig-security.xml"/>
 
+    <import resource="appconfig-mail.xml"/>
+
     <context:component-scan base-package="pl.edu.ug.*"/>
 
     <context:property-placeholder location="classpath:database.properties"/>

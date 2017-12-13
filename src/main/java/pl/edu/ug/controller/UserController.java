@@ -4,6 +4,9 @@ import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +35,12 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
+    @Autowired
+    JavaMailSender mailSender;
+
+    @Autowired
+    SimpleMailMessage simpleMailMessage;
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
@@ -48,6 +57,17 @@ public class UserController {
         }
 
         userService.save(userForm);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage(simpleMailMessage);
+        mailMessage.setTo(userForm.getEmail());
+        mailMessage.setSubject("Welcome to PHOTOGRAPHER service!!!");
+        mailMessage.setText("Hello " + userForm.getUsername() +". Welcome to photographer service");
+
+        try{
+            mailSender.send(mailMessage);
+        } catch(MailException e){
+            e.printStackTrace();
+        }
 
         securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
 
