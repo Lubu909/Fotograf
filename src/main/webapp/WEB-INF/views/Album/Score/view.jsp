@@ -9,6 +9,6 @@
 <c:set var="user" value="${pageContext.request.userPrincipal.name}"/>
 
 <tag:Layout>
-    <h3>Global score : ${globalScore}</h3>
-    <h5>Your score : ${userScore}</h5>
+    <h3><spring:message code="view.score.global"/> ${globalScore}</h3>
+    <h5><spring:message code="view.score.user"/> ${userScore}</h5>
 </tag:Layout>

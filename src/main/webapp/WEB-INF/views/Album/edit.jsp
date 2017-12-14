@@ -9,14 +9,14 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <tag:Layout>
-    <h2>Edytuj album</h2>
+    <h2><spring:message code="view.album.form.label.edit"/></h2>
     <form:form method="POST" modelAttribute="albumForm">
         <spring:bind path="id">
             <form:hidden path="id"/>
         </spring:bind>
         <spring:bind path="name">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:label path="name">Nazwa albumu</form:label>
+                <form:label path="name"><spring:message code="view.album.form.name"/></form:label>
                 <form:input type="text" path="name" class="form-control" placeholder="${albumForm.name}"
                             autofocus="true"/>
                 <form:errors path="name"/>
@@ -24,7 +24,7 @@
         </spring:bind>
         <spring:bind path="description">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:label path="description">Opis albumu</form:label>
+                <form:label path="description"><spring:message code="view.album.form.description"/></form:label>
                 <form:input type="text" path="description" class="form-control" placeholder="${albumForm.description}"
                             autofocus="true"/>
                 <form:errors path="description"/>
@@ -33,6 +33,6 @@
         <spring:bind path="author">
             <form:hidden path="author.username" />
         </spring:bind>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="label.submit"/></button>
     </form:form>
 </tag:Layout>

@@ -10,13 +10,13 @@
 
 <tag:Layout>
     <table class="table table-hover">
-        <h1>Search Results</h1>
+        <h1><spring:message code="view.search.title"/></h1>
         <thead>
             <%--<th>ID</th>--%>
-            <th>Nazwa użytkownika</th>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Miejscowość</th>
+            <th><spring:message code="view.search.table.username"/></th>
+            <th><spring:message code="view.search.table.name"/></th>
+            <th><spring:message code="view.search.table.surname"/></th>
+            <th><spring:message code="view.search.table.city"/></th>
             <%--<th>E-mail</th>--%>
             <%--<th>numer telefonu</th>--%>
         </thead>

@@ -1,6 +1,8 @@
 package pl.edu.ug.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.edu.ug.model.Album;
 import pl.edu.ug.model.Comment;
 import pl.edu.ug.model.User;
@@ -35,6 +38,9 @@ public class CommentController {
     @Autowired
     private CommentValidator commentValidator;
 
+    @Autowired
+    private MessageSource messageSource;
+
     //Create&Update comment
     @RequestMapping(value = "/{username}/{albumID}/comment", method = RequestMethod.GET)
     public String writeComment(@PathVariable String username, @PathVariable Long albumID, Model model){
@@ -53,7 +59,8 @@ public class CommentController {
 
     @RequestMapping(value = "/{username}/{albumID}/comment", method = RequestMethod.POST)
     public String writeComment(@PathVariable String username, @PathVariable Long albumID,
-                               @ModelAttribute("commentForm") Comment commentForm, BindingResult bindingResult){
+                               @ModelAttribute("commentForm") Comment commentForm, BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes){
         commentValidator.validate(commentForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -69,7 +76,11 @@ public class CommentController {
                 if(comment != null) {
                     comment.setDescription(commentForm.getDescription());
                     commentService.add(comment);
-                    return "redirect:/" + username + "/" + albumID;
+
+                    String successMsg = messageSource.getMessage("messages.comment.edit.success",null, LocaleContextHolder.getLocale());
+                    redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
+                    redirectAttributes.addFlashAttribute("success", successMsg);
+                    return "redirect:/{username}/{albumID}";
                 }
                 commentForm.setAuthor(user);
                 if(commentForm.getAuthor() == null) return "Album/Comment/create";
@@ -79,12 +90,16 @@ public class CommentController {
 
         commentService.add(commentForm);
 
-        return "redirect:/" + username + "/" + albumID;
+        String successMsg = messageSource.getMessage("messages.comment.create.success",null, LocaleContextHolder.getLocale());
+        redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
+        redirectAttributes.addFlashAttribute("success", successMsg);
+        return "redirect:/{username}/{albumID}";
     }
 
     //Read comment
     @RequestMapping(value = "/{username}/{albumID}/commentList", method = RequestMethod.GET)
-    public String listComments(@PathVariable String username, @PathVariable Long albumID, Model model){
+    public String listComments(@PathVariable String username, @PathVariable Long albumID, Model model,
+                               RedirectAttributes redirectAttributes){
         Album album = albumService.get(albumID);
         if(album!=null) {
             model.addAttribute("album", album);
@@ -92,12 +107,15 @@ public class CommentController {
             model.addAttribute("comments", commentList);
             return "Album/Comment/list";
         }
-        return "Album/notFound";
+        String errorMsg = messageSource.getMessage("messages.album.notFound",null, LocaleContextHolder.getLocale());
+        redirectAttributes.addFlashAttribute("error", errorMsg);
+        return "redirect:/";
     }
 
     //Delete comment
     @RequestMapping(value = "/{username}/{albumID}/commentList/{commentID}", method = RequestMethod.POST)
-    public String deleteComment(@PathVariable String username, @PathVariable Long albumID, @PathVariable Long commentID){
+    public String deleteComment(@PathVariable String username, @PathVariable Long albumID, @PathVariable Long commentID,
+                                RedirectAttributes redirectAttributes){
         User user = userService.findByUsername(username);
         if(user != null) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -110,6 +128,10 @@ public class CommentController {
                 }
             }
         }
-        return "redirect:/" + username + "/" + albumID + "/commentList";
+
+        String successMsg = messageSource.getMessage("messages.comment.delete.success",null, LocaleContextHolder.getLocale());
+        redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
+        redirectAttributes.addFlashAttribute("success", successMsg);
+        return "redirect:/{username}/{albumID}/commentList";
     }
 }

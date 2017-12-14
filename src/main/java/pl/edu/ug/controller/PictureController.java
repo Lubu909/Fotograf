@@ -1,20 +1,23 @@
 package pl.edu.ug.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.edu.ug.model.Album;
 import pl.edu.ug.model.Picture;
 import pl.edu.ug.model.User;
 import pl.edu.ug.service.AlbumService;
@@ -22,8 +25,6 @@ import pl.edu.ug.service.PictureService;
 import pl.edu.ug.service.UserService;
 import pl.edu.ug.validator.PictureValidator;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -45,6 +46,9 @@ public class PictureController {
 
     @Autowired
     private PictureValidator pictureValidator;
+
+    @Autowired
+    private MessageSource messageSource;
 
     //Create Picture
     @RequestMapping(value = "/{username}/{albumID}/add", method = RequestMethod.GET)
@@ -69,8 +73,9 @@ public class PictureController {
         photoForm.setPhoto(savePhoto(photoForm.getPhotoFile(), albumID, photoForm.getTitle()));
         pictureService.add(photoForm);
 
+        String successMsg = messageSource.getMessage("messages.picture.create.success",null, LocaleContextHolder.getLocale());
         redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
-        redirectAttributes.addFlashAttribute("success", "Successfully added photo to album");
+        redirectAttributes.addFlashAttribute("success", successMsg);
         return "redirect:/{username}/{albumID}";
     }
 
@@ -126,7 +131,8 @@ public class PictureController {
                 }
             }
         }
-        redirectAttributes.addFlashAttribute("error", "Cannot edit photo - not found");
+        String errorMsg = messageSource.getMessage("messages.picture.notFound",null, LocaleContextHolder.getLocale());
+        redirectAttributes.addFlashAttribute("error", errorMsg);
         return "redirect:/";
     }
 
@@ -150,14 +156,16 @@ public class PictureController {
                         picture.setTitle(photoForm.getTitle());
                         pictureService.add(picture);
 
+                        String successMsg = messageSource.getMessage("messages.picture.edit.success",null, LocaleContextHolder.getLocale());
                         redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
-                        redirectAttributes.addFlashAttribute("success", "Successfully edited photo");
+                        redirectAttributes.addFlashAttribute("success", successMsg);
                         return "redirect:/{username}/{albumID}";
                     }
                 }
             }
         }
-        redirectAttributes.addFlashAttribute("error", "Cannot edit photo - not found");
+        String errorMsg = messageSource.getMessage("messages.picture.notFound",null, LocaleContextHolder.getLocale());
+        redirectAttributes.addFlashAttribute("error", errorMsg);
         return "redirect:/";
     }
 
@@ -178,14 +186,16 @@ public class PictureController {
                         //delete db record
                         pictureService.delete(pic);
 
+                        String successMsg = messageSource.getMessage("messages.picture.delete.success",null, LocaleContextHolder.getLocale());
                         redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
-                        redirectAttributes.addFlashAttribute("success", "Successfully removed photo");
+                        redirectAttributes.addFlashAttribute("success", successMsg);
                         return "redirect:/{username}/{albumID}";
                     }
                 }
             }
         }
-        redirectAttributes.addFlashAttribute("error", "Cannot delete photo");
+        String errorMsg = messageSource.getMessage("messages.picture.notFound",null, LocaleContextHolder.getLocale());
+        redirectAttributes.addFlashAttribute("error", errorMsg);
         return "redirect:/";
     }
 }

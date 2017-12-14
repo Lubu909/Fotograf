@@ -9,25 +9,25 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <tag:Layout>
-    <h2>Stwórz album</h2>
+    <h2><spring:message code="view.album.form.label.create"/></h2>
     <form:form method="post" modelAttribute="albumForm">
         <spring:bind path="name">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:label path="name">Nazwa albumu</form:label>
-                <form:input type="text" path="name" class="form-control" placeholder="Nazwa albumu"
+                <form:label path="name"><spring:message code="view.album.form.name" var="albumName"/></form:label>
+                <form:input type="text" path="name" class="form-control" placeholder="${albumName}"
                             autofocus="true"/>
                 <form:errors path="name"/>
             </div>
         </spring:bind>
         <spring:bind path="description">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:label path="description">Opis albumu</form:label>
-                <form:input type="text" path="description" class="form-control" placeholder="Opis albumu"
+                <form:label path="description"><spring:message code="view.album.form.description" var="albumDescription"/></form:label>
+                <form:input type="text" path="description" class="form-control" placeholder="${albumDescription}"
                             autofocus="true"/>
                 <form:errors path="description"/>
             </div>
         </spring:bind>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="label.submit"/></button>
     </form:form>
 
 </tag:Layout>

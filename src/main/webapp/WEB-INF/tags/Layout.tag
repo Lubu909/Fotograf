@@ -33,11 +33,12 @@
                 </form>
 
                 <ul class="nav navbar-nav">
-                    <li><a href="/${pageContext.request.userPrincipal.name}/albums">My albums</a></li>
-                    <li><a href="/createAlbum">Create album</a></li>
+                    <li><a href="/${pageContext.request.userPrincipal.name}/albums"><spring:message code="layout.navbar.myAlbums"/></a></li>
+                    <li><a href="/createAlbum"><spring:message code="layout.navbar.createAlbum"/></a></li>
                     <form class="navbar-form navbar-left">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <spring:message code="layout.navbar.searchBar" var="searchPlaceholder"/>
+                            <input type="text" class="form-control" placeholder="${searchPlaceholder}">
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit">
                                     <i class="glyphicon glyphicon-search"></i>
@@ -47,15 +48,16 @@
                     </form>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/">Welcome ${pageContext.request.userPrincipal.name}</a></li>
-                    <li><a onclick="document.forms['logoutForm'].submit()">Logout</a></li>
+                    <li><a href="/"><spring:message code="layout.navbar.welcomeUser" arguments="${pageContext.request.userPrincipal.name}"/></a></li>
+                    <li><a onclick="document.forms['logoutForm'].submit()"><spring:message code="layout.navbar.logout"/></a></li>
                 </ul>
             </c:when>
             <c:otherwise>
                 <ul class="nav navbar-nav">
                     <form class="navbar-form navbar-left">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <spring:message code="layout.navbar.searchBar" var="searchPlaceholder"/>
+                            <input type="text" class="form-control" placeholder="${searchPlaceholder}">
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit">
                                     <i class="glyphicon glyphicon-search"></i>
@@ -65,8 +67,8 @@
                     </form>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/login">Login</a></li>
-                    <li><a href="/registration">Register</a></li>
+                    <li><a href="/login"><spring:message code="layout.navbar.login"/></a></li>
+                    <li><a href="/registration"><spring:message code="layout.navbar.register"/></a></li>
                 </ul>
             </c:otherwise>
         </c:choose>
@@ -75,17 +77,17 @@
 
     <c:if test="${error != null}">
         <div class="alert alert-danger">
-            <strong>Error!</strong> ${error}
+            <strong><spring:message code="flash.error"/></strong> ${error}
         </div>
     </c:if>
     <c:if test="${message != null}">
         <div class="alert alert-info">
-            <strong>Info!</strong> ${message}
+            <strong><spring:message code="flash.info"/></strong> ${message}
         </div>
     </c:if>
     <c:if test="${success != null}">
         <div class="alert alert-success">
-            <strong>Success!</strong> ${success}
+            <strong><spring:message code="flash.success"/></strong> ${success}
         </div>
     </c:if>
 
