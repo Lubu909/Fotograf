@@ -26,5 +26,9 @@
         <property name="subject" value="Mail subject"/>
     </bean>
 
+    <bean id="emailSender" class="pl.edu.ug.java.EmailSender"/>
+
+    <bean id="passwordGenerator" class="pl.edu.ug.java.PasswordGenerator"/>
+
 
 </beans>

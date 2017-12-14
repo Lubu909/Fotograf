@@ -30,22 +30,23 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void save(User user) {
         if (findByUsername(user.getUsername()) == null) {
-            if(user.getRoleId() == 1){
+            if (user.getRoleId() == 1) {
                 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
                 Set<Role> roles = new HashSet<>();
                 roles.add(roleDao.getOne(1L));
                 user.setRoles(roles);
             }
-            if(user.getRoleId() == 3){
+            if (user.getRoleId() == 3) {
                 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
                 Set<Role> roles = new HashSet<>();
                 roles.add(roleDao.getOne(3L));
                 user.setRoles(roles);
-
             }
+            userDao.save(user);
+            return;
         }
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.save(user);
-
     }
 
     @Override

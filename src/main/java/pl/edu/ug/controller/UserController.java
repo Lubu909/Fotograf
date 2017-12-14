@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.ug.java.EmailSender;
+import pl.edu.ug.java.PasswordGenerator;
 import pl.edu.ug.model.User;
 import pl.edu.ug.search.RsqlVisitor;
 import pl.edu.ug.search.SearchOperation;
@@ -36,10 +38,10 @@ public class UserController {
     private UserValidator userValidator;
 
     @Autowired
-    JavaMailSender mailSender;
+    private EmailSender emailSender;
 
     @Autowired
-    SimpleMailMessage simpleMailMessage;
+    private PasswordGenerator passwordGenerator;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -58,16 +60,7 @@ public class UserController {
 
         userService.save(userForm);
 
-        SimpleMailMessage mailMessage = new SimpleMailMessage(simpleMailMessage);
-        mailMessage.setTo(userForm.getEmail());
-        mailMessage.setSubject("Welcome to PHOTOGRAPHER service!!!");
-        mailMessage.setText("Hello " + userForm.getUsername() +". Welcome to photographer service");
-
-        try{
-            mailSender.send(mailMessage);
-        } catch(MailException e){
-            e.printStackTrace();
-        }
+        emailSender.sendRegisterConformation(userForm.getEmail(), userForm.getUsername());
 
         securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
 
@@ -98,7 +91,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String search(@RequestParam(value = "query") String search, Model model){
+    public String search(@RequestParam(value = "query") String search, Model model) {
         Node rootNode = new RSQLParser().parse(search);
         Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
         List<User> users = userService.search(spec);
@@ -111,9 +104,50 @@ public class UserController {
 
     @RequestMapping(value = "/searchJSON", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> searchJSON(@RequestParam(value = "query") String search){
+    public List<User> searchJSON(@RequestParam(value = "query") String search) {
         Node rootNode = new RSQLParser().parse(search);
         Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
         return userService.search(spec);
+    }
+
+    @RequestMapping(value = "/forgotPasswd", method = RequestMethod.GET)
+    public String forgotPasswd(Model model) {
+        model.addAttribute("userName", new String());
+        model.addAttribute("email", new String());
+        return "forgotPasswd";
+    }
+
+    @RequestMapping(value = "/forgotPasswd", method = RequestMethod.POST)
+    public String forgotPasswd(@ModelAttribute("username") String username, @ModelAttribute("email") String email) {
+        String generatedPasswd = passwordGenerator.generatePasswd();
+        User user = userService.findByUsername(username);
+        if (user != null && username.equals(user.getUsername()) && email.equals(user.getEmail())) {
+            user.setPassword(generatedPasswd);
+            userService.save(user);
+            emailSender.sendTemporaryPasswd(user.getEmail(),user.getUsername(), generatedPasswd);
+            return "redirect:/forgotPasswdChange";
+        }
+
+        return "forgotPasswd";
+    }
+
+    @RequestMapping(value = "/forgotPasswdChange", method = RequestMethod.GET)
+    public String forgotPasswdChange(Model model) {
+        model.addAttribute("user", new User());
+        return "forgotPasswdChange";
+    }
+
+    @RequestMapping(value = "/forgotPasswdChange", method = RequestMethod.POST)
+    public String forgotPasswdChange(@ModelAttribute("user") User userForm, @ModelAttribute("genPasswd") String genPasswd) {
+
+        User user = userService.findByUsername(userForm.getUsername());
+
+        if (user != null /*&& user.getPassword().equals(genPasswd) && user.getUsername().equals(userForm.getUsername())*/) {
+            user.setPassword(userForm.getPassword());
+            userService.save(user);
+            return "redirect:/login";
+        }
+
+        return "forgotPasswdChange";
     }
 }
