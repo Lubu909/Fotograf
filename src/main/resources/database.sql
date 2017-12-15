@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `fotograf`.`user_roles` (
   REFERENCES `fotograf`.`roles` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
-  ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -242,6 +242,85 @@ CREATE TABLE IF NOT EXISTS `fotograf`.`calendar` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
   ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fotograf`.`order`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fotograf`.`order` ;
+
+CREATE TABLE IF NOT EXISTS `fotograf`.`order` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `klient_id` INT NULL,
+  `fotograf_id` INT NULL,
+  `data_zamowienia` DATETIME NULL,
+  `termin_wykonania` DATETIME NULL,
+  `description` TEXT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fotograf`.`orders`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fotograf`.`orders` ;
+
+CREATE TABLE IF NOT EXISTS `fotograf`.`orders` (
+  `user_roles_user_id` INT NOT NULL,
+  `user_roles_role_id` INT NOT NULL,
+  `order_id` INT NOT NULL,
+  PRIMARY KEY (`user_roles_user_id`, `user_roles_role_id`, `order_id`),
+  INDEX `fk_user_roles_has_order_order1_idx` (`order_id` ASC),
+  INDEX `fk_user_roles_has_order_user_roles1_idx` (`user_roles_user_id` ASC, `user_roles_role_id` ASC),
+  CONSTRAINT `fk_user_roles_has_order_user_roles1`
+    FOREIGN KEY (`user_roles_user_id` , `user_roles_role_id`)
+    REFERENCES `fotograf`.`user_roles` (`user_id` , `role_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_roles_has_order_order1`
+    FOREIGN KEY (`order_id`)
+    REFERENCES `fotograf`.`order` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fotograf`.`working_hours`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fotograf`.`working_hours` ;
+
+CREATE TABLE IF NOT EXISTS `fotograf`.`working_hours` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `begin` DATETIME NULL,
+  `end` DATETIME NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fotograf`.`calendar`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fotograf`.`calendar` ;
+
+CREATE TABLE IF NOT EXISTS `fotograf`.`calendar` (
+  `user_roles_user_id` INT NOT NULL,
+  `user_roles_role_id` INT NOT NULL,
+  `working_hours_id` INT NOT NULL,
+  PRIMARY KEY (`user_roles_user_id`, `user_roles_role_id`, `working_hours_id`),
+  INDEX `fk_user_roles_has_working_hours_working_hours1_idx` (`working_hours_id` ASC),
+  INDEX `fk_user_roles_has_working_hours_user_roles1_idx` (`user_roles_user_id` ASC, `user_roles_role_id` ASC),
+  CONSTRAINT `fk_user_roles_has_working_hours_user_roles1`
+    FOREIGN KEY (`user_roles_user_id` , `user_roles_role_id`)
+    REFERENCES `fotograf`.`user_roles` (`user_id` , `role_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_roles_has_working_hours_working_hours1`
+    FOREIGN KEY (`working_hours_id`)
+    REFERENCES `fotograf`.`working_hours` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

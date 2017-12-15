@@ -91,7 +91,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String search(@RequestParam(value = "query") String search, Model model) {
+    public String search(@RequestParam(value = "query") String search, Model model){
         Node rootNode = new RSQLParser().parse(search);
         Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
         List<User> users = userService.search(spec);
@@ -104,7 +104,7 @@ public class UserController {
 
     @RequestMapping(value = "/searchJSON", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> searchJSON(@RequestParam(value = "query") String search) {
+    public List<User> searchJSON(@RequestParam(value = "query") String search){
         Node rootNode = new RSQLParser().parse(search);
         Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
         return userService.search(spec);
