@@ -1,6 +1,8 @@
 package pl.edu.ug.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.edu.ug.model.Album;
 import pl.edu.ug.model.Score;
 import pl.edu.ug.model.User;
@@ -33,6 +36,9 @@ public class ScoreController {
     @Autowired
     private ScoreValidator scoreValidator;
 
+    @Autowired
+    private MessageSource messageSource;
+
     //Create&Update score
     @RequestMapping(value = "/{username}/{albumID}/rateAlbum", method = RequestMethod.GET)
     public String createScore(@PathVariable String username, @PathVariable Long albumID, Model model){
@@ -51,7 +57,8 @@ public class ScoreController {
 
     @RequestMapping(value = "/{username}/{albumID}/rateAlbum", method = RequestMethod.POST)
     public String createScore(@PathVariable String username, @PathVariable Long albumID,
-                              @ModelAttribute("scoreForm") Score scoreForm, BindingResult bindingResult){
+                              @ModelAttribute("scoreForm") Score scoreForm, BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes){
         scoreValidator.validate(scoreForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -67,7 +74,11 @@ public class ScoreController {
                 if(score != null) {
                     score.setValue(scoreForm.getValue());
                     scoreService.add(score);
-                    return "redirect:/" + username + "/" + albumID;
+
+                    String successMsg = messageSource.getMessage("messages.score.edit.success",null, LocaleContextHolder.getLocale());
+                    redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
+                    redirectAttributes.addFlashAttribute("success", successMsg);
+                    return "redirect:/{username}/{albumID}";
                 }
                 scoreForm.setAuthor(user);
                 if(scoreForm.getAuthor() == null) return "Album/Score/create";
@@ -77,13 +88,17 @@ public class ScoreController {
 
         scoreService.add(scoreForm);
 
-        return "redirect:/" + username + "/" + albumID;
+        String successMsg = messageSource.getMessage("messages.score.create.success",null, LocaleContextHolder.getLocale());
+        redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
+        redirectAttributes.addFlashAttribute("success", successMsg);
+        return "redirect:/{username}/{albumID}";
     }
 
     //Read score
     //view: meanScore, userScore
     @RequestMapping(value = "/{username}/{albumID}/rating", method = RequestMethod.GET)
-    public String viewScore(@PathVariable String username, @PathVariable Long albumID, Model model){
+    public String viewScore(@PathVariable String username, @PathVariable Long albumID, Model model,
+                            RedirectAttributes redirectAttributes){
         Album album = albumService.get(albumID);
         User user = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -101,7 +116,9 @@ public class ScoreController {
             } else model.addAttribute("userScore", "Brak oceny");
             return "Album/Score/view";
         }
-        return "Album/notFound";
+        String errorMsg = messageSource.getMessage("messages.album.notFound",null, LocaleContextHolder.getLocale());
+        redirectAttributes.addFlashAttribute("error", errorMsg);
+        return "redirect:/";
     }
 
 }

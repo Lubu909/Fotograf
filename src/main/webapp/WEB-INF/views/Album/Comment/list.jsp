@@ -9,20 +9,20 @@
 <c:set var="user" value="${pageContext.request.userPrincipal.name}"/>
 
 <tag:Layout>
-    <h3>Lista komentarzy do albumu ${album.name}</h3>
+    <h3><spring:message code="view.comment.commentList" arguments="${album.name}"/></h3>
     <table>
         <tr>
-            <th>Autor</th>
-            <th>Treść</th>
-            <th>Opcje</th>
+            <th><spring:message code="label.author"/></th>
+            <th><spring:message code="label.content"/></th>
+            <th><spring:message code="label.options"/></th>
         </tr>
         <c:forEach var="comment" items="${comments}">
             <tr>
                 <td><b>${comment.author.name}</b></td>
                 <td>${comment.description}</td>
-                <td><a href="/${comment.author.username}/${comment.album.id}/comment">Edit</a> |
+                <td><a href="/${comment.author.username}/${comment.album.id}/comment"><spring:message code="label.edit"/></a> |
                     <form method="post" action="/${comment.author.username}/${comment.album.id}/commentList/${comment.id}">
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Delete</button>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="label.delete"/></button>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </form>
                 </td>

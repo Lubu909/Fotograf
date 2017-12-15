@@ -9,11 +9,11 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <tag:Layout>
-    <h2>Dodaj zdjęcie</h2>
+    <h2><spring:message code="view.photo.form.label.create"/></h2>
     <form:form method="post" enctype="multipart/form-data" modelAttribute="photoForm">
         <spring:bind path="title">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:label path="title">Nazwa zdjęcia: </form:label>
+                <form:label path="title"><spring:message code="view.photo.form.name"/></form:label>
                 <form:input type="text" path="title" class="form-control" placeholder="${photoForm.title}"
                             autofocus="true"/>
                 <form:errors path="title"/>
@@ -21,12 +21,11 @@
         </spring:bind>
         <spring:bind path="photoFile">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:label path="photoFile">Plik: </form:label>
+                <form:label path="photoFile"><spring:message code="view.photo.form.file"/></form:label>
                 <form:input type="file" path="photoFile"/>
                 <form:errors path="photoFile"/>
             </div>
         </spring:bind>
-        <%--<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>--%>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="label.submit"/></button>
     </form:form>
 </tag:Layout>

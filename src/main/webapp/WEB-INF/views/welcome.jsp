@@ -8,7 +8,10 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <tag:Layout>
-    <h1>Strona główna</h1>
+    <h1><spring:message code="view.main.welcome"/></h1>
+    <h2><spring:message code="view.main.chooseLanguage"/></h2>
+    <a href="/?lang=pl"><h3>PL</h3></a>
+    <a href="/?lang=en"><h3>ENG</h3></a>
 </tag:Layout>
 
 
