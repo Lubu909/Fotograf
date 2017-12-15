@@ -4,10 +4,15 @@ import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.ug.java.EmailSender;
+import pl.edu.ug.java.PasswordGenerator;
 import pl.edu.ug.model.User;
 import pl.edu.ug.search.RsqlVisitor;
 import pl.edu.ug.search.SearchOperation;
@@ -32,6 +37,12 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
+    @Autowired
+    private EmailSender emailSender;
+
+    @Autowired
+    private PasswordGenerator passwordGenerator;
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
@@ -48,6 +59,8 @@ public class UserController {
         }
 
         userService.save(userForm);
+
+        emailSender.sendRegisterConformation(userForm.getEmail(), userForm.getUsername());
 
         securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
 
@@ -95,5 +108,46 @@ public class UserController {
         Node rootNode = new RSQLParser().parse(search);
         Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
         return userService.search(spec);
+    }
+
+    @RequestMapping(value = "/forgotPasswd", method = RequestMethod.GET)
+    public String forgotPasswd(Model model) {
+        model.addAttribute("userName", new String());
+        model.addAttribute("email", new String());
+        return "forgotPasswd";
+    }
+
+    @RequestMapping(value = "/forgotPasswd", method = RequestMethod.POST)
+    public String forgotPasswd(@ModelAttribute("username") String username, @ModelAttribute("email") String email) {
+        String generatedPasswd = passwordGenerator.generatePasswd();
+        User user = userService.findByUsername(username);
+        if (user != null && username.equals(user.getUsername()) && email.equals(user.getEmail())) {
+            user.setPassword(generatedPasswd);
+            userService.save(user);
+            emailSender.sendTemporaryPasswd(user.getEmail(),user.getUsername(), generatedPasswd);
+            return "redirect:/forgotPasswdChange";
+        }
+
+        return "forgotPasswd";
+    }
+
+    @RequestMapping(value = "/forgotPasswdChange", method = RequestMethod.GET)
+    public String forgotPasswdChange(Model model) {
+        model.addAttribute("user", new User());
+        return "forgotPasswdChange";
+    }
+
+    @RequestMapping(value = "/forgotPasswdChange", method = RequestMethod.POST)
+    public String forgotPasswdChange(@ModelAttribute("user") User userForm, @ModelAttribute("genPasswd") String genPasswd) {
+
+        User user = userService.findByUsername(userForm.getUsername());
+
+        if (user != null /*&& user.getPassword().equals(genPasswd) && user.getUsername().equals(userForm.getUsername())*/) {
+            user.setPassword(userForm.getPassword());
+            userService.save(user);
+            return "redirect:/login";
+        }
+
+        return "forgotPasswdChange";
     }
 }

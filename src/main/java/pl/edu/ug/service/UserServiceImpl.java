@@ -41,9 +41,11 @@ public class UserServiceImpl implements UserService {
                 Set<Role> roles = new HashSet<>();
                 roles.add(roleDao.getOne(3L));
                 user.setRoles(roles);
-
             }
+            userDao.save(user);
+            return;
         }
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.save(user);
 
     }
