@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="url" value="${pageContext.request.requestURL}" />
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -14,13 +15,22 @@
     <h5>${album.description}</h5>
 
     <div id="scoreView">
-        <%--<h3><spring:message code="view.score.global"/> ${globalScore}</h3>--%>
+        <h3><spring:message code="view.score.global"/> ${globalScore}</h3>
         <c:if test="${user != null}">
-            <%--<c:if test="${userScore != null}">--%>
-                <%--<h5><spring:message code="view.score.user"/> ${userScore}</h5>--%>
-            <%--</c:if>--%>
+            <c:if test="${userScore != null}">
+                <h5><spring:message code="view.score.user"/> ${userScore}</h5>
+            </c:if>
             <%-- Zamienić na zawartość urla --%>
-            <a href="/${album.author.username}/${album.id}/rateAlbum"><spring:message code="view.album.rateAlbum"/></a>
+            <form:form method="post" modelAttribute="scoreForm" action="/${user}/${album.id}/rateAlbum">
+                <spring:bind path="value">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <form:input type="range" path="value" class="form-control" min="0" max="10" step="0.5"
+                                    autofocus="true"/>
+                        <form:errors path="value"/>
+                    </div>
+                </spring:bind>
+                <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="label.submit"/></button>
+            </form:form>
         </c:if>
     </div>
 
@@ -70,7 +80,7 @@
                     <td>${comment.description}</td>
                     <c:if test="${user == comment.author.username}">
                         <td class="btn-group text-nowrap">
-                            <a href="/${comment.author.username}/${comment.album.id}/comment" class="btn btn-primary"><spring:message code="label.edit"/></a>
+                            <a href="/${comment.author.username}/${comment.album.id}/comment/${comment.id}" class="btn btn-primary"><spring:message code="label.edit"/></a>
                             <form method="post" action="/${comment.author.username}/${comment.album.id}/commentList/${comment.id}">
                                 <button class="btn btn-primary" type="submit"><spring:message code="label.delete"/></button>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -83,4 +93,18 @@
         </table>
     </div>
     <%--Add comment--%>
+    <c:if test="${user != null}">
+        <h2><spring:message code="view.comment.form.label"/></h2>
+        <form:form method="post" modelAttribute="commentForm" action="/${album.author.username}/${album.id}/comment">
+            <spring:bind path="description">
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <spring:message code="view.comment.form.placeholder" var="commentPlaceholder"/>
+                    <form:input type="text" path="description" class="form-control" placeholder="${commentPlaceholder}"
+                                autofocus="true"/>
+                    <form:errors path="description"/>
+                </div>
+            </spring:bind>
+            <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="label.submit"/></button>
+        </form:form>
+    </c:if>
 </tag:Layout>

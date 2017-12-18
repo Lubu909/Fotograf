@@ -40,6 +40,7 @@ public class ScoreController {
     private MessageSource messageSource;
 
     //Create&Update score
+    /*
     @RequestMapping(value = "/{username}/{albumID}/rateAlbum", method = RequestMethod.GET)
     public String createScore(@PathVariable String username, @PathVariable Long albumID, Model model){
         User user = null;
@@ -54,6 +55,7 @@ public class ScoreController {
         } else model.addAttribute("scoreForm", new Score());
         return "Album/Score/create";
     }
+    */
 
     @RequestMapping(value = "/{username}/{albumID}/rateAlbum", method = RequestMethod.POST)
     public String createScore(@PathVariable String username, @PathVariable Long albumID,

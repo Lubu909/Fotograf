@@ -11,14 +11,14 @@
 <tag:Layout>
     <h2><spring:message code="view.score.form.label"/></h2>
     <form:form method="post" modelAttribute="scoreForm">
-        <spring:bind path="value">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="range" path="value" class="form-control" min="0" max="10" step="0.5"
-                            autofocus="true"/>
-                <form:errors path="value"/>
-            </div>
-        </spring:bind>
-        <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="label.submit"/></button>
-    </form:form>
+    <spring:bind path="value">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="range" path="value" class="form-control" min="0" max="10" step="0.5"
+                        autofocus="true"/>
+            <form:errors path="value"/>
+        </div>
+    </spring:bind>
+    <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="label.submit"/></button>
+</form:form>
 
 </tag:Layout>

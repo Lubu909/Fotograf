@@ -48,8 +48,10 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     public double getGlobalScore(Album album) {
         List<Score> list = scoreDao.getByAlbum(album);
-        return list.stream().mapToDouble(s -> s.getValue()).average().getAsDouble();
-        //return scoreDao.getAverage(album);
+        if(!list.isEmpty())
+            return list.stream().mapToDouble(s -> s.getValue()).average().getAsDouble();
+        else
+            return 0;
     }
 
     @Override

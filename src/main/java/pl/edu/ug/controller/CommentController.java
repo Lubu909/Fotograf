@@ -44,16 +44,19 @@ public class CommentController {
     //Create&Update comment
     @RequestMapping(value = "/{username}/{albumID}/comment", method = RequestMethod.GET)
     public String writeComment(@PathVariable String username, @PathVariable Long albumID, Model model){
+        /*
         User user = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth != null) {
             if (auth.isAuthenticated()) {
                 user = userService.findByUsername(auth.getName());
                 Comment comment = commentService.getComment(albumService.get(albumID), user);
-                if(comment!=null) model.addAttribute("commentForm", comment);
-                else model.addAttribute("commentForm", new Comment());
+                //if(comment!=null) model.addAttribute("commentForm", comment);
+                //else model.addAttribute("commentForm", new Comment());
             }
-        } else model.addAttribute("commentForm", new Comment());
+        } else
+        */
+        model.addAttribute("commentForm", new Comment());
         return "Album/Comment/create";
     }
 
@@ -72,7 +75,69 @@ public class CommentController {
         if(auth != null) {
             if(auth.isAuthenticated()) {
                 User user = userService.findByUsername(auth.getName());
+                /*
                 Comment comment = commentService.getComment(album, user);
+                if(comment != null) {
+                    comment.setDescription(commentForm.getDescription());
+                    commentService.add(comment);
+
+                    String successMsg = messageSource.getMessage("messages.comment.edit.success",null, LocaleContextHolder.getLocale());
+                    redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
+                    redirectAttributes.addFlashAttribute("success", successMsg);
+                    return "redirect:/{username}/{albumID}";
+                }
+                */
+                commentForm.setAuthor(user);
+                if(commentForm.getAuthor() == null) return "Album/Comment/create";
+            }
+        }
+        commentForm.setAlbum(album);
+
+        commentService.add(commentForm);
+
+        String successMsg = messageSource.getMessage("messages.comment.create.success",null, LocaleContextHolder.getLocale());
+        redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
+        redirectAttributes.addFlashAttribute("success", successMsg);
+        return "redirect:/{username}/{albumID}";
+    }
+
+    @RequestMapping(value = "/{username}/{albumID}/comment/{commentID}", method = RequestMethod.GET)
+    public String editComment(@PathVariable String username, @PathVariable Long albumID, @PathVariable Long commentID,
+                              Model model, RedirectAttributes redirectAttributes){
+        try {
+            Comment comment = commentService.get(commentID);
+            if (comment.getId() != null) {
+                model.addAttribute("commentForm", comment);
+                return "Album/Comment/create";
+            }
+        } catch (Exception e) {
+            String errorMsg = messageSource.getMessage("messages.comment.notFound", null, LocaleContextHolder.getLocale());
+            redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
+            redirectAttributes.addFlashAttribute("error", errorMsg);
+            return "redirect:/{username}/{albumID}";
+        }
+        String errorMsg = messageSource.getMessage("messages.comment.notFound", null, LocaleContextHolder.getLocale());
+        redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
+        redirectAttributes.addFlashAttribute("error", errorMsg);
+        return "redirect:/{username}/{albumID}";
+    }
+
+    @RequestMapping(value = "/{username}/{albumID}/comment/{commentID}", method = RequestMethod.POST)
+    public String editComment(@PathVariable String username, @PathVariable Long albumID, @PathVariable Long commentID,
+                              @ModelAttribute("commentForm") Comment commentForm, BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes){
+        commentValidator.validate(commentForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "Album/Comment/create";
+        }
+
+        Album album = albumService.get(albumID);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth != null) {
+            if(auth.isAuthenticated()) {
+                User user = userService.findByUsername(auth.getName());
+                Comment comment = commentService.get(commentID);
                 if(comment != null) {
                     comment.setDescription(commentForm.getDescription());
                     commentService.add(comment);
@@ -86,13 +151,10 @@ public class CommentController {
                 if(commentForm.getAuthor() == null) return "Album/Comment/create";
             }
         }
-        commentForm.setAlbum(album);
 
-        commentService.add(commentForm);
-
-        String successMsg = messageSource.getMessage("messages.comment.create.success",null, LocaleContextHolder.getLocale());
+        String errorMsg = messageSource.getMessage("messages.comment.notFound",null, LocaleContextHolder.getLocale());
         redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
-        redirectAttributes.addFlashAttribute("success", successMsg);
+        redirectAttributes.addFlashAttribute("error", errorMsg);
         return "redirect:/{username}/{albumID}";
     }
 
@@ -132,6 +194,6 @@ public class CommentController {
         String successMsg = messageSource.getMessage("messages.comment.delete.success",null, LocaleContextHolder.getLocale());
         redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
         redirectAttributes.addFlashAttribute("success", successMsg);
-        return "redirect:/{username}/{albumID}/commentList";
+        return "redirect:/{username}/{albumID}";
     }
 }

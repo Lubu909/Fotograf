@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.edu.ug.model.Album;
+import pl.edu.ug.model.Comment;
+import pl.edu.ug.model.Score;
 import pl.edu.ug.model.User;
 import pl.edu.ug.service.AlbumService;
+import pl.edu.ug.service.ScoreService;
 import pl.edu.ug.service.UserService;
 import pl.edu.ug.validator.AlbumValidator;
 
@@ -29,6 +32,9 @@ public class AlbumController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ScoreService scoreService;
 
     @Autowired
     private AlbumValidator albumValidator;
@@ -69,20 +75,40 @@ public class AlbumController {
     }
 
     //Read Album
-    //TODO: Dokończyć - lista zdjęć, komentarze, ocena
     @RequestMapping(value = "/{username}/{albumID}", method = RequestMethod.GET)
     public String viewAlbum(@PathVariable String username, @PathVariable Long albumID, Model model,
                             RedirectAttributes redirectAttributes){
         Album album = albumService.get(albumID);
-        //User user = userService.findByUsername(username);
-        if(album != null) {
-            /*
-            double global = scoreService.getGlobalScore(album);
-            model.addAttribute("globalScore", global);
-            */
-            model.addAttribute("album", album);
-            return "Album/view";
-        }
+        Score emptyScore = new Score();
+        emptyScore.setValue(0d);
+        //try {
+            if (album != null) {
+                double global = scoreService.getGlobalScore(album);
+                model.addAttribute("globalScore", global);
+
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                if (auth != null) {
+                    if (auth.isAuthenticated()) {
+                        User user = userService.findByUsername(auth.getName());
+                        if (user != null) {
+                            Score userScore = scoreService.getUserScore(album, user);
+                            try {
+                                if (userScore.getValue() != null) {
+                                    model.addAttribute("userScore", userScore.getValue());
+                                    model.addAttribute("scoreForm", userScore);
+                                } else model.addAttribute("scoreForm", emptyScore);
+                            } catch (Exception e) {
+                                model.addAttribute("scoreForm", emptyScore);
+                            }
+                        }
+                    }
+                } else model.addAttribute("scoreForm", emptyScore);
+
+                model.addAttribute("commentForm", new Comment());
+                model.addAttribute("album", album);
+                return "Album/view";
+            }
+        //} catch (Exception e) {}
         String errorMsg = messageSource.getMessage("messages.album.notFound",null, LocaleContextHolder.getLocale());
         redirectAttributes.addFlashAttribute("error", errorMsg);
         return "redirect:/";
