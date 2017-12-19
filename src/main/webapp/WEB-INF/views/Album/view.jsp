@@ -34,15 +34,17 @@
         </c:if>
     </div>
 
+    <h3>
     <c:if test="${user == album.author.username}">
-        <h3><a href="/${user}/${album.id}/add"><spring:message code="label.add"/> <spring:message code="word.photo.lowercase"/></a></h3>
+        <a href="/${user}/${album.id}/add" class="btn btn-lg btn-primary"><spring:message code="label.add"/> <spring:message code="word.photo.lowercase"/></a>
     </c:if>
+    </h3>
 
     <div id="photoList" class="row">
         <c:forEach var="photo" items="${album.pictures}">
             <div class="col-md-4">
                 <div class="thumbnail">
-                    <img src="/${album.author.username}/${album.id}/photo${photo.id}" alt="${photo.title}">
+                    <img id="photo" src="/${album.author.username}/${album.id}/photo${photo.id}" alt="${photo.title}" height="250">
                     <h3>${photo.title}</h3>
                     <c:if test="${user == album.author.username}">
                         <div class="btn-group text-nowrap">

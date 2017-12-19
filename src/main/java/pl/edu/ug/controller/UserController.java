@@ -21,6 +21,9 @@ import pl.edu.ug.service.SecurityService;
 import pl.edu.ug.service.UserService;
 import pl.edu.ug.validator.UserValidator;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -96,9 +99,40 @@ public class UserController {
         Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
         List<User> users = userService.search(spec);
 
+        model.addAttribute("searchForm", new User());
         model.addAttribute("users", users);
-        System.out.println("Wyszukiwanie - znaleziono " + users.size() + " elementów");
+        users.sort(Comparator.comparing(User::getCity));
+        //System.out.println("Wyszukiwanie - znaleziono " + users.size() + " elementów");
 
+        return "searchResults";
+    }
+
+    @RequestMapping(value = "/advSearch", method = RequestMethod.GET)
+    public String advancedSearch(Model model){
+        model.addAttribute("searchForm", new User());
+        return "searchResults";
+    }
+
+    @RequestMapping(value = "/advSearch", method = RequestMethod.POST)
+    public String advancedSearch(@ModelAttribute("searchForm") User searchForm, Model model){
+        List<String> criteria = new ArrayList<>();
+        if(!searchForm.getName().isEmpty())
+            criteria.add("name==" + searchForm.getName() + "*");
+        if(!searchForm.getSurname().isEmpty())
+            criteria.add("surname==" + searchForm.getSurname() + "*");
+        if(!searchForm.getUsername().isEmpty())
+            criteria.add("username==" + searchForm.getUsername() + "*");
+        if(!searchForm.getCity().isEmpty())
+            criteria.add("city==" + searchForm.getCity() + "*");
+
+        String query = String.join(",", criteria);
+        Node rootNode = new RSQLParser().parse(query);
+        Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
+        List<User> users = userService.search(spec);
+
+        model.addAttribute("users", users);
+        model.addAttribute("searchForm", searchForm);
+        users.sort(Comparator.comparing(User::getCity));
         return "searchResults";
     }
 
