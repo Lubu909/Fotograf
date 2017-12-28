@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import pl.edu.ug.model.User;
 
 public class EmailSender {
 
@@ -56,4 +57,13 @@ public class EmailSender {
 
     }
 
+    public void sendNoticeOrderCreated(User user){
+        //TODO: Mail o utworzeniu zamówienia
+        //if po roli?
+    }
+
+    public void sendNoticeStatusChange(User user, int status){
+        //TODO: Mail o zmianie statusu zamówienia
+        //ify po roli i statusie?
+    }
 }

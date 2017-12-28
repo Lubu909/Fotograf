@@ -82,6 +82,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/${pageContext.request.userPrincipal.name}/albums"><spring:message code="layout.navbar.myAlbums"/></a></li>
                     <li><a href="/createAlbum"><spring:message code="layout.navbar.createAlbum"/></a></li>
+                    <li><a href="/${pageContext.request.userPrincipal.name}/orders"><spring:message code="layout.navbar.myOrders"/></a></li>
                     <form class="navbar-form navbar-left" action="/search" method="get">
                         <div class="input-group">
                             <spring:message code="layout.navbar.searchBar" var="searchPlaceholder"/>

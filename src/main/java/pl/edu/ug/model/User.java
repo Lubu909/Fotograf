@@ -10,6 +10,12 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
+    @Transient
+    public static final Long ROLE_USER = 1L;
+    @Transient
+    public static final Long ROLE_ADMIN = 2L;
+    @Transient
+    public static final Long ROLE_PHOTOGRAPHER = 3L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -224,5 +230,9 @@ public class User {
                 ", comments=" + comments +
                 ", scores=" + scores +
                 '}';
+    }
+
+    public boolean containsRole(Long role){
+        return roles.stream().anyMatch(o -> o.getId().equals(role));
     }
 }

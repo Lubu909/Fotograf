@@ -99,9 +99,10 @@ public class UserController {
         Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
         List<User> users = userService.search(spec);
 
+        if(!users.isEmpty()) users.sort(Comparator.comparing(User::getCity));
+
         model.addAttribute("searchForm", new User());
         model.addAttribute("users", users);
-        users.sort(Comparator.comparing(User::getCity));
         //System.out.println("Wyszukiwanie - znaleziono " + users.size() + " elementów");
 
         return "searchResults";
@@ -130,9 +131,10 @@ public class UserController {
         Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
         List<User> users = userService.search(spec);
 
+        if(!users.isEmpty()) users.sort(Comparator.comparing(User::getCity));
+
         model.addAttribute("users", users);
         model.addAttribute("searchForm", searchForm);
-        users.sort(Comparator.comparing(User::getCity));
         return "searchResults";
     }
 

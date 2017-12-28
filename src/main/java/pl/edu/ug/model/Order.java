@@ -32,14 +32,101 @@ public class Order {
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="data_zamowienia")
     private Date dataZamowienia;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="termin_wykonania")
     private Date terminWykonania;
+
+    @Transient
+    private String dateForm;
+    @Transient
+    private String timeForm;
 
     private String description;
 
     private Integer hours;
 
     private Integer status;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getKlient() {
+        return klient;
+    }
+
+    public void setKlient(User klient) {
+        this.klient = klient;
+    }
+
+    public User getFotograf() {
+        return fotograf;
+    }
+
+    public void setFotograf(User fotograf) {
+        this.fotograf = fotograf;
+    }
+
+    public Date getDataZamowienia() {
+        return dataZamowienia;
+    }
+
+    public void setDataZamowienia(Date dataZamowienia) {
+        this.dataZamowienia = dataZamowienia;
+    }
+
+    public Date getTerminWykonania() {
+        return terminWykonania;
+    }
+
+    public void setTerminWykonania(Date terminWykonania) {
+        this.terminWykonania = terminWykonania;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getHours() {
+        return hours;
+    }
+
+    public void setHours(Integer hours) {
+        this.hours = hours;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getDateForm() {
+        return dateForm;
+    }
+
+    public void setDateForm(String dateForm) {
+        this.dateForm = dateForm;
+    }
+
+    public String getTimeForm() {
+        return timeForm;
+    }
+
+    public void setTimeForm(String timeForm) {
+        this.timeForm = timeForm;
+    }
 }

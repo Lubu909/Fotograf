@@ -24,7 +24,7 @@
                 <c:forEach var="album" items="${albums}">
                     <tr>
                         <td><a href="/${album.author.username}/${album.id}"><b>${album.name}</b></a></td>
-                        <td>${album.description}</td>
+                        <td><p class="text-justify">${album.description}</p></td>
                         <c:if test="${album.author.username == user}">
                             <td class="btn-group text-nowrap">
                                 <a href="/${album.author.username}/${album.id}/edit" class="btn btn-lg btn-primary"><spring:message code="label.edit"/></a>
