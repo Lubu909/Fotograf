@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -90,7 +91,6 @@ public class User {
     }
 
     @ManyToMany
-
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -103,6 +103,12 @@ public class User {
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private Set<Score> scores;
+
+    @OneToMany(mappedBy = "klient", cascade = CascadeType.ALL)
+    private List<Order> ordersMade;
+
+    @OneToMany(mappedBy = "fotograf", cascade = CascadeType.ALL)
+    private List<Order> ordersReceived;
 
     public Long getId() {
         return id;
@@ -182,6 +188,22 @@ public class User {
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    public List<Order> getOrdersMade() {
+        return ordersMade;
+    }
+
+    public void setOrdersMade(List<Order> ordersMade) {
+        this.ordersMade = ordersMade;
+    }
+
+    public List<Order> getOrdersReceived() {
+        return ordersReceived;
+    }
+
+    public void setOrdersReceived(List<Order> ordersReceived) {
+        this.ordersReceived = ordersReceived;
     }
 
     @Override

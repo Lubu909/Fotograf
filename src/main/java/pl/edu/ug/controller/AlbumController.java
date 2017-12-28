@@ -13,15 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.edu.ug.model.Album;
-import pl.edu.ug.model.Comment;
-import pl.edu.ug.model.Score;
-import pl.edu.ug.model.User;
+import pl.edu.ug.model.*;
 import pl.edu.ug.service.AlbumService;
 import pl.edu.ug.service.ScoreService;
 import pl.edu.ug.service.UserService;
 import pl.edu.ug.validator.AlbumValidator;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -103,6 +101,9 @@ public class AlbumController {
                         }
                     }
                 } else model.addAttribute("scoreForm", emptyScore);
+
+                album.getComments().sort(Comparator.comparing(Comment::getCreated));
+                album.getPictures().sort(Comparator.comparing(Picture::getCreated));
 
                 model.addAttribute("commentForm", new Comment());
                 model.addAttribute("album", album);
