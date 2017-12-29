@@ -4,11 +4,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User {
+    @Transient
+    public static final Long ROLE_USER = 1L;
+    @Transient
+    public static final Long ROLE_ADMIN = 2L;
+    @Transient
+    public static final Long ROLE_PHOTOGRAPHER = 3L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -90,7 +97,6 @@ public class User {
     }
 
     @ManyToMany
-
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -103,6 +109,12 @@ public class User {
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private Set<Score> scores;
+
+    @OneToMany(mappedBy = "klient", cascade = CascadeType.ALL)
+    private List<Order> ordersMade;
+
+    @OneToMany(mappedBy = "fotograf", cascade = CascadeType.ALL)
+    private List<Order> ordersReceived;
 
     public Long getId() {
         return id;
@@ -184,6 +196,22 @@ public class User {
         this.tel = tel;
     }
 
+    public List<Order> getOrdersMade() {
+        return ordersMade;
+    }
+
+    public void setOrdersMade(List<Order> ordersMade) {
+        this.ordersMade = ordersMade;
+    }
+
+    public List<Order> getOrdersReceived() {
+        return ordersReceived;
+    }
+
+    public void setOrdersReceived(List<Order> ordersReceived) {
+        this.ordersReceived = ordersReceived;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -202,5 +230,9 @@ public class User {
                 ", comments=" + comments +
                 ", scores=" + scores +
                 '}';
+    }
+
+    public boolean containsRole(Long role){
+        return roles.stream().anyMatch(o -> o.getId().equals(role));
     }
 }

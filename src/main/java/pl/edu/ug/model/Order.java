@@ -1,30 +1,54 @@
 package pl.edu.ug.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "orders")
 public class Order {
+    @Transient
+    public static final Integer STATUS_CREATED = 1;
+    @Transient
+    public static final Integer STATUS_MODIFIED = 2;
+    @Transient
+    public static final Integer STATUS_ACCEPTED = 3;
+    @Transient
+    public static final Integer STATUS_REJECTED = 4;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "date")
-    private Date date;
-
-    @Column(name = "description")
-    private String description;
+    @ManyToOne
+    @JoinColumn(name = "klient_id")
+    private User klient;
 
     @ManyToOne
-    @JoinColumn(name = "user_roles_user_id")
-    private User user;
+    @JoinColumn(name = "fotograf_id")
+    private User fotograf;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private Set<Office> office;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="data_zamowienia")
+    private Date dataZamowienia;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="termin_wykonania")
+    private Date terminWykonania;
+
+    @Transient
+    private String dateForm;
+    @Transient
+    private String timeForm;
+
+    private String description;
+
+    private Integer hours;
+
+    private Integer status;
 
     public Long getId() {
         return id;
@@ -34,12 +58,36 @@ public class Order {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public User getKlient() {
+        return klient;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setKlient(User klient) {
+        this.klient = klient;
+    }
+
+    public User getFotograf() {
+        return fotograf;
+    }
+
+    public void setFotograf(User fotograf) {
+        this.fotograf = fotograf;
+    }
+
+    public Date getDataZamowienia() {
+        return dataZamowienia;
+    }
+
+    public void setDataZamowienia(Date dataZamowienia) {
+        this.dataZamowienia = dataZamowienia;
+    }
+
+    public Date getTerminWykonania() {
+        return terminWykonania;
+    }
+
+    public void setTerminWykonania(Date terminWykonania) {
+        this.terminWykonania = terminWykonania;
     }
 
     public String getDescription() {
@@ -50,19 +98,35 @@ public class Order {
         this.description = description;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getHours() {
+        return hours;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setHours(Integer hours) {
+        this.hours = hours;
     }
 
-    public Set<Office> getOffice() {
-        return office;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setOffice(Set<Office> office) {
-        this.office = office;
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getDateForm() {
+        return dateForm;
+    }
+
+    public void setDateForm(String dateForm) {
+        this.dateForm = dateForm;
+    }
+
+    public String getTimeForm() {
+        return timeForm;
+    }
+
+    public void setTimeForm(String timeForm) {
+        this.timeForm = timeForm;
     }
 }

@@ -1,6 +1,10 @@
 package pl.edu.ug.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "comments")
@@ -10,6 +14,14 @@ public class Comment {
     private Long id;
 
     private String description;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modified;
 
     @ManyToOne
     @JoinColumn(name = "user_roles_user_id")
@@ -49,5 +61,21 @@ public class Comment {
 
     public void setAlbum(Album album) {
         this.album = album;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getModified() {
+        return modified;
+    }
+
+    public void setModified(Date modified) {
+        this.modified = modified;
     }
 }

@@ -1,6 +1,7 @@
 package pl.edu.ug.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,13 +19,13 @@ public class Album {
     private User author;
 
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
-    private Set<Picture> pictures;
+    private List<Picture> pictures;
 
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
     private Set<Score> scores;
 
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
-    private Set<Comment> comments;
+    private List<Comment> comments;
 
     public Long getId() {
         return id;
@@ -58,11 +59,11 @@ public class Album {
         this.author = author;
     }
 
-    public Set<Picture> getPictures() {
+    public List<Picture> getPictures() {
         return pictures;
     }
 
-    public void setPictures(Set<Picture> pictures) {
+    public void setPictures(List<Picture> pictures) {
         this.pictures = pictures;
     }
 
@@ -74,11 +75,11 @@ public class Album {
         this.scores = scores;
     }
 
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 }

@@ -1,8 +1,10 @@
 package pl.edu.ug.model;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "pictures")
@@ -10,6 +12,10 @@ public class Picture {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
 
     private String title;
     @Column(name = "photoPath")
@@ -62,4 +68,11 @@ public class Picture {
         this.photoFile = photoFile;
     }
 
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 }

@@ -12,7 +12,7 @@
 <tag:Layout>
     <h1>${album.name}</h1>
     <h3><spring:message code="view.album.userAlbum" arguments="${album.author.username}"/></h3>
-    <h5>${album.description}</h5>
+    <p class="text-justify">${album.description}</p>
 
     <div id="scoreView">
         <h3><spring:message code="view.score.global"/> ${globalScore}</h3>
