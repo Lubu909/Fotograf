@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td><strong><spring:message code="view.order.table.orderCompletionDate"/></strong></td>
-            <td>${order.terminWykonania} <!-- - order.terminWykonania + order.hours --></td>
+            <td>${order.terminWykonania} - ${endTime}</td>
         </tr>
         <tr>
             <td><strong><spring:message code="view.order.table.orderDate"/></strong></td>
@@ -33,22 +33,61 @@
         </tr>
         <tr>
             <td><strong><spring:message code="view.order.table.status"/></strong></td>
-            <td>${order.status}</td>
+            <td>
+                <c:choose>
+                    <c:when test="${order.status == 1}"><spring:message code="status.created"/></c:when>
+                    <c:when test="${order.status == 2}"><spring:message code="status.modified"/></c:when>
+                    <c:when test="${order.status == 3}"><spring:message code="status.accepted"/></c:when>
+                    <c:when test="${order.status == 4}"><spring:message code="status.rejected"/></c:when>
+                    <c:otherwise><spring:message code="status.unknown"/></c:otherwise>
+                </c:choose>
+            </td>
         </tr>
         <tr>
             <td><strong><spring:message code="view.order.table.options"/></strong></td>
             <td class="btn-group">
                 <c:choose>
                     <c:when test="${order.fotograf.username == user}">
-                        Opcje fotografa
-                        <!-- IF PO STATUSIE -->
-                        <!-- CREATED/MODIFIED? - ACCEPT/REJECT -->
+                        <!-- Opcje fotografa -->
+                        <c:choose>
+                            <c:when test="${order.status == 1}">
+                                <!-- CREATED - ACCEPT/REJECT/MODIFY -->
+                                <a href="/${user}/order/${order.id}/edit" class="btn btn-primary"><spring:message code="label.Modify"/></a>
+                                <form method="post" action="/${user}/order/${order.id}/accept">
+                                    <button class="btn btn-primary" type="submit"><spring:message code="label.accept"/></button>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                </form>
+                                <form method="post" action="/${user}/order/${order.id}/reject">
+                                    <button class="btn btn-primary" type="submit"><spring:message code="label.reject"/></button>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                </form>
+                            </c:when>
+                            <c:otherwise><spring:message code="view.order.wait.userApproval"/></c:otherwise>
+                        </c:choose>
                     </c:when>
                     <c:otherwise>
-                        Opcje klienta
-                        <!-- IF PO STATUSIE -->
-                        <!-- MODIFIED - ACCEPT/REJECT -->
-                        <!-- CREATED/ACCEPTED - DELETE -->
+                        <!-- Opcje klienta -->
+                        <c:choose>
+                            <c:when test="${order.status == 1 || order.status == 3}">
+                                <!-- CREATED/ACCEPTED - DELETE -->
+                                <form method="post" action="/${user}/order/${order.id}/delete">
+                                    <button class="btn btn-primary" type="submit"><spring:message code="label.delete"/></button>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                </form>
+                            </c:when>
+                            <c:when test="${order.status == 2}">
+                                <!-- MODIFIED - ACCEPT/REJECT -->
+                                <form method="post" action="/${user}/order/${order.id}/accept">
+                                    <button class="btn btn-primary" type="submit"><spring:message code="label.accept"/></button>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                </form>
+                                <form method="post" action="/${user}/order/${order.id}/reject">
+                                    <button class="btn btn-primary" type="submit"><spring:message code="label.reject"/></button>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                </form>
+                            </c:when>
+                            <c:otherwise><spring:message code="view.order.wait.photographerApproval"/></c:otherwise>
+                        </c:choose>
                     </c:otherwise>
                 </c:choose>
             </td>

@@ -8,7 +8,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -98,20 +97,24 @@ public class OrderController {
 
     @RequestMapping(value = "/{username}/order", method = RequestMethod.POST)
     public String createOrder(@ModelAttribute("orderForm") Order orderForm, BindingResult bindingResult,
-                              Model model, RedirectAttributes redirectAttributes, @PathVariable String username) throws ParseException {
+                              RedirectAttributes redirectAttributes, @PathVariable String username){
         User fotograf = userService.findByUsername(username);
         if(fotograf!=null) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth != null) {
                 if (auth.isAuthenticated()) {
                     if (!auth.getName().equals(username)) {
-                        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", LocaleContextHolder.getLocale());
-                        orderForm.setTerminWykonania(format.parse(orderForm.getDateForm() + " " + orderForm.getTimeForm()));
+                        try {
+                            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", LocaleContextHolder.getLocale());
+                            orderForm.setTerminWykonania(format.parse(orderForm.getDateForm() + " " + orderForm.getTimeForm()));
+                        } catch (ParseException e) {}
                         orderValidator.validate(orderForm, bindingResult);
 
                         if (bindingResult.hasErrors()) {
-                            redirectAttributes.addAttribute("username", username);
-                            return "redirect:/{username}/order";
+                            //modelMap.put(BindingResult.class.getName() + ".orderForm", bindingResult);
+                            return "Order/create";
+                            //redirectAttributes.addAttribute("username", username);
+                            //return "redirect:/{username}/order";
                         }
 
                         orderForm.setFotograf(fotograf);
@@ -145,7 +148,7 @@ public class OrderController {
     }
 
     //Reject Order
-    @RequestMapping(value = "/{username}/order/{orderID}/decline", method = RequestMethod.POST)
+    @RequestMapping(value = "/{username}/order/{orderID}/reject", method = RequestMethod.POST)
     public String rejectOrder(@PathVariable String username, @PathVariable Long orderID,
                               RedirectAttributes redirectAttributes){
         return changeStatus(username, orderID, redirectAttributes, Order.STATUS_REJECTED);
@@ -163,6 +166,13 @@ public class OrderController {
                     if (auth.getName().equals(username)) {
                         Order order = orderService.get(orderID);
                         if(order!=null) {
+                            //data do formularza
+                            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", LocaleContextHolder.getLocale());
+                            order.setDateForm(dateFormat.format(order.getTerminWykonania()));
+                            //godzina do formularza
+                            DateFormat timeFormat = new SimpleDateFormat("HH:mm", LocaleContextHolder.getLocale());
+                            order.setTimeForm(timeFormat.format(order.getTerminWykonania()));
+                            order.setDescription("");
                             model.addAttribute("orderForm", order);
                             return "Order/create";
                         }
@@ -183,24 +193,31 @@ public class OrderController {
 
     @RequestMapping(value = "/{username}/order/{orderID}/edit", method = RequestMethod.POST)
     public String changeOrder(@ModelAttribute("orderForm") Order orderForm, BindingResult bindingResult, RedirectAttributes redirectAttributes,
-                              @PathVariable String username, @PathVariable Long orderID) throws ParseException {
+                              @PathVariable String username, @PathVariable Long orderID){
         User fotograf = userService.findByUsername(username);
         if(fotograf!=null) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if(auth != null) {
                 if (auth.isAuthenticated()) {
                     if (auth.getName().equals(username)) {
-                        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", LocaleContextHolder.getLocale());
-                        orderForm.setTerminWykonania(format.parse(orderForm.getDateForm() + " " + orderForm.getTimeForm()));
+                        try{
+                            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", LocaleContextHolder.getLocale());
+                            orderForm.setTerminWykonania(format.parse(orderForm.getDateForm() + " " + orderForm.getTimeForm()));
+                        } catch (ParseException e) {}
                         orderValidator.validate(orderForm, bindingResult);
 
                         if (bindingResult.hasErrors()) {
-                            redirectAttributes.addAttribute("username", username);
-                            return "redirect:/{username}/order";
+                            return "Order/create";
+                            //redirectAttributes.addAttribute("username", username);
+                            //return "redirect:/{username}/order";
                         }
 
                         Order order = orderService.get(orderID);
                         if(order != null) {
+                            order.setTerminWykonania(orderForm.getTerminWykonania());
+                            order.setHours(orderForm.getHours());
+                            order.setDescription(order.getDescription() + "\n<br/>" + orderForm.getDescription());
+
                             order.setStatus(Order.STATUS_MODIFIED);
 
                             orderService.add(order);
@@ -235,6 +252,7 @@ public class OrderController {
             Order order = orderService.get(orderID);
             if(order!=null) {
                 model.addAttribute("order", order);
+                model.addAttribute("endTime", new Date(order.getTerminWykonania().getTime() + order.getHours()*3600*1000));
                 return "Order/view";
             } else {
                 String errorMsg = messageSource.getMessage("messages.order.notFound",null, LocaleContextHolder.getLocale());
@@ -267,7 +285,7 @@ public class OrderController {
                             //zamówienia klienta
                             orders = user.getOrdersMade();
                         }
-                        orders.sort(Comparator.comparing(Order::getDataZamowienia));
+                        orders.sort(Comparator.comparing(Order::getDataZamowienia).reversed());
                         model.addAttribute("orders", orders);
                         return "Order/list";
                     }

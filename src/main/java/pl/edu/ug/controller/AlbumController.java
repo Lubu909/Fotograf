@@ -102,7 +102,7 @@ public class AlbumController {
                     }
                 } else model.addAttribute("scoreForm", emptyScore);
 
-                album.getComments().sort(Comparator.comparing(Comment::getCreated));
+                album.getComments().sort(Comparator.comparing(Comment::getCreated).reversed());
                 album.getPictures().sort(Comparator.comparing(Picture::getCreated));
 
                 model.addAttribute("commentForm", new Comment());

@@ -23,8 +23,14 @@ public class OrderValidator implements Validator{
         //description upper limit
         if(order.getDescription().length() > 255) errors.rejectValue("description", "OrderForm.descriptionLength");
         //terminWykonania != null
-        if(order.getTerminWykonania() == null) errors.rejectValue("terminWykonania", "OrderForm.terminWykonaniaNull");
+        if(order.getTerminWykonania() == null){
+            errors.rejectValue("dateForm", "OrderForm.terminWykonaniaNull");
+            errors.rejectValue("timeForm", "OrderForm.terminWykonaniaNull");
+        }
         //terminWykonania > today
-        else if(order.getTerminWykonania().before(new Date())) errors.rejectValue("terminWykonania", "OrderForm.terminWykonaniaBeforeNow");
+        else if(order.getTerminWykonania().before(new Date())){
+            errors.rejectValue("dateForm", "OrderForm.terminWykonaniaBeforeNow");
+            errors.rejectValue("timeForm", "OrderForm.terminWykonaniaBeforeNow");
+        }
     }
 }

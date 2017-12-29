@@ -14,13 +14,15 @@
         <!-- TERMIN ZAMÓWIENIA - date picker -->
         <spring:bind path="dateForm">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type='date' path="dateForm" class="form-control" />
+                <form:input type='date' path="dateForm" class="form-control"
+                            autofocus="true"/>
                 <form:errors path="dateForm"/>
             </div>
         </spring:bind>
         <spring:bind path="timeForm">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type='time' path="timeForm" class="form-control"/>
+                <form:input type='time' path="timeForm" class="form-control"
+                            autofocus="true"/>
                 <form:errors path="timeForm"/>
             </div>
         </spring:bind>
