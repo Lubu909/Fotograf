@@ -105,7 +105,7 @@ public class AlbumController {
                 album.getComments().sort(Comparator.comparing(Comment::getCreated).reversed());
                 album.getPictures().sort(Comparator.comparing(Picture::getCreated));
 
-                model.addAttribute("commentForm", new Comment());
+                if (!model.containsAttribute("commentForm")) model.addAttribute("commentForm", new Comment());
                 model.addAttribute("album", album);
                 return "Album/view";
             }

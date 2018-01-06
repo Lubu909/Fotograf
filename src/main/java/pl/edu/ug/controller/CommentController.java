@@ -21,6 +21,7 @@ import pl.edu.ug.service.CommentService;
 import pl.edu.ug.service.UserService;
 import pl.edu.ug.validator.CommentValidator;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -44,18 +45,6 @@ public class CommentController {
     //Create&Update comment
     @RequestMapping(value = "/{username}/{albumID}/comment", method = RequestMethod.GET)
     public String writeComment(@PathVariable String username, @PathVariable Long albumID, Model model){
-        /*
-        User user = null;
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth != null) {
-            if (auth.isAuthenticated()) {
-                user = userService.findByUsername(auth.getName());
-                Comment comment = commentService.getComment(albumService.get(albumID), user);
-                //if(comment!=null) model.addAttribute("commentForm", comment);
-                //else model.addAttribute("commentForm", new Comment());
-            }
-        } else
-        */
         model.addAttribute("commentForm", new Comment());
         return "Album/Comment/create";
     }
@@ -67,7 +56,10 @@ public class CommentController {
         commentValidator.validate(commentForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "Album/Comment/create";
+            redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.commentForm", bindingResult);
+            redirectAttributes.addFlashAttribute("commentForm", commentForm);
+            return "redirect:/{username}/{albumID}";
         }
 
         Album album = albumService.get(albumID);
@@ -75,18 +67,6 @@ public class CommentController {
         if(auth != null) {
             if(auth.isAuthenticated()) {
                 User user = userService.findByUsername(auth.getName());
-                /*
-                Comment comment = commentService.getComment(album, user);
-                if(comment != null) {
-                    comment.setDescription(commentForm.getDescription());
-                    commentService.add(comment);
-
-                    String successMsg = messageSource.getMessage("messages.comment.edit.success",null, LocaleContextHolder.getLocale());
-                    redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
-                    redirectAttributes.addFlashAttribute("success", successMsg);
-                    return "redirect:/{username}/{albumID}";
-                }
-                */
                 commentForm.setAuthor(user);
                 if(commentForm.getAuthor() == null) return "Album/Comment/create";
             }
