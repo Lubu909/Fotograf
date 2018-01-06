@@ -49,10 +49,7 @@
                     <c:if test="${user == album.author.username}">
                         <div class="btn-group text-nowrap">
                             <a href="/${user}/${album.id}/${photo.id}/edit" class="btn btn-primary"><spring:message code="label.edit"/></a>
-                            <form method="post" action="/${user}/${album.id}/${photo.id}/delete">
-                                <button class="btn btn-primary" type="submit"><spring:message code="label.delete"/></button>
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            </form>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" data-link="/${user}/${album.id}/${photo.id}/delete"><spring:message code="label.delete"/></button>
                         </div>
                     </c:if>
                 </div>
@@ -63,10 +60,7 @@
     <c:if test="${user == album.author.username}">
         <div class="btn-group text-nowrap">
             <a href="/${user}/${album.id}/edit" class="btn btn-lg btn-primary"><spring:message code="label.edit"/> <spring:message code="word.album.lowercase"/></a>
-            <form method="post" action="/${user}/${album.id}/delete">
-                <button class="btn btn-lg btn-primary" type="submit"><spring:message code="label.delete"/> <spring:message code="word.album.lowercase"/></button>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            </form>
+            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#deleteModal" data-link="/${user}/${album.id}/delete"><spring:message code="label.delete"/> <spring:message code="word.album.lowercase"/></button>
         </div>
     </c:if>
 
@@ -97,10 +91,7 @@
                     <td class="btn-group text-nowrap col-sm-2">
                     <c:if test="${user == comment.author.username}">
                         <a href="/${comment.author.username}/${comment.album.id}/comment/${comment.id}" class="btn btn-primary"><spring:message code="label.edit"/></a>
-                        <form method="post" action="/${comment.author.username}/${comment.album.id}/commentList/${comment.id}">
-                            <button class="btn btn-primary" type="submit"><spring:message code="label.delete"/></button>
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        </form>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" data-link="/${comment.author.username}/${comment.album.id}/commentList/${comment.id}"><spring:message code="label.delete"/></button>
                     </c:if>
                     </td>
                 </tr>

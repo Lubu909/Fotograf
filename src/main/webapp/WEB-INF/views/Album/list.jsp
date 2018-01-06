@@ -28,10 +28,7 @@
                         <c:if test="${album.author.username == user}">
                             <td class="btn-group text-nowrap">
                                 <a href="/${album.author.username}/${album.id}/edit" class="btn btn-lg btn-primary"><spring:message code="label.edit"/></a>
-                                <form method="post" action="/${album.author.username}/${album.id}/delete">
-                                    <button class="btn btn-lg btn-primary" type="submit"><spring:message code="label.delete"/></button>
-                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                </form>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" data-link="/${album.author.username}/${album.id}/delete"><spring:message code="label.delete"/></button>
                             </td>
                         </c:if>
                     </tr>

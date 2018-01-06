@@ -19,6 +19,29 @@
 </head>
 <body>
 
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><spring:message code="modal.delete.header"/></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><spring:message code="modal.delete.content"/></p>
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" method="post" action="/">
+                    <button class="btn btn-primary" type="submit"><spring:message code="modal.delete.option.yes"/></button>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><spring:message code="modal.delete.option.no"/></button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
 
     <nav class="navbar navbar-default">
@@ -97,5 +120,14 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+
+<script>
+    $('#deleteModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var link = button.data('link'); // Extract info from data-deleteLink
+        var modal = $(this);
+        modal.find('#deleteForm').attr('action', link);
+    });
+</script>
 </body>
 </html>

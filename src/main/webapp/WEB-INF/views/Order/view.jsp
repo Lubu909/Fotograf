@@ -70,10 +70,12 @@
                         <c:choose>
                             <c:when test="${order.status == 1 || order.status == 3}">
                                 <!-- CREATED/ACCEPTED - DELETE -->
+                                <!--
                                 <form method="post" action="/${user}/order/${order.id}/delete">
                                     <button class="btn btn-primary" type="submit"><spring:message code="label.delete"/></button>
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 </form>
+                                -->
                             </c:when>
                             <c:when test="${order.status == 2}">
                                 <!-- MODIFIED - ACCEPT/REJECT -->
