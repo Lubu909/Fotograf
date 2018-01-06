@@ -1,9 +1,10 @@
 package pl.edu.ug.model;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -43,6 +44,10 @@ public class Order {
     private String dateForm;
     @Transient
     private String timeForm;
+    @Transient
+    private String formattedDataZamowienia;
+    @Transient
+    private String formattedTerminWykonania;
 
     private String description;
 
@@ -128,5 +133,31 @@ public class Order {
 
     public void setTimeForm(String timeForm) {
         this.timeForm = timeForm;
+    }
+
+    public String getFormattedDataZamowienia() {
+        return formattedDataZamowienia;
+    }
+
+    public void setFormattedDataZamowienia(String formattedDataZamowienia) {
+        this.formattedDataZamowienia = formattedDataZamowienia;
+    }
+
+    public String getFormattedTerminWykonania() {
+        return formattedTerminWykonania;
+    }
+
+    public void setFormattedTerminWykonania(String formattedTerminWykonania) {
+        this.formattedTerminWykonania = formattedTerminWykonania;
+    }
+
+    public static String formatDate(Date date){
+        //DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL).withLocale(LocaleContextHolder.getLocale());
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm", LocaleContextHolder.getLocale());
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm", LocaleContextHolder.getLocale());
+        //LocalDate localDateTime = LocalDate.parse(df.format(date), formatter);
+        //return formatter.format(date);
+        //return localDateTime.toString();
+        return df.format(date);
     }
 }

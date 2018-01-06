@@ -21,11 +21,11 @@
         </tr>
         <tr>
             <td><strong><spring:message code="view.order.table.orderCompletionDate"/></strong></td>
-            <td>${order.terminWykonania} - ${endTime}</td>
+            <td>${order.formattedTerminWykonania} - ${endTime}</td>
         </tr>
         <tr>
             <td><strong><spring:message code="view.order.table.orderDate"/></strong></td>
-            <td>${order.dataZamowienia}</td>
+            <td>${order.formattedDataZamowienia}</td>
         </tr>
         <tr>
             <td><strong><spring:message code="view.order.form.description.placeholder"/></strong></td>

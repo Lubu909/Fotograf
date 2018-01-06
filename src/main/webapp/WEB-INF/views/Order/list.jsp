@@ -25,7 +25,7 @@
             <tr>
                 <td><a href="/${order.fotograf.username}/albums">${order.fotograf.username}</a></td>
                 <td>${order.klient.username}</td>
-                <td>${order.terminWykonania}</td>
+                <td>${order.formattedTerminWykonania}</td>
                 <td>
                     <c:choose>
                         <c:when test="${order.status == 1}"><spring:message code="status.created"/></c:when>
