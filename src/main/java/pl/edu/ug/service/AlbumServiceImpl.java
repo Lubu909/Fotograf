@@ -1,6 +1,8 @@
 package pl.edu.ug.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,5 +57,12 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public List<Album> getAll(User user) {
         return albumDao.findByAuthor(user);
+    }
+
+    @Override
+    public List<Album> getBest(int quantity) {
+        List<Album> albumList = albumDao.findAllOrderByScores();
+        if(albumList.size() < quantity) return albumList;
+        else return albumList.subList(0, quantity);
     }
 }

@@ -14,4 +14,5 @@ public interface AlbumService {
     Album findByName(String name, User author);
     List<Album> getAll();
     List<Album> getAll(User user);
+    List<Album> getBest(int quantity);
 }
