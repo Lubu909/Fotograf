@@ -90,8 +90,8 @@
                     </td>
                     <td class="btn-group text-nowrap col-sm-2">
                     <c:if test="${user == comment.author.username}">
-                        <a href="/${comment.author.username}/${comment.album.id}/comment/${comment.id}" class="btn btn-primary"><spring:message code="label.edit"/></a>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" data-link="/${comment.author.username}/${comment.album.id}/commentList/${comment.id}"><spring:message code="label.delete"/></button>
+                        <a href="/${comment.album.author.username}/${comment.album.id}/comment/${comment.id}" class="btn btn-primary"><spring:message code="label.edit"/></a>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" data-link="/${comment.album.author.username}/${comment.album.id}/commentList/${comment.id}"><spring:message code="label.delete"/></button>
                     </c:if>
                     </td>
                 </tr>

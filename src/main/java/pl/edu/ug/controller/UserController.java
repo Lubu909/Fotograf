@@ -3,6 +3,8 @@ package pl.edu.ug.controller;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.edu.ug.java.EmailSender;
 import pl.edu.ug.java.PasswordGenerator;
 import pl.edu.ug.model.Album;
@@ -50,6 +53,9 @@ public class UserController {
 
     @Autowired
     private AlbumService albumService;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -94,6 +100,13 @@ public class UserController {
         System.out.println("Top " + albums.size() + " albums");
         model.addAttribute("topAlbums", albums);
         return "welcome";
+    }
+
+    @RequestMapping(value = "/denied", method = RequestMethod.GET)
+    public String accessDenied(Model model, RedirectAttributes redirectAttributes){
+        String error = messageSource.getMessage("messages.accessDenied", null, LocaleContextHolder.getLocale());
+        redirectAttributes.addFlashAttribute("error", error);
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
