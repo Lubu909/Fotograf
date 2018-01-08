@@ -21,7 +21,7 @@
                 <h5><spring:message code="view.score.user"/> ${userScore}</h5>
             </c:if>
             <%-- Zamienić na zawartość urla --%>
-            <form:form method="post" modelAttribute="scoreForm" action="/${user}/${album.id}/rateAlbum">
+            <form:form method="post" modelAttribute="scoreForm" action="/${album.author.username}/${album.id}/rateAlbum">
                 <spring:bind path="value">
                     <div class="form-group ${status.error ? 'has-error' : ''}">
                         <form:input type="range" path="value" class="form-control" min="0" max="10" step="0.5"

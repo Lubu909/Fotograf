@@ -19,6 +19,7 @@ import pl.edu.ug.service.ScoreService;
 import pl.edu.ug.service.UserService;
 import pl.edu.ug.validator.AlbumValidator;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Comparator;
 import java.util.List;
 
@@ -39,6 +40,19 @@ public class AlbumController {
 
     @Autowired
     private MessageSource messageSource;
+
+    private boolean checkPath(String username, Long albumID){
+        User user = userService.findByUsername(username);
+        Album album = albumService.get(albumID);
+        return album.getAuthor().getId().equals(user.getId());
+    }
+
+    private boolean isAuthor(Long albumID){
+        Album album = albumService.get(albumID);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByUsername(auth.getName());
+        return album.getAuthor().getId().equals(user.getId());
+    }
 
     //Create Album
     @RequestMapping(value = "/createAlbum", method = RequestMethod.GET)
@@ -76,11 +90,11 @@ public class AlbumController {
     @RequestMapping(value = "/{username}/{albumID}", method = RequestMethod.GET)
     public String viewAlbum(@PathVariable String username, @PathVariable Long albumID, Model model,
                             RedirectAttributes redirectAttributes){
-        Album album = albumService.get(albumID);
-        Score emptyScore = new Score();
-        emptyScore.setValue(0d);
-        //try {
-            if (album != null) {
+        if(checkPath(username, albumID)) {
+            Album album = albumService.get(albumID);
+            Score emptyScore = new Score();
+            emptyScore.setValue(0d);
+            if (album.getId() != null) {
                 double global = scoreService.getGlobalScore(album);
                 model.addAttribute("globalScore", global);
 
@@ -109,17 +123,18 @@ public class AlbumController {
                 model.addAttribute("album", album);
                 return "Album/view";
             }
-        //} catch (Exception e) {}
-        String errorMsg = messageSource.getMessage("messages.album.notFound",null, LocaleContextHolder.getLocale());
-        redirectAttributes.addFlashAttribute("error", errorMsg);
-        return "redirect:/";
+            String errorMsg = messageSource.getMessage("messages.album.notFound", null, LocaleContextHolder.getLocale());
+            redirectAttributes.addFlashAttribute("error", errorMsg);
+            return "redirect:/";
+        }
+        throw new EntityNotFoundException("Wrong path");
     }
 
     @RequestMapping(value = "/{username}/albums", method = RequestMethod.GET)
     public String listAll(@PathVariable String username, Model model,
                           RedirectAttributes redirectAttributes){
         User user = userService.findByUsername(username);
-        if(user != null) {
+        if(user.getId() != null) {
             List<Album> albums = albumService.getAll(user);
             model.addAttribute("albums", albums);
             return "Album/list";
@@ -133,78 +148,65 @@ public class AlbumController {
     @RequestMapping(value = "/{username}/{albumID}/edit", method = RequestMethod.GET)
     public String editAlbum(@PathVariable String username, @PathVariable Long albumID, Model model,
                             RedirectAttributes redirectAttributes){
-        User user = userService.findByUsername(username);
-        Album album = albumService.get(albumID);
-        if(user != null && album != null){
-            model.addAttribute("albumForm", album);
-            return "Album/edit";
+        if(checkPath(username, albumID)) {
+            User user = userService.findByUsername(username);
+            Album album = albumService.get(albumID);
+            if(isAuthor(albumID)) {
+                if (user.getId() != null && album.getId() != null) {
+                    model.addAttribute("albumForm", album);
+                    return "Album/edit";
+                }
+            }
+            return "redirect:/denied";
         }
-        String errorMsg = messageSource.getMessage("messages.album.notFound",null, LocaleContextHolder.getLocale());
-        redirectAttributes.addFlashAttribute("error", errorMsg);
-        return "redirect:/";
+        throw new EntityNotFoundException("Wrong path");
     }
 
     @RequestMapping(value = "/{username}/{albumID}/edit", method = RequestMethod.POST)
     public String editAlbum(@PathVariable String username, @PathVariable Long albumID,
                             @ModelAttribute("albumForm") Album albumForm, BindingResult bindingResult,
                             RedirectAttributes redirectAttributes){
-        User user = userService.findByUsername(username);
-        if (user != null) {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if (auth != null) {
-                if (auth.isAuthenticated()) {
-                    if (auth.getName().equals(username)) {
-                        albumValidator.validate(albumForm, bindingResult);
+        if(checkPath(username, albumID)) {
+            if(isAuthor(albumID)) {
+                albumValidator.validate(albumForm, bindingResult);
 
-                        if (bindingResult.hasErrors()) {
-                            redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
-                            return "redirect:/{username}/{albumID}/edit";
-                        }
-
-                        albumForm.setAuthor(userService.findByUsername(albumForm.getAuthor().getUsername()));
-
-                        albumService.add(albumForm);
-
-                        String successMsg = messageSource.getMessage("messages.album.edit.success",null, LocaleContextHolder.getLocale());
-                        redirectAttributes.addAttribute("username", albumForm.getAuthor().getUsername()).addAttribute("albumID", albumForm.getId());
-                        redirectAttributes.addFlashAttribute("success", successMsg);
-                        return "redirect:/{username}/{albumID}";
-                    }
+                if (bindingResult.hasErrors()) {
+                    redirectAttributes.addAttribute("username", username).addAttribute("albumID", albumID);
+                    return "redirect:/{username}/{albumID}/edit";
                 }
+
+                albumForm.setAuthor(userService.findByUsername(albumForm.getAuthor().getUsername()));
+
+                albumService.add(albumForm);
+
+                String successMsg = messageSource.getMessage("messages.album.edit.success", null, LocaleContextHolder.getLocale());
+                redirectAttributes.addAttribute("username", albumForm.getAuthor().getUsername()).addAttribute("albumID", albumForm.getId());
+                redirectAttributes.addFlashAttribute("success", successMsg);
+                return "redirect:/{username}/{albumID}";
             }
+            return "redirect:/denied";
         }
-        String errorMsg = messageSource.getMessage("messages.album.notFound",null, LocaleContextHolder.getLocale());
-        redirectAttributes.addFlashAttribute("error", errorMsg);
-        return "redirect:/";
+        throw new EntityNotFoundException("Wrong path");
     }
 
     //Delete Album
     @RequestMapping(value = "{username}/{albumID}/delete", method = {RequestMethod.DELETE, RequestMethod.POST})
     public String deleteAlbum(@PathVariable String username, @PathVariable Long albumID,
                               RedirectAttributes redirectAttributes){
-        User user = userService.findByUsername(username);
-        if(user != null) {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if(auth != null) {
-                if(auth.isAuthenticated()) {
-                    if(auth.getName().equals(username)) {
-                        Album album = albumService.get(albumID);
-                        if (album != null) {
-                            albumService.delete(album);
+        if(checkPath(username, albumID)) {
+            if(isAuthor(albumID)) {
+                Album album = albumService.get(albumID);
+                if (album != null) {
+                    albumService.delete(album);
 
-                            String successMsg = messageSource.getMessage("messages.album.delete.success",null, LocaleContextHolder.getLocale());
-                            redirectAttributes.addAttribute("username", username);
-                            redirectAttributes.addFlashAttribute("success", successMsg);
-                            return "redirect:/{username}/albums";
-                        }
-                    }
+                    String successMsg = messageSource.getMessage("messages.album.delete.success", null, LocaleContextHolder.getLocale());
+                    redirectAttributes.addAttribute("username", username);
+                    redirectAttributes.addFlashAttribute("success", successMsg);
+                    return "redirect:/{username}/albums";
                 }
             }
+            return "redirect:/denied";
         }
-        String errorMsg = messageSource.getMessage("messages.album.notFound",null, LocaleContextHolder.getLocale());
-        redirectAttributes.addFlashAttribute("error", errorMsg);
-        return "redirect:/";
+        throw new EntityNotFoundException("Wrong path");
     }
-
-
 }

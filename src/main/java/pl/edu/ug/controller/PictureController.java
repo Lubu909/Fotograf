@@ -50,7 +50,7 @@ public class PictureController {
     @Autowired
     private MessageSource messageSource;
 
-    public boolean checkPath(String username, Long albumID){
+    private boolean checkPath(String username, Long albumID){
         User user = userService.findByUsername(username);
         Album album = albumService.get(albumID);
         return album.getAuthor().getId().equals(user.getId());
@@ -58,12 +58,6 @@ public class PictureController {
 
     private boolean isAuthor(Long albumID){
         Album album = albumService.get(albumID);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findByUsername(auth.getName());
-        return album.getAuthor().getId().equals(user.getId());
-    }
-
-    private boolean isAuthor(Album album){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByUsername(auth.getName());
         return album.getAuthor().getId().equals(user.getId());
