@@ -1,5 +1,6 @@
 package pl.edu.ug.controller;
 
+import cz.jirutka.rsql.parser.RSQLParserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -38,6 +39,16 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler(EntityNotFoundException.class)
     protected String entityNotFoundHandler(EntityNotFoundException ex, HttpServletRequest request){
         String error = messageSource.getMessage("messages.notFound", null, LocaleContextHolder.getLocale());
+        FlashMap outputFlashMap = RequestContextUtils.getOutputFlashMap(request);
+        if (outputFlashMap != null){
+            outputFlashMap.put("error", error);
+        }
+        return "redirect:/";
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(RSQLParserException.class)
+    protected String searchParseError(RSQLParserException ex, HttpServletRequest request){
+        String error = messageSource.getMessage("messages.searchError", null, LocaleContextHolder.getLocale());
         FlashMap outputFlashMap = RequestContextUtils.getOutputFlashMap(request);
         if (outputFlashMap != null){
             outputFlashMap.put("error", error);

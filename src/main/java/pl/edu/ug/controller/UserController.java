@@ -116,11 +116,11 @@ public class UserController {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search(@RequestParam(value = "query") String search, Model model){
-        Node rootNode = new RSQLParser().parse("name==" + search + "*,city==" + search + "*");
+        Node rootNode = new RSQLParser().parse("name==*" + search + "*,city==*" + search + "*");
         Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
         List<User> users = userService.search(spec);
 
-        if(!users.isEmpty()) users.sort(Comparator.comparing(User::getCity));
+        if(!users.isEmpty()) users.sort(Comparator.nullsLast(Comparator.comparing(User::getCity)));
 
         model.addAttribute("searchForm", new User());
         model.addAttribute("users", users);
@@ -131,7 +131,8 @@ public class UserController {
 
     @RequestMapping(value = "/advSearch", method = RequestMethod.GET)
     public String advancedSearch(Model model){
-        model.addAttribute("searchForm", new User());
+        if(!model.containsAttribute("searchForm"))
+            model.addAttribute("searchForm", new User());
         return "searchResults";
     }
 
@@ -139,20 +140,20 @@ public class UserController {
     public String advancedSearch(@ModelAttribute("searchForm") User searchForm, Model model){
         List<String> criteria = new ArrayList<>();
         if(!searchForm.getName().isEmpty())
-            criteria.add("name==" + searchForm.getName() + "*");
+            criteria.add("name==*" + searchForm.getName() + "*");
         if(!searchForm.getSurname().isEmpty())
-            criteria.add("surname==" + searchForm.getSurname() + "*");
+            criteria.add("surname==*" + searchForm.getSurname() + "*");
         if(!searchForm.getUsername().isEmpty())
-            criteria.add("username==" + searchForm.getUsername() + "*");
+            criteria.add("username==*" + searchForm.getUsername() + "*");
         if(!searchForm.getCity().isEmpty())
-            criteria.add("city==" + searchForm.getCity() + "*");
+            criteria.add("city==*" + searchForm.getCity() + "*");
 
         String query = String.join(",", criteria);
         Node rootNode = new RSQLParser().parse(query);
         Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
         List<User> users = userService.search(spec);
 
-        if(!users.isEmpty()) users.sort(Comparator.comparing(User::getCity));
+        if(!users.isEmpty()) users.sort(Comparator.nullsLast(Comparator.comparing(User::getCity)));
 
         model.addAttribute("users", users);
         model.addAttribute("searchForm", searchForm);
