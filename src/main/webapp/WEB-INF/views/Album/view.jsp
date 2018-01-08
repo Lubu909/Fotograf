@@ -44,7 +44,7 @@
         <c:forEach var="photo" items="${album.pictures}">
             <div class="col-md-4">
                 <div class="thumbnail">
-                    <img id="photo" src="/${album.author.username}/${album.id}/photo${photo.id}" alt="${photo.title}" height="250">
+                    <img id="photo" src="/${album.author.username}/${album.id}/photo${photo.id}.jpg" alt="${photo.title}" height="250">
                     <h3>${photo.title}</h3>
                     <c:if test="${user == album.author.username}">
                         <div class="btn-group text-nowrap">
