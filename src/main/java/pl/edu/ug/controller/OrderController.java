@@ -252,7 +252,10 @@ public class OrderController {
             Order order = orderService.get(orderID);
             if(order!=null) {
                 model.addAttribute("order", order);
-                model.addAttribute("endTime", new Date(order.getTerminWykonania().getTime() + order.getHours()*3600*1000));
+                Date endTime = new Date(order.getTerminWykonania().getTime() + order.getHours()*3600*1000);
+                model.addAttribute("endTime", Order.formatDate(endTime));
+                order.setFormattedDataZamowienia(Order.formatDate(order.getDataZamowienia()));
+                order.setFormattedTerminWykonania(Order.formatDate(order.getTerminWykonania()));
                 return "Order/view";
             } else {
                 String errorMsg = messageSource.getMessage("messages.order.notFound",null, LocaleContextHolder.getLocale());
@@ -280,12 +283,14 @@ public class OrderController {
                         if (user.containsRole(User.ROLE_PHOTOGRAPHER)) {
                             //zamówienia fotografa
                             orders = user.getOrdersReceived();
-                            //List<Order> accepted =
                         } else {
                             //zamówienia klienta
                             orders = user.getOrdersMade();
                         }
                         orders.sort(Comparator.comparing(Order::getDataZamowienia).reversed());
+                        for(Order order : orders){
+                            order.setFormattedTerminWykonania(Order.formatDate(order.getTerminWykonania()));
+                        }
                         model.addAttribute("orders", orders);
                         return "Order/list";
                     }

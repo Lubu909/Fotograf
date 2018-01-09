@@ -21,11 +21,11 @@
         </tr>
         <tr>
             <td><strong><spring:message code="view.order.table.orderCompletionDate"/></strong></td>
-            <td>${order.terminWykonania} - ${endTime}</td>
+            <td>${order.formattedTerminWykonania} - ${endTime}</td>
         </tr>
         <tr>
             <td><strong><spring:message code="view.order.table.orderDate"/></strong></td>
-            <td>${order.dataZamowienia}</td>
+            <td>${order.formattedDataZamowienia}</td>
         </tr>
         <tr>
             <td><strong><spring:message code="view.order.form.description.placeholder"/></strong></td>
@@ -70,10 +70,12 @@
                         <c:choose>
                             <c:when test="${order.status == 1 || order.status == 3}">
                                 <!-- CREATED/ACCEPTED - DELETE -->
+                                <!--
                                 <form method="post" action="/${user}/order/${order.id}/delete">
                                     <button class="btn btn-primary" type="submit"><spring:message code="label.delete"/></button>
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 </form>
+                                -->
                             </c:when>
                             <c:when test="${order.status == 2}">
                                 <!-- MODIFIED - ACCEPT/REJECT -->

@@ -1,9 +1,12 @@
 package pl.edu.ug.java;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import pl.edu.ug.model.Order;
 import pl.edu.ug.model.User;
 
 public class EmailSender {
@@ -13,6 +16,9 @@ public class EmailSender {
 
     @Autowired
     private SimpleMailMessage simpleMailMessage;
+
+    @Autowired
+    private MessageSource messageSource;
 
 //    @Autowired
 //    private PasswordGenerator passwordGenerator;
@@ -58,12 +64,62 @@ public class EmailSender {
     }
 
     public void sendNoticeOrderCreated(User user){
-        //TODO: Mail o utworzeniu zamówienia
-        //if po roli?
+        mailMessage = new SimpleMailMessage(simpleMailMessage);
+        mailMessage.setTo(user.getEmail());
+        // subject : Order created
+        mailMessage.setSubject(messageSource.getMessage("mail.subject.orderCreated",null, LocaleContextHolder.getLocale()));
+
+        Object[] args = new Object[] { user.getName() };
+
+        if(user.containsRole(User.ROLE_USER))
+            mailMessage.setText(messageSource.getMessage("mail.content.client.orderCreated", args, LocaleContextHolder.getLocale()));
+        else mailMessage.setText(messageSource.getMessage("mail.content.photographer.orderCreated",args, LocaleContextHolder.getLocale()));
+
+        try {
+            mailSender.send(mailMessage);
+        } catch (MailException e) {
+            e.printStackTrace();
+        }
     }
 
     public void sendNoticeStatusChange(User user, int status){
-        //TODO: Mail o zmianie statusu zamówienia
-        //ify po roli i statusie?
+        mailMessage = new SimpleMailMessage(simpleMailMessage);
+        mailMessage.setTo(user.getEmail());
+        // subject : Order status changed
+        mailMessage.setSubject(messageSource.getMessage("mail.subject.statusChanged",null, LocaleContextHolder.getLocale()));
+
+        // get status name
+        String statusName = null;
+        switch(status){
+            case 2:
+                statusName = messageSource.getMessage("status.modified", null, LocaleContextHolder.getLocale());
+                break;
+            case 3:
+                statusName = messageSource.getMessage("status.accepted", null, LocaleContextHolder.getLocale());
+                break;
+            case 4:
+                statusName = messageSource.getMessage("status.rejected", null, LocaleContextHolder.getLocale());
+                break;
+        }
+
+        if(status == Order.STATUS_MODIFIED){
+            Object[] args = new Object[]{user.getName()};
+            if (user.containsRole(User.ROLE_USER))
+                mailMessage.setText(messageSource.getMessage("mail.content.client.statusChange.modified", args, LocaleContextHolder.getLocale()));
+            else
+                mailMessage.setText(messageSource.getMessage("mail.content.photographer.statusChange.modified", args, LocaleContextHolder.getLocale()));
+        } else {
+            Object[] args = new Object[]{user.getName(), statusName};
+            if (user.containsRole(User.ROLE_USER))
+                mailMessage.setText(messageSource.getMessage("mail.content.client.statusChange", args, LocaleContextHolder.getLocale()));
+            else
+                mailMessage.setText(messageSource.getMessage("mail.content.photographer.statusChange", args, LocaleContextHolder.getLocale()));
+        }
+
+        try {
+            mailSender.send(mailMessage);
+        } catch (MailException e) {
+            e.printStackTrace();
+        }
     }
 }

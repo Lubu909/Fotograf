@@ -13,10 +13,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.ug.java.EmailSender;
 import pl.edu.ug.java.PasswordGenerator;
+import pl.edu.ug.model.Album;
 import pl.edu.ug.model.User;
 import pl.edu.ug.search.RsqlVisitor;
 import pl.edu.ug.search.SearchOperation;
 import pl.edu.ug.search.UserSpecificationsBuilder;
+import pl.edu.ug.service.AlbumService;
 import pl.edu.ug.service.SecurityService;
 import pl.edu.ug.service.UserService;
 import pl.edu.ug.validator.UserValidator;
@@ -45,6 +47,9 @@ public class UserController {
 
     @Autowired
     private PasswordGenerator passwordGenerator;
+
+    @Autowired
+    private AlbumService albumService;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -85,6 +90,9 @@ public class UserController {
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
+        List<Album> albums = albumService.getBest(10);
+        System.out.println("Top " + albums.size() + " albums");
+        model.addAttribute("topAlbums", albums);
         return "welcome";
     }
 

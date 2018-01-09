@@ -19,52 +19,28 @@
 </head>
 <body>
 
-<%--<script type="text/javascript">--%>
-<%--function inputFocus(i){--%>
-<%--if(i.value==i.defaultValue){ i.value=""; i.style.color="#000"; }--%>
-<%--}--%>
-<%--function inputBlur(i){--%>
-<%--if(i.value==""){ i.value=i.defaultValue; i.style.color="#848484"; }--%>
-<%--}--%>
-<%--</script>--%>
-
-<%--<script>--%>
-<%--$(document).ready(function() {--%>
-<%--//attach autocomplete--%>
-<%--$("#searchBar").autocomplete({--%>
-<%--minLength: 1,--%>
-<%--delay: 500,--%>
-<%--//define callback to format results--%>
-<%--source: function (request, response) {--%>
-<%--$.getJSON("/searchJSON", request, function(result) {--%>
-<%--response($.map(result, function(user) {--%>
-<%--return {--%>
-<%--// following property gets displayed in drop down--%>
-<%--label: user.name + " " + user.surname + " - " + user.username,--%>
-<%--// following property gets entered in the textbox--%>
-<%--value: user.name,--%>
-<%--// following property is added for our own use--%>
-<%--tag_url: "http://" + window.location.host + "/" + user.username + "/albums"--%>
-<%--}--%>
-<%--}));--%>
-<%--});--%>
-<%--},--%>
-
-<%--//define select handler--%>
-<%--select : function(event, ui) {--%>
-<%--if (ui.item) {--%>
-<%--event.preventDefault();--%>
-<%--$("#selected_tags span").append('<a href=" + ui.item.tag_url + " target="_blank">'+ ui.item.label +'</a>');--%>
-<%--//$("#tagQuery").value = $("#tagQuery").defaultValue--%>
-<%--var defValue = $("#searchBar").prop('defaultValue');--%>
-<%--$("#searchBar").val(defValue);--%>
-<%--$("#searchBar").blur();--%>
-<%--return false;--%>
-<%--}--%>
-<%--}--%>
-<%--});--%>
-<%--});--%>
-<%--</script>--%>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><spring:message code="modal.delete.header"/></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><spring:message code="modal.delete.content"/></p>
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" method="post" action="/">
+                    <button class="btn btn-primary" type="submit"><spring:message code="modal.delete.option.yes"/></button>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><spring:message code="modal.delete.option.no"/></button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container">
 
@@ -144,5 +120,14 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+
+<script>
+    $('#deleteModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var link = button.data('link'); // Extract info from data-deleteLink
+        var modal = $(this);
+        modal.find('#deleteForm').attr('action', link);
+    });
+</script>
 </body>
 </html>

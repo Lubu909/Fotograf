@@ -1,14 +1,13 @@
 package pl.edu.ug.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import pl.edu.ug.model.User;
 import pl.edu.ug.service.UserService;
 
@@ -57,6 +56,18 @@ public class ImgController {
             }
         }
         return "addImg";
+    }
+
+    @RequestMapping(value = "/{username}/avatar", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    @ResponseBody
+    public byte[] getAvatar(@PathVariable String username){
+        User user = userService.findByUsername(username);
+        if(user != null){
+                if(user.getPhoto() != null && user.getPhoto().length > 0){
+                    return user.getPhoto();
+                }
+            }
+        return null;
     }
 
 }

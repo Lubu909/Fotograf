@@ -212,6 +212,10 @@ public class User {
         this.ordersReceived = ordersReceived;
     }
 
+    public String getFullName(){
+        return name + " " + surname;
+    }
+
     @Override
     public String toString() {
         return "User{" +
