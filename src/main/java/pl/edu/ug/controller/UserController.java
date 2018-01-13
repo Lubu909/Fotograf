@@ -9,6 +9,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -116,15 +118,25 @@ public class UserController {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search(@RequestParam(value = "query") String search, Model model){
-        Node rootNode = new RSQLParser().parse("name==*" + search + "*,city==*" + search + "*");
+        Node rootNode = new RSQLParser().parse("name==*" + search.trim() + "*,city==*" + search.trim() + "*");
         Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
         List<User> users = userService.search(spec);
 
         if(!users.isEmpty()) users.sort(Comparator.nullsLast(Comparator.comparing(User::getCity)));
 
+        List<User> photoUsers = new ArrayList<>();
+        for(User user : users){
+            if(user.containsRole(User.ROLE_PHOTOGRAPHER)) photoUsers.add(user);
+        }
+
         model.addAttribute("searchForm", new User());
-        model.addAttribute("users", users);
-        //System.out.println("Wyszukiwanie - znaleziono " + users.size() + " elementów");
+        model.addAttribute("users", photoUsers);
+
+        try {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            User currentUser = userService.findByUsername(auth.getName());
+            if(currentUser.containsRole(User.ROLE_ADMIN)) model.addAttribute("users", users);
+        } catch (NullPointerException e){}
 
         return "searchResults";
     }
@@ -139,23 +151,42 @@ public class UserController {
     @RequestMapping(value = "/advSearch", method = RequestMethod.POST)
     public String advancedSearch(@ModelAttribute("searchForm") User searchForm, Model model){
         List<String> criteria = new ArrayList<>();
+        searchForm.setName(searchForm.getName().trim());
+        searchForm.setSurname(searchForm.getSurname().trim());
+        searchForm.setUsername(searchForm.getUsername().trim());
+        searchForm.setCity(searchForm.getCity().trim());
         if(!searchForm.getName().isEmpty())
-            criteria.add("name==*" + searchForm.getName() + "*");
+            criteria.add("name==(\"*" + searchForm.getName().trim() + "*\")");
         if(!searchForm.getSurname().isEmpty())
-            criteria.add("surname==*" + searchForm.getSurname() + "*");
+            criteria.add("surname==(\"*" + searchForm.getSurname().trim() + "*\")");
         if(!searchForm.getUsername().isEmpty())
-            criteria.add("username==*" + searchForm.getUsername() + "*");
+            criteria.add("username==(\"*" + searchForm.getUsername().trim() + "*\")");
         if(!searchForm.getCity().isEmpty())
-            criteria.add("city==*" + searchForm.getCity() + "*");
+            criteria.add("city==(\"*" + searchForm.getCity().trim() + "*\")");
 
-        String query = String.join(",", criteria);
-        Node rootNode = new RSQLParser().parse(query);
-        Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
-        List<User> users = userService.search(spec);
+        System.out.println(criteria);
+        if(criteria.size()>0) {
+            //String query = String.join(",", criteria);        //OR
+            String query = String.join(";", criteria);        //AND
+            Node rootNode = new RSQLParser().parse(query);
+            Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
+            List<User> users = userService.search(spec);
 
-        if(!users.isEmpty()) users.sort(Comparator.nullsLast(Comparator.comparing(User::getCity)));
+            if (!users.isEmpty()) users.sort(Comparator.nullsLast(Comparator.comparing(User::getCity)));
 
-        model.addAttribute("users", users);
+            List<User> photoUsers = new ArrayList<>();
+            for(User user : users){
+                if(user.containsRole(User.ROLE_PHOTOGRAPHER)) photoUsers.add(user);
+            }
+
+            model.addAttribute("users", photoUsers);
+
+            try {
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                User currentUser = userService.findByUsername(auth.getName());
+                if(currentUser.containsRole(User.ROLE_ADMIN)) model.addAttribute("users", users);
+            } catch (NullPointerException e){}
+        }
         model.addAttribute("searchForm", searchForm);
         return "searchResults";
     }

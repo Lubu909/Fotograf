@@ -53,6 +53,6 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
         if (outputFlashMap != null){
             outputFlashMap.put("error", error);
         }
-        return "redirect:/";
+        return "redirect:/advSearch";
     }
 }
