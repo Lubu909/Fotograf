@@ -21,7 +21,7 @@
                 <h5><spring:message code="view.score.user"/> ${userScore}</h5>
             </c:if>
             <%-- Zamienić na zawartość urla --%>
-            <form:form method="post" modelAttribute="scoreForm" action="/${user}/${album.id}/rateAlbum">
+            <form:form method="post" modelAttribute="scoreForm" action="/${album.author.username}/${album.id}/rateAlbum">
                 <spring:bind path="value">
                     <div class="form-group ${status.error ? 'has-error' : ''}">
                         <form:input type="range" path="value" class="form-control" min="0" max="10" step="0.5"
@@ -44,7 +44,7 @@
         <c:forEach var="photo" items="${album.pictures}">
             <div class="col-md-4">
                 <div class="thumbnail">
-                    <img id="photo" src="/${album.author.username}/${album.id}/photo${photo.id}" alt="${photo.title}" height="250">
+                    <img id="photo" src="/${album.author.username}/${album.id}/photo${photo.id}.jpg" alt="${photo.title}" height="250">
                     <h3>${photo.title}</h3>
                     <c:if test="${user == album.author.username}">
                         <div class="btn-group text-nowrap">
@@ -90,8 +90,8 @@
                     </td>
                     <td class="btn-group text-nowrap col-sm-2">
                     <c:if test="${user == comment.author.username}">
-                        <a href="/${comment.author.username}/${comment.album.id}/comment/${comment.id}" class="btn btn-primary"><spring:message code="label.edit"/></a>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" data-link="/${comment.author.username}/${comment.album.id}/commentList/${comment.id}"><spring:message code="label.delete"/></button>
+                        <a href="/${comment.album.author.username}/${comment.album.id}/comment/${comment.id}" class="btn btn-primary"><spring:message code="label.edit"/></a>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" data-link="/${comment.album.author.username}/${comment.album.id}/commentList/${comment.id}"><spring:message code="label.delete"/></button>
                     </c:if>
                     </td>
                 </tr>
