@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
              xmlns:beans="http://www.springframework.org/schema/beans"
@@ -65,4 +66,73 @@
                 class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
         <beans:constructor-arg name="strength" value="11"/>
     </beans:bean>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http auto-config="true">
+        <!--   HOME   -->
+        <intercept-url pattern="/" access="permitAll()"/>
+        <intercept-url pattern="/welcome" access="permitAll()"/>
+        <intercept-url pattern="/search" access="permitAll()"/>
+        <!--   USER   -->
+        <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/usersList" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/addImg" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_PHOTOGRAPHER')"/>
+        <intercept-url pattern="/{username}/avatar" access="permitAll()"/>
+        <!--  ALBUM   -->
+        <intercept-url pattern="/createAlbum" access="hasRole('ROLE_PHOTOGRAPHER')"/>
+        <intercept-url pattern="/{username}/{albumID}" access="permitAll()"/>
+        <intercept-url pattern="/{username}/albums" access="permitAll()"/>
+        <intercept-url pattern="/{username}/{albumID}/edit" access="hasRole('ROLE_PHOTOGRAPHER')"/>
+        <intercept-url pattern="/{username}/{albumID}/delete" access="hasRole('ROLE_PHOTOGRAPHER')"/>
+        <!-- COMMENTS -->
+        <intercept-url pattern="/{username}/{albumID}/comment" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_PHOTOGRAPHER')"/>
+        <intercept-url pattern="/{username}/{albumID}/commentList" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/{username}/{albumID}/comment/{commentID}" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_PHOTOGRAPHER')"/>
+        <intercept-url pattern="/{username}/{albumID}/commentList/{commentID}" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_PHOTOGRAPHER')"/>
+        <!-- PICTURE  -->
+        <intercept-url pattern="/{username}/{albumID}/add" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_PHOTOGRAPHER')"/>
+        <intercept-url pattern="/{username}/{albumID}/photo{pictureID}" access="permitAll()"/>
+        <intercept-url pattern="/{username}/{albumID}/{pictureID}/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_PHOTOGRAPHER')"/>
+        <intercept-url pattern="/{username}/{albumID}/{pictureID}/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_PHOTOGRAPHER')"/>
+        <!--  SCORE   -->
+        <intercept-url pattern="/{username}/{albumID}/rateAlbum" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_PHOTOGRAPHER')"/>
+        <intercept-url pattern="/{username}/{albumID}/rating" access="hasRole('ROLE_ADMIN')"/>
+        <!--  ORDER   -->
+        <intercept-url pattern="/{username}/order" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_PHOTOGRAPHER')"/>
+        <intercept-url pattern="/{username}/order/{orderID}/accept" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_PHOTOGRAPHER')"/>
+        <intercept-url pattern="/{username}/order/{orderID}/reject" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_PHOTOGRAPHER')"/>
+        <intercept-url pattern="/{username}/order/{orderID}/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_PHOTOGRAPHER')"/>
+        <intercept-url pattern="/{username}/order/{orderID}/delete" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/{username}/order/{orderID}" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_PHOTOGRAPHER')"/>
+        <intercept-url pattern="/{username}/orders" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_PHOTOGRAPHER')"/>
+
+        <access-denied-handler error-page="/denied" />
+        <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error"
+                    username-parameter="username" password-parameter="password"/>
+
+        <logout logout-success-url="/login?logout"/>
+    </http>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="userDetailsServiceImpl">
+            <password-encoder ref="encoder"></password-encoder>
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="userDetailsServiceImpl"
+                class="pl.edu.ug.service.UserDetailsServiceImpl"></beans:bean>
+
+    <beans:bean id="encoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <beans:constructor-arg name="strength" value="11"/>
+    </beans:bean>
+>>>>>>> f3364fb7cf661ead67597d3c62992013c4728ac3
 </beans:beans>
