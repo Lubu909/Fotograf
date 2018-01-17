@@ -106,7 +106,7 @@ public class PictureController {
         String ext;
         if(file.getContentType().equals(MIME_IMAGE_JPEG)) ext = ".jpg";
         else ext = ".png";
-        File dir = new File("/uploads/" + albumID);
+        File dir = new File("/home/aleksander/uploads/" + albumID);
         dir.mkdirs();
         File out = new File(dir, nazwa + ext);
         String path = out.getAbsolutePath();

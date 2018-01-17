@@ -28,7 +28,7 @@
                                 <tr>
                                     <td><a href="/${album.author.username}/${album.id}"><b>${album.name}</b></a></td>
                                     <!-- <td><p class="text-justify">${album.description}</p></td> -->
-                                    <td><a href="/${album.author.username}/albums"><b>${album.author.fullName}</b></a></td>
+                                    <td><a href="/${album.author.username}/profile"><b>${album.author.fullName}</b></a></td>
                                 </tr>
                             </c:forEach>
                             </tbody>

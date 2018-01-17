@@ -72,7 +72,7 @@
                     <li><a href="/${pageContext.request.userPrincipal.name}/orders"><spring:message code="layout.navbar.myOrders"/></a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/"><spring:message code="layout.navbar.welcomeUser" arguments="${pageContext.request.userPrincipal.name}"/></a></li>
+                    <li><a href="/${pageContext.request.userPrincipal.name}/profile"><spring:message code="layout.navbar.welcomeUser" arguments="${pageContext.request.userPrincipal.name}"/></a></li>
                     <li><a onclick="document.forms['logoutForm'].submit()"><spring:message code="layout.navbar.logout"/></a></li>
                     <li class="languages"><a href="/?lang=pl">PL</a></li>
                     <li><a href="/?lang=en">ENG</a></li>

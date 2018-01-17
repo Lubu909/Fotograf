@@ -8,6 +8,7 @@ import java.util.List;
 public interface UserService {
 
     void save(User user);
+    void save(User user, String passwd);
     User findByUsername(String username);
 
     List<User> getUsers();

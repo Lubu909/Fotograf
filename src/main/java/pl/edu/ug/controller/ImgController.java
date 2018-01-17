@@ -51,7 +51,7 @@ public class ImgController {
                 if (!model.getPhotoFile().isEmpty() || model.getPhotoFile() != null) {
                     user.setPhoto(model.getPhotoFile().getBytes());
                     userService.save(user);
-                    return "redirect:/addImg";
+                    return "redirect:/"+user.getUsername()+"/profile";
                 }
             }
         }
