@@ -4,6 +4,7 @@
 <c:set var="url" value="${pageContext.request.requestURL}"/>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
+
 <!DOCTYPE html>
 <html lang="pl-PL">
 <head>
@@ -17,6 +18,7 @@
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -71,14 +73,22 @@
                                 </div>
                             </div>
                         </form>
-                        <li><a href="/${pageContext.request.userPrincipal.name}/albums"><spring:message
-                                code="layout.navbar.myAlbums"/></a></li>
-                        <li><a href="/createAlbum"><spring:message code="layout.navbar.createAlbum"/></a></li>
-                        <li><a href="/${pageContext.request.userPrincipal.name}/orders"><spring:message
-                                code="layout.navbar.myOrders"/></a></li>
 
                         <c:if test="${not empty pageContext.request.userPrincipal}">
+                            <c:if test="${pageContext.request.isUserInRole('ROLE_USER')}">
+                                <li><a href="/${pageContext.request.userPrincipal.name}/orders"><spring:message
+                                        code="layout.navbar.myOrders"/></a></li>
+                            </c:if>
+                            <c:if test="${pageContext.request.isUserInRole('ROLE_PHOTOGRAPHER')}">
+                                <li><a href="/${pageContext.request.userPrincipal.name}/albums"><spring:message
+                                        code="layout.navbar.myAlbums"/></a></li>
+                                <li><a href="/createAlbum"><spring:message code="layout.navbar.createAlbum"/></a></li>
+                                <li><a href="/${pageContext.request.userPrincipal.name}/orders"><spring:message
+                                        code="layout.navbar.myOrders"/></a></li>
+                            </c:if>
                             <c:if test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+                                <li><a href="/${pageContext.request.userPrincipal.name}/orders"><spring:message
+                                        code="layout.navbar.myOrders"/></a></li>
                                 <li><a href="/usersList"><spring:message
                                         code="layout.navbar.usersList"/></a></li>
                             </c:if>
