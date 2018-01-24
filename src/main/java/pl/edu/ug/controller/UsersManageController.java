@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.edu.ug.model.Role;
 import pl.edu.ug.model.User;
 import pl.edu.ug.service.UserService;
 import org.springframework.validation.BindingResult;
@@ -27,6 +28,13 @@ public class UsersManageController {
     public String getUsersList(Model model) {
         model.addAttribute("user", new User());
         List<User> usersList = userService.getUsers();
+        int index = 0;
+        for(User user : usersList){
+            for(Role role : user.getRoles()){
+                if(role.equals("ROLE_ADMIN")) index = usersList.indexOf(user);
+            }
+        }
+        usersList.remove(index);
         model.addAttribute("usersList", usersList);
         return "usersList";
     }

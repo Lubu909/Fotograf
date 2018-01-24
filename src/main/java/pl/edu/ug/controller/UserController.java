@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.edu.ug.java.EmailSender;
 import pl.edu.ug.java.PasswordGenerator;
 import pl.edu.ug.model.Album;
+import pl.edu.ug.model.Role;
 import pl.edu.ug.model.User;
 import pl.edu.ug.search.RsqlVisitor;
 import pl.edu.ug.search.SearchOperation;
@@ -30,10 +31,7 @@ import pl.edu.ug.service.UserService;
 import pl.edu.ug.validator.UserValidator;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -312,5 +310,4 @@ public class UserController {
         }
         return "editAccountDetails";
     }
-
 }

@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Create an account</title>
+    <title>Manage users</title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
@@ -34,11 +34,11 @@
     </form>
 
     <form:form method="POST" action="/usersList" modelAttribute="user" class="form-signin">
-        <h2 class="form-signin-heading">Create your account</h2>
+        <h2 class="form-signin-heading">Manage users page</h2>
 
         <spring:bind path="id">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="id" class="form-control" placeholder="Id"/>
+                <form:input type="text" path="id" class="form-control" placeholder="Id" readonly="true"/>
                 <form:errors path="id"/>
             </div>
         </spring:bind>
@@ -46,7 +46,7 @@
         <spring:bind path="username">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="username" class="form-control" placeholder="Username"
-                            autofocus="true"/>
+                            readonly="true"/>
                 <form:errors path="username"/>
             </div>
         </spring:bind>
@@ -54,7 +54,7 @@
         <spring:bind path="name">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="name" class="form-control"
-                            placeholder="Enter your name"/>
+                            placeholder="Enter your name" readonly="true"/>
                 <form:errors path="name"/>
             </div>
         </spring:bind>
@@ -62,7 +62,7 @@
         <spring:bind path="surname">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="surname" class="form-control"
-                            placeholder="Enter your surname"/>
+                            placeholder="Enter your surname" readonly="true"/>
                 <form:errors path="name"/>
             </div>
         </spring:bind>
@@ -70,7 +70,7 @@
         <spring:bind path="city">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="city" class="form-control"
-                            placeholder="Enter your city"/>
+                            placeholder="Enter your city" autofocus="true"/>
                 <form:errors path="name"/>
             </div>
         </spring:bind>
