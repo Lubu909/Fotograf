@@ -1,0 +1,1038 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>pl.edu.ug</OriginalElement>
+  <nodes>
+    <node x="4927.768668831169" y="859.5">pl.edu.ug.model.Score</node>
+    <node x="5312.121258349518" y="2420.5">pl.edu.ug.service.CommentService</node>
+    <node x="6594.204230433301" y="3200.0">pl.edu.ug.validator.UserValidator</node>
+    <node x="9066.868807235809" y="1648.0">pl.edu.ug.validator.OrderValidator</node>
+    <node x="5218.996258349518" y="3065.0">pl.edu.ug.controller.CommentController</node>
+    <node x="3779.7793752326347" y="3677.0">pl.edu.ug.controller.UserController</node>
+    <node x="4069.067373673573" y="2393.5">pl.edu.ug.service.AlbumService</node>
+    <node x="5753.277508349518" y="375.5">pl.edu.ug.validator.CommentValidator</node>
+    <node x="2556.5625" y="3118.5">pl.edu.ug.service.ScoreServiceImpl</node>
+    <node x="4654.575803804064" y="3839.0">pl.edu.ug.controller.AlbumController</node>
+    <node x="756.875" y="402.5">pl.edu.ug.dao.PictureDao</node>
+    <node x="2018.661123673573" y="0.0">pl.edu.ug.model.Picture</node>
+    <node x="8486.868807235809" y="2326.0">pl.edu.ug.java.EmailSender</node>
+    <node x="3117.322880360723" y="2488.5">pl.edu.ug.dao.ScoreDao</node>
+    <node x="0.0" y="3960.5">pl.edu.ug.service.SecurityServiceImpl</node>
+    <node x="8915.868807235809" y="3011.0">pl.edu.ug.controller.OrderController</node>
+    <node x="1978.661123673573" y="334.5">pl.edu.ug.validator.PictureValidator</node>
+    <node x="10188.033331547467" y="1620.5">pl.edu.ug.search.SearchCriteria</node>
+    <node x="4355.915089518349" y="1648.0">pl.edu.ug.validator.ScoreValidator</node>
+    <node x="699.75" y="3159.0">pl.edu.ug.service.PictureServiceImpl</node>
+    <node x="6722.386048615119" y="2393.5">pl.edu.ug.service.UserService</node>
+    <node x="8179.594381948453" y="1675.0">pl.edu.ug.dao.RoleDao</node>
+    <node x="1595.661123673573" y="763.5">pl.edu.ug.search.RsqlSearchOperation</node>
+    <node x="1938.5625" y="3024.5">pl.edu.ug.controller.PictureController</node>
+    <node x="1580.161123673573" y="1593.0">pl.edu.ug.search.GenericRsqlSpecification</node>
+    <node x="4062.598214285714" y="3105.0">pl.edu.ug.service.AlbumServiceImpl</node>
+    <node x="0.0" y="4461.0">pl.edu.ug.controller.ExceptionHandler</node>
+    <node x="5898.277508349518" y="2488.5">pl.edu.ug.dao.CommentDao</node>
+    <node x="3505.322880360723" y="2407.0">pl.edu.ug.service.ScoreService</node>
+    <node x="8071.38604861512" y="3213.5">pl.edu.ug.service.UserDetailsServiceImpl</node>
+    <node x="9837.033331547467" y="2474.0">pl.edu.ug.search.UserSpecification</node>
+    <node x="125.75" y="3214.0">pl.edu.ug.service.SecurityService</node>
+    <node x="436.75" y="3146.0">pl.edu.ug.java.PasswordGenerator</node>
+    <node x="3304.0625" y="3132.5">pl.edu.ug.controller.ScoreController</node>
+    <node x="9626.202140569143" y="1675.0">pl.edu.ug.dao.OrderDao</node>
+    <node x="4388.0673736735735" y="2461.5">pl.edu.ug.dao.AlbumDao</node>
+    <node x="9929.490870418484" y="3186.0">pl.edu.ug.search.UserSpecificationsBuilder</node>
+    <node x="640.0" y="4461.0">pl.edu.ug.service.RoleService</node>
+    <node x="7616.225784211587" y="3947.0">pl.edu.ug.controller.UsersManageController</node>
+    <node x="7644.386048615119" y="3078.0">pl.edu.ug.service.UserServiceImpl</node>
+    <node x="7733.080930069635" y="2488.5">pl.edu.ug.dao.UserDao</node>
+    <node x="9506.868807235809" y="3173.0">pl.edu.ug.service.OrderServiceImpl</node>
+    <node x="9915.690173217825" y="818.5">pl.edu.ug.search.SearchOperation</node>
+    <node x="3848.817373673573" y="308.0">pl.edu.ug.model.Album</node>
+    <node x="5902.667373673573" y="0.0">pl.edu.ug.model.Comment</node>
+    <node x="7420.693430069634" y="845.0">pl.edu.ug.model.Role</node>
+    <node x="1119.125" y="3172.5">pl.edu.ug.search.RsqlVisitor</node>
+    <node x="7088.386048615119" y="3186.5">pl.edu.ug.controller.ImgController</node>
+    <node x="5917.777508349518" y="3132.0">pl.edu.ug.service.CommentServiceImpl</node>
+    <node x="6585.271899535642" y="1350.0">pl.edu.ug.model.User</node>
+    <node x="9378.202140569143" y="2461.5">pl.edu.ug.service.OrderService</node>
+    <node x="4440.3173736735735" y="3200.0">pl.edu.ug.validator.AlbumValidator</node>
+    <node x="1067.375" y="2475.0">pl.edu.ug.search.RsqlSpecificationsBuilder</node>
+    <node x="7355.386048615119" y="3200.0">pl.edu.ug.validator.UserManageValidator</node>
+    <node x="834.375" y="2447.5">pl.edu.ug.service.PictureService</node>
+    <node x="9119.861801013474" y="683.0">pl.edu.ug.model.Order</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="pl.edu.ug.dao.AlbumDao" target="pl.edu.ug.model.Album">
+      <point x="-92.5" y="-72.0" />
+      <point x="4480.5673736735735" y="2076.0" />
+      <point x="3808.2275895183493" y="2076.0" />
+      <point x="3808.2275895183493" y="653.0" />
+      <point x="3955.129873673573" y="653.0" />
+      <point x="-15.1875" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.dao.UserDao" target="pl.edu.ug.model.User">
+      <point x="0.0" y="-45.0" />
+      <point x="7869.580930069635" y="2246.0" />
+      <point x="6789.15120988047" y="2246.0" />
+      <point x="66.3793103448279" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.ScoreService" target="pl.edu.ug.model.User">
+      <point x="117.0" y="-126.5" />
+      <point x="3797.822880360723" y="2176.0" />
+      <point x="6599.496037466676" y="2176.0" />
+      <point x="-123.27586206896558" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.ScoreServiceImpl" target="pl.edu.ug.dao.ScoreDao">
+      <point x="0.0" y="-140.5" />
+      <point x="2732.0625" y="2781.0" />
+      <point x="3301.322880360723" y="2781.0" />
+      <point x="0.0" y="45.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.OrderController" target="pl.edu.ug.model.Order">
+      <point x="81.57142857142844" y="-248.0" />
+      <point x="9282.940235807237" y="2991.0" />
+      <point x="9346.368807235809" y="2991.0" />
+      <point x="9346.368807235809" y="1330.0" />
+      <point x="9292.40725555893" y="1330.0" />
+      <point x="26.54545454545496" y="248.5" />
+    </edge>
+    <edge source="pl.edu.ug.controller.PictureController" target="pl.edu.ug.model.Album">
+      <point x="37.3125" y="-234.5" />
+      <point x="2274.375" y="2991.0" />
+      <point x="2294.161123673573" y="2991.0" />
+      <point x="2294.161123673573" y="553.0" />
+      <point x="3853.879873673573" y="553.0" />
+      <point x="-116.4375" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.search.UserSpecification" target="pl.edu.ug.model.User">
+      <point x="-202.125" y="-59.5" />
+      <point x="9904.408331547467" y="2176.0" />
+      <point x="6855.530520225297" y="2176.0" />
+      <point x="132.7586206896549" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.model.Album" target="pl.edu.ug.model.Picture">
+      <point x="-75.9375" y="-112.5" />
+      <point x="3894.379873673573" y="268.0" />
+      <point x="2184.0247600372095" y="268.0" />
+      <point x="58.36363636363626" y="99.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.AlbumServiceImpl" target="pl.edu.ug.model.Album">
+      <point x="-111.75" y="-154.0" />
+      <point x="4099.848214285714" y="2761.0" />
+      <point x="3106.822880360723" y="2761.0" />
+      <point x="3106.822880360723" y="603.0" />
+      <point x="3904.504873673573" y="603.0" />
+      <point x="-65.8125" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.model.Picture" target="pl.edu.ug.model.Album">
+      <point x="77.81818181818153" y="99.0" />
+      <point x="2203.4793054917545" y="258.0" />
+      <point x="3924.754873673573" y="258.0" />
+      <point x="-45.5625" y="-112.5" />
+    </edge>
+    <edge source="pl.edu.ug.controller.PictureController" target="pl.edu.ug.model.Picture">
+      <point x="-37.3125" y="-234.5" />
+      <point x="2199.75" y="2981.0" />
+      <point x="2283.161123673573" y="2981.0" />
+      <point x="2283.161123673573" y="288.0" />
+      <point x="2145.1156691281185" y="288.0" />
+      <point x="19.454545454545496" y="99.0" />
+    </edge>
+    <edge source="pl.edu.ug.validator.PictureValidator" target="pl.edu.ug.model.Picture">
+      <point x="0.0" y="-86.0" />
+      <point x="0.0" y="99.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.UserController" target="pl.edu.ug.service.AlbumService">
+      <point x="-22.149999999999636" y="-369.5" />
+      <point x="3979.129375232635" y="3617.0" />
+      <point x="3876.5625" y="3617.0" />
+      <point x="3876.5625" y="2851.0" />
+      <point x="4175.495945102144" y="2851.0" />
+      <point x="-42.57142857142844" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.UserDetailsServiceImpl" target="pl.edu.ug.model.Role">
+      <point x="117.33333333333303" y="-45.5" />
+      <point x="8364.719381948453" y="2991.0" />
+      <point x="8476.368807235809" y="2991.0" />
+      <point x="8476.368807235809" y="1250.0" />
+      <point x="7596.193430069634" y="1250.0" />
+      <point x="81.0" y="86.5" />
+    </edge>
+    <edge source="pl.edu.ug.search.UserSpecification" target="pl.edu.ug.search.SearchCriteria">
+      <point x="202.125" y="-59.5" />
+      <point x="10308.658331547467" y="2306.0" />
+      <point x="10307.133331547468" y="2306.0" />
+      <point x="-79.39999999999964" y="72.5" />
+    </edge>
+    <edge source="pl.edu.ug.service.OrderServiceImpl" target="pl.edu.ug.dao.OrderDao">
+      <point x="72.33333333333303" y="-86.0" />
+      <point x="9687.702140569141" y="2991.0" />
+      <point x="9689.702140569143" y="2991.0" />
+      <point x="0.0" y="18.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.ScoreService" target="pl.edu.ug.model.Score">
+      <point x="0.0" y="-126.5" />
+      <point x="3680.822880360723" y="2136.0" />
+      <point x="4246.915089518349" y="2136.0" />
+      <point x="4246.915089518349" y="1310.0" />
+      <point x="4962.541396103896" y="1310.0" />
+      <point x="-41.727272727272975" y="72.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.CommentServiceImpl" target="pl.edu.ug.service.CommentService">
+      <point x="-71.40000000000009" y="-127.0" />
+      <point x="6024.877508349518" y="2801.0" />
+      <point x="5579.871258349518" y="2801.0" />
+      <point x="89.25" y="113.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.AlbumServiceImpl" target="pl.edu.ug.service.AlbumService">
+      <point x="-37.25" y="-154.0" />
+      <point x="4174.348214285714" y="2871.0" />
+      <point x="4260.638802245001" y="2871.0" />
+      <point x="42.57142857142844" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.OrderController" target="pl.edu.ug.model.User">
+      <point x="-163.14285714285688" y="-248.0" />
+      <point x="9038.225950092952" y="2931.0" />
+      <point x="8454.368807235809" y="2931.0" />
+      <point x="8454.368807235809" y="2206.0" />
+      <point x="6827.082244363228" y="2206.0" />
+      <point x="104.31034482758605" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.AlbumServiceImpl" target="pl.edu.ug.model.User">
+      <point x="111.75" y="-154.0" />
+      <point x="4323.348214285714" y="2921.0" />
+      <point x="6333.225784211587" y="2921.0" />
+      <point x="6333.225784211587" y="2256.0" />
+      <point x="6675.358106432193" y="2256.0" />
+      <point x="-47.41379310344837" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.UserServiceImpl" target="pl.edu.ug.model.Role">
+      <point x="162.80000000000018" y="-181.0" />
+      <point x="8010.68604861512" y="2981.0" />
+      <point x="8465.368807235809" y="2981.0" />
+      <point x="8465.368807235809" y="1260.0" />
+      <point x="7569.193430069634" y="1260.0" />
+      <point x="54.0" y="86.5" />
+    </edge>
+    <edge source="pl.edu.ug.service.OrderServiceImpl" target="pl.edu.ug.service.OrderService">
+      <point x="-72.33333333333303" y="-86.0" />
+      <point x="9543.035473902477" y="2991.0" />
+      <point x="9532.702140569143" y="2991.0" />
+      <point x="51.5" y="72.0" />
+    </edge>
+    <edge source="pl.edu.ug.search.GenericRsqlSpecification" target="pl.edu.ug.search.RsqlSearchOperation">
+      <point x="0.0" y="-100.0" />
+      <point x="0.0" y="168.0" />
+    </edge>
+    <edge source="pl.edu.ug.model.Score" target="pl.edu.ug.model.User">
+      <point x="55.63636363636397" y="72.0" />
+      <point x="5059.905032467533" y="1290.0" />
+      <point x="6619.646899535642" y="1290.0" />
+      <point x="-103.125" y="-343.0" />
+    </edge>
+    <edge source="pl.edu.ug.model.Album" target="pl.edu.ug.model.User">
+      <point x="86.0625" y="112.5" />
+      <point x="4056.379873673573" y="593.0" />
+      <point x="5207.496258349518" y="593.0" />
+      <point x="5207.496258349518" y="1270.0" />
+      <point x="6647.146899535642" y="1270.0" />
+      <point x="-75.625" y="-343.0" />
+    </edge>
+    <edge source="pl.edu.ug.model.Album" target="pl.edu.ug.model.Score">
+      <point x="35.4375" y="112.5" />
+      <point x="4005.754873673573" y="643.0" />
+      <point x="5023.393668831169" y="643.0" />
+      <point x="19.125" y="-72.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.AlbumController" target="pl.edu.ug.service.UserService">
+      <point x="116.875" y="-207.5" />
+      <point x="5051.950803804064" y="3617.0" />
+      <point x="6884.704230433301" y="3617.0" />
+      <point x="6884.704230433301" y="2981.0" />
+      <point x="6894.886048615119" y="2981.0" />
+      <point x="0.0" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.PictureController" target="pl.edu.ug.service.AlbumService">
+      <point x="111.9375" y="-234.5" />
+      <point x="2349.0" y="2831.0" />
+      <point x="4090.353087959287" y="2831.0" />
+      <point x="-127.71428571428578" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.UserController" target="pl.edu.ug.model.User">
+      <point x="66.44999999999982" y="-369.5" />
+      <point x="4067.7293752326345" y="3587.0" />
+      <point x="6569.061989053991" y="3587.0" />
+      <point x="6569.061989053991" y="2296.0" />
+      <point x="6713.289140914952" y="2296.0" />
+      <point x="-9.48275862068931" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.PictureServiceImpl" target="pl.edu.ug.model.Picture">
+      <point x="-78.0" y="-100.0" />
+      <point x="738.75" y="2991.0" />
+      <point x="746.375" y="2991.0" />
+      <point x="746.375" y="248.0" />
+      <point x="2028.3883964008455" y="248.0" />
+      <point x="-97.27272727272748" y="99.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.ImgController" target="pl.edu.ug.service.UserService">
+      <point x="-82.33333333333303" y="-72.5" />
+      <point x="7129.552715281787" y="2991.0" />
+      <point x="6957.613321342393" y="2991.0" />
+      <point x="62.727272727272975" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.UserController" target="pl.edu.ug.model.Album">
+      <point x="-66.44999999999982" y="-369.5" />
+      <point x="3934.829375232635" y="3627.0" />
+      <point x="2546.0625" y="3627.0" />
+      <point x="2546.0625" y="563.0" />
+      <point x="3864.004873673573" y="563.0" />
+      <point x="-106.3125" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.service.UserServiceImpl" target="pl.edu.ug.service.UserService">
+      <point x="-162.80000000000018" y="-181.0" />
+      <point x="7685.08604861512" y="2971.0" />
+      <point x="7020.340594069665" y="2971.0" />
+      <point x="125.45454545454504" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.UserServiceImpl" target="pl.edu.ug.dao.RoleDao">
+      <point x="81.39999999999964" y="-181.0" />
+      <point x="7929.2860486151185" y="2971.0" />
+      <point x="8181.475784211587" y="2971.0" />
+      <point x="8181.475784211587" y="2306.0" />
+      <point x="8239.094381948453" y="2306.0" />
+      <point x="0.0" y="18.0" />
+    </edge>
+    <edge source="pl.edu.ug.dao.PictureDao" target="pl.edu.ug.model.Picture">
+      <point x="0.0" y="-18.0" />
+      <point x="823.875" y="258.0" />
+      <point x="2047.842941855391" y="258.0" />
+      <point x="-77.81818181818181" y="99.0" />
+    </edge>
+    <edge source="pl.edu.ug.validator.UserValidator" target="pl.edu.ug.model.User">
+      <point x="-67.25" y="-59.0" />
+      <point x="6661.454230433301" y="2306.0" />
+      <point x="6722.771899535642" y="2306.0" />
+      <point x="0.0" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.UserController" target="pl.edu.ug.search.RsqlVisitor">
+      <point x="-110.75" y="-369.5" />
+      <point x="3890.5293752326347" y="3637.0" />
+      <point x="1315.125" y="3637.0" />
+      <point x="0.0" y="86.5" />
+    </edge>
+    <edge source="pl.edu.ug.controller.ScoreController" target="pl.edu.ug.model.Score">
+      <point x="-80.28571428571468" y="-126.5" />
+      <point x="3504.7767857142853" y="2811.0" />
+      <point x="3866.822880360723" y="2811.0" />
+      <point x="3866.822880360723" y="2146.0" />
+      <point x="4345.415089518349" y="2146.0" />
+      <point x="4345.415089518349" y="1320.0" />
+      <point x="4976.450487012987" y="1320.0" />
+      <point x="-27.818181818181984" y="72.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.CommentService" target="pl.edu.ug.model.Album">
+      <point x="-119.0" y="-113.0" />
+      <point x="5371.621258349518" y="2156.0" />
+      <point x="5187.246258349518" y="2156.0" />
+      <point x="5187.246258349518" y="613.0" />
+      <point x="4036.129873673573" y="613.0" />
+      <point x="65.8125" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.search.UserSpecificationsBuilder" target="pl.edu.ug.search.SearchOperation">
+      <point x="-107.25" y="-73.0" />
+      <point x="10036.740870418484" y="2971.0" />
+      <point x="9826.533331547467" y="2971.0" />
+      <point x="9826.533331547467" y="1330.0" />
+      <point x="9962.065173217825" y="1330.0" />
+      <point x="-139.125" y="113.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.UsersManageController" target="pl.edu.ug.validator.UserManageValidator">
+      <point x="-46.625" y="-99.5" />
+      <point x="7756.100784211587" y="3607.0" />
+      <point x="7489.886048615119" y="3607.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+    <edge source="pl.edu.ug.validator.AlbumValidator" target="pl.edu.ug.model.Album">
+      <point x="67.25" y="-59.0" />
+      <point x="4642.0673736735735" y="2861.0" />
+      <point x="4377.5673736735735" y="2861.0" />
+      <point x="4377.5673736735735" y="2086.0" />
+      <point x="3751.6650895183493" y="2086.0" />
+      <point x="3751.6650895183493" y="643.0" />
+      <point x="3945.004873673573" y="643.0" />
+      <point x="-25.3125" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.controller.AlbumController" target="pl.edu.ug.validator.AlbumValidator">
+      <point x="-70.125" y="-207.5" />
+      <point x="4864.950803804064" y="3527.0" />
+      <point x="4574.8173736735735" y="3527.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.AlbumService" target="pl.edu.ug.model.Album">
+      <point x="-74.5" y="-140.0" />
+      <point x="4143.5673736735735" y="2096.0" />
+      <point x="3484.066875232635" y="2096.0" />
+      <point x="3484.066875232635" y="633.0" />
+      <point x="3934.879873673573" y="633.0" />
+      <point x="-35.4375" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.model.User" target="pl.edu.ug.model.Order">
+      <point x="89.375" y="-343.0" />
+      <point x="6812.146899535642" y="1280.0" />
+      <point x="9133.134528286202" y="1280.0" />
+      <point x="-132.72727272727298" y="248.5" />
+    </edge>
+    <edge source="pl.edu.ug.controller.ScoreController" target="pl.edu.ug.validator.ScoreValidator">
+      <point x="0.0" y="-126.5" />
+      <point x="3585.0625" y="2821.0" />
+      <point x="3981.567373673573" y="2821.0" />
+      <point x="3981.567373673573" y="2156.0" />
+      <point x="4490.415089518349" y="2156.0" />
+      <point x="0.0" y="45.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.UserService" target="pl.edu.ug.model.User">
+      <point x="0.0" y="-140.0" />
+      <point x="6894.886048615119" y="2306.0" />
+      <point x="6732.254658156331" y="2306.0" />
+      <point x="9.48275862068931" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.PictureServiceImpl" target="pl.edu.ug.service.PictureService">
+      <point x="78.0" y="-100.0" />
+      <point x="894.75" y="2991.0" />
+      <point x="887.625" y="2991.0" />
+      <point x="-53.25" y="86.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.UserController" target="pl.edu.ug.service.UserService">
+      <point x="155.05000000000018" y="-369.5" />
+      <point x="4156.329375232635" y="3607.0" />
+      <point x="6873.704230433301" y="3607.0" />
+      <point x="6873.704230433301" y="2991.0" />
+      <point x="6863.522412251483" y="2991.0" />
+      <point x="-31.363636363636033" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.search.UserSpecificationsBuilder" target="pl.edu.ug.model.User">
+      <point x="-178.75" y="-73.0" />
+      <point x="9965.240870418484" y="2981.0" />
+      <point x="9594.702140569143" y="2981.0" />
+      <point x="9594.702140569143" y="2186.0" />
+      <point x="6846.047761604607" y="2186.0" />
+      <point x="123.27586206896558" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.CommentController" target="pl.edu.ug.service.AlbumService">
+      <point x="-281.3125" y="-194.0" />
+      <point x="5259.183758349518" y="2851.0" />
+      <point x="4345.781659387859" y="2851.0" />
+      <point x="127.71428571428578" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.model.Score" target="pl.edu.ug.model.Album">
+      <point x="-19.125" y="-72.0" />
+      <point x="4985.143668831169" y="653.0" />
+      <point x="3995.629873673573" y="653.0" />
+      <point x="25.3125" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.controller.ScoreController" target="pl.edu.ug.model.Album">
+      <point x="-240.85714285714312" y="-126.5" />
+      <point x="3344.205357142857" y="2771.0" />
+      <point x="2928.1875" y="2771.0" />
+      <point x="2928.1875" y="593.0" />
+      <point x="3894.379873673573" y="593.0" />
+      <point x="-75.9375" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.validator.UserManageValidator" target="pl.edu.ug.model.User">
+      <point x="67.25" y="-59.0" />
+      <point x="7557.136048615119" y="2266.0" />
+      <point x="6770.18569263909" y="2266.0" />
+      <point x="47.41379310344837" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.dao.ScoreDao" target="pl.edu.ug.model.User">
+      <point x="122.66666666666697" y="-45.0" />
+      <point x="3423.98954702739" y="2166.0" />
+      <point x="6590.013278845987" y="2166.0" />
+      <point x="-132.7586206896549" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.ScoreServiceImpl" target="pl.edu.ug.service.ScoreService">
+      <point x="70.19999999999982" y="-140.5" />
+      <point x="2802.2625" y="2791.0" />
+      <point x="3563.822880360723" y="2791.0" />
+      <point x="-117.0" y="126.5" />
+    </edge>
+    <edge source="pl.edu.ug.service.CommentServiceImpl" target="pl.edu.ug.model.Comment">
+      <point x="71.40000000000009" y="-127.0" />
+      <point x="6167.677508349518" y="2931.0" />
+      <point x="6344.225784211587" y="2931.0" />
+      <point x="6344.225784211587" y="278.0" />
+      <point x="6009.542373673573" y="278.0" />
+      <point x="16.875" y="99.0" />
+    </edge>
+    <edge source="pl.edu.ug.model.Comment" target="pl.edu.ug.model.Album">
+      <point x="-61.875" y="99.0" />
+      <point x="5930.792373673573" y="238.0" />
+      <point x="4046.254873673573" y="238.0" />
+      <point x="75.9375" y="-112.5" />
+    </edge>
+    <edge source="pl.edu.ug.service.CommentServiceImpl" target="pl.edu.ug.model.Album">
+      <point x="-142.79999999999995" y="-127.0" />
+      <point x="5953.477508349518" y="2811.0" />
+      <point x="5177.121258349518" y="2811.0" />
+      <point x="5177.121258349518" y="623.0" />
+      <point x="4026.004873673573" y="623.0" />
+      <point x="55.6875" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.validator.CommentValidator" target="pl.edu.ug.model.Comment">
+      <point x="0.0" y="-45.0" />
+      <point x="5887.777508349518" y="288.0" />
+      <point x="5987.042373673573" y="288.0" />
+      <point x="-5.625" y="99.0" />
+    </edge>
+    <edge source="pl.edu.ug.dao.CommentDao" target="pl.edu.ug.model.User">
+      <point x="132.0" y="-45.0" />
+      <point x="6228.277508349518" y="2216.0" />
+      <point x="6637.427071949435" y="2216.0" />
+      <point x="-85.34482758620652" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.ScoreController" target="pl.edu.ug.service.UserService">
+      <point x="240.85714285714312" y="-126.5" />
+      <point x="3825.919642857143" y="2971.0" />
+      <point x="6769.431503160575" y="2971.0" />
+      <point x="-125.45454545454504" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.UserController" target="pl.edu.ug.java.PasswordGenerator">
+      <point x="-155.05000000000018" y="-369.5" />
+      <point x="3846.2293752326345" y="3647.0" />
+      <point x="558.25" y="3647.0" />
+      <point x="0.0" y="113.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.AlbumController" target="pl.edu.ug.model.Score">
+      <point x="70.125" y="-207.5" />
+      <point x="5005.200803804064" y="3547.0" />
+      <point x="4925.4423736735735" y="3547.0" />
+      <point x="4925.4423736735735" y="2156.0" />
+      <point x="5150.858594646437" y="2156.0" />
+      <point x="5150.858594646437" y="1320.0" />
+      <point x="5018.17775974026" y="1320.0" />
+      <point x="13.909090909090992" y="72.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.CommentService" target="pl.edu.ug.model.User">
+      <point x="119.0" y="-113.0" />
+      <point x="5609.621258349518" y="2206.0" />
+      <point x="6627.944313328745" y="2206.0" />
+      <point x="-94.82758620689674" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.validator.UserManageValidator" target="pl.edu.ug.service.UserService">
+      <point x="-67.25" y="-59.0" />
+      <point x="7422.636048615119" y="2981.0" />
+      <point x="6988.976957706029" y="2981.0" />
+      <point x="94.09090909090901" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.UserController" target="pl.edu.ug.java.EmailSender">
+      <point x="199.35000000000036" y="-369.5" />
+      <point x="4200.629375232635" y="3637.0" />
+      <point x="8588.868807235809" y="3637.0" />
+      <point x="-102.0" y="207.5" />
+    </edge>
+    <edge source="pl.edu.ug.service.SecurityServiceImpl" target="pl.edu.ug.service.SecurityService">
+      <point x="0.0" y="-86.0" />
+      <point x="-72.75" y="45.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.CommentController" target="pl.edu.ug.model.User">
+      <point x="200.9375" y="-194.0" />
+      <point x="5741.433758349518" y="2941.0" />
+      <point x="6404.760266970207" y="2941.0" />
+      <point x="6404.760266970207" y="2266.0" />
+      <point x="6684.840865052883" y="2266.0" />
+      <point x="-37.93103448275906" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.AlbumController" target="pl.edu.ug.service.AlbumService">
+      <point x="-116.875" y="-207.5" />
+      <point x="4818.200803804064" y="3537.0" />
+      <point x="3972.973214285714" y="3537.0" />
+      <point x="3972.973214285714" y="2861.0" />
+      <point x="4218.0673736735735" y="2861.0" />
+      <point x="0.0" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.UserServiceImpl" target="pl.edu.ug.model.User">
+      <point x="-81.39999999999964" y="-181.0" />
+      <point x="7766.486048615119" y="2961.0" />
+      <point x="7621.322309379979" y="2961.0" />
+      <point x="7621.322309379979" y="2256.0" />
+      <point x="6779.668451259779" y="2256.0" />
+      <point x="56.89655172413768" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.ImgController" target="pl.edu.ug.model.User">
+      <point x="82.33333333333303" y="-72.5" />
+      <point x="7294.219381948453" y="2991.0" />
+      <point x="7251.37537436725" y="2991.0" />
+      <point x="7251.37537436725" y="2276.0" />
+      <point x="6760.7029340184" y="2276.0" />
+      <point x="37.93103448275815" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.OrderController" target="pl.edu.ug.service.UserService">
+      <point x="-244.71428571428532" y="-248.0" />
+      <point x="8956.654521521523" y="2941.0" />
+      <point x="7051.704230433301" y="2941.0" />
+      <point x="156.81818181818198" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.ScoreServiceImpl" target="pl.edu.ug.model.Score">
+      <point x="-70.19999999999982" y="-140.5" />
+      <point x="2661.8625" y="2771.0" />
+      <point x="2783.035380360723" y="2771.0" />
+      <point x="2783.035380360723" y="2116.0" />
+      <point x="3993.079862245622" y="2116.0" />
+      <point x="3993.079862245622" y="1290.0" />
+      <point x="4934.723214285714" y="1290.0" />
+      <point x="-69.54545454545496" y="72.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.CommentController" target="pl.edu.ug.service.CommentService">
+      <point x="-40.1875" y="-194.0" />
+      <point x="5500.308758349518" y="2821.0" />
+      <point x="5401.371258349518" y="2821.0" />
+      <point x="-89.25" y="113.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.ScoreServiceImpl" target="pl.edu.ug.model.User">
+      <point x="140.39999999999964" y="-140.5" />
+      <point x="2872.4624999999996" y="2901.0" />
+      <point x="6314.260266970207" y="2901.0" />
+      <point x="6314.260266970207" y="2236.0" />
+      <point x="6656.392589190814" y="2236.0" />
+      <point x="-66.3793103448279" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.AlbumController" target="pl.edu.ug.model.User">
+      <point x="163.625" y="-207.5" />
+      <point x="5098.700803804064" y="3627.0" />
+      <point x="7077.886048615119" y="3627.0" />
+      <point x="7077.886048615119" y="2296.0" />
+      <point x="6741.737416777021" y="2296.0" />
+      <point x="18.96551724137953" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.PictureController" target="pl.edu.ug.service.UserService">
+      <point x="261.1875" y="-234.5" />
+      <point x="2498.25" y="2961.0" />
+      <point x="6738.067866796937" y="2961.0" />
+      <point x="-156.81818181818198" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.CommentService" target="pl.edu.ug.model.Comment">
+      <point x="0.0" y="-113.0" />
+      <point x="5490.621258349518" y="268.0" />
+      <point x="5964.542373673573" y="268.0" />
+      <point x="-28.125" y="99.0" />
+    </edge>
+    <edge source="pl.edu.ug.model.User" target="pl.edu.ug.model.Role">
+      <point x="34.375" y="-343.0" />
+      <point x="6757.146899535642" y="1240.0" />
+      <point x="7434.193430069634" y="1240.0" />
+      <point x="-81.0" y="86.5" />
+    </edge>
+    <edge source="pl.edu.ug.search.RsqlSpecificationsBuilder" target="pl.edu.ug.search.GenericRsqlSpecification">
+      <point x="0.0" y="-58.5" />
+      <point x="1297.875" y="2306.0" />
+      <point x="1847.661123673573" y="2306.0" />
+      <point x="0.0" y="100.0" />
+    </edge>
+    <edge source="pl.edu.ug.search.UserSpecificationsBuilder" target="pl.edu.ug.search.UserSpecification">
+      <point x="-35.75" y="-73.0" />
+      <point x="10108.240870418484" y="2991.0" />
+      <point x="10106.533331547467" y="2991.0" />
+      <point x="0.0" y="59.5" />
+    </edge>
+    <edge source="pl.edu.ug.controller.AlbumController" target="pl.edu.ug.model.Picture">
+      <point x="-257.125" y="-207.5" />
+      <point x="4677.950803804064" y="3567.0" />
+      <point x="1538.875" y="3567.0" />
+      <point x="1538.875" y="278.0" />
+      <point x="2086.752032764482" y="278.0" />
+      <point x="-38.90909090909099" y="99.0" />
+    </edge>
+    <edge source="pl.edu.ug.validator.UserValidator" target="pl.edu.ug.service.UserService">
+      <point x="67.25" y="-59.0" />
+      <point x="6795.954230433301" y="2991.0" />
+      <point x="6832.158775887847" y="2991.0" />
+      <point x="-62.727272727272975" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.OrderController" target="pl.edu.ug.java.EmailSender">
+      <point x="-81.57142857142844" y="-248.0" />
+      <point x="9119.79737866438" y="2921.0" />
+      <point x="8792.868807235809" y="2921.0" />
+      <point x="102.0" y="207.5" />
+    </edge>
+    <edge source="pl.edu.ug.validator.AlbumValidator" target="pl.edu.ug.service.AlbumService">
+      <point x="-67.25" y="-59.0" />
+      <point x="4507.5673736735735" y="2871.0" />
+      <point x="4303.21023081643" y="2871.0" />
+      <point x="85.14285714285734" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.AlbumServiceImpl" target="pl.edu.ug.dao.AlbumDao">
+      <point x="37.25" y="-154.0" />
+      <point x="4248.848214285714" y="2881.0" />
+      <point x="4573.0673736735735" y="2881.0" />
+      <point x="0.0" y="72.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.AlbumController" target="pl.edu.ug.service.ScoreService">
+      <point x="-163.625" y="-207.5" />
+      <point x="4771.450803804064" y="3547.0" />
+      <point x="3887.5625" y="3547.0" />
+      <point x="3887.5625" y="2801.0" />
+      <point x="3797.822880360723" y="2801.0" />
+      <point x="117.0" y="126.5" />
+    </edge>
+    <edge source="pl.edu.ug.service.PictureServiceImpl" target="pl.edu.ug.dao.PictureDao">
+      <point x="0.0" y="-100.0" />
+      <point x="816.75" y="2991.0" />
+      <point x="823.875" y="2991.0" />
+      <point x="0.0" y="18.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.OrderController" target="pl.edu.ug.service.OrderService">
+      <point x="244.71428571428623" y="-248.0" />
+      <point x="9446.083092950095" y="2991.0" />
+      <point x="9429.702140569143" y="2991.0" />
+      <point x="-51.5" y="72.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.AlbumController" target="pl.edu.ug.model.Comment">
+      <point x="257.125" y="-207.5" />
+      <point x="5192.200803804064" y="3657.0" />
+      <point x="9763.702140569143" y="3657.0" />
+      <point x="9763.702140569143" y="218.0" />
+      <point x="6077.042373673573" y="218.0" />
+      <point x="84.375" y="99.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.AlbumController" target="pl.edu.ug.model.Album">
+      <point x="-210.375" y="-207.5" />
+      <point x="4724.700803804064" y="3557.0" />
+      <point x="2918.0625" y="3557.0" />
+      <point x="2918.0625" y="583.0" />
+      <point x="3884.254873673573" y="583.0" />
+      <point x="-86.0625" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.service.OrderServiceImpl" target="pl.edu.ug.model.Order">
+      <point x="0.0" y="-86.0" />
+      <point x="9615.702140569143" y="1300.0" />
+      <point x="9372.043619195292" y="1300.0" />
+      <point x="106.18181818181802" y="248.5" />
+    </edge>
+    <edge source="pl.edu.ug.controller.UsersManageController" target="pl.edu.ug.model.User">
+      <point x="139.875" y="-99.5" />
+      <point x="7942.600784211587" y="3627.0" />
+      <point x="8444.88604861512" y="3627.0" />
+      <point x="8444.88604861512" y="2216.0" />
+      <point x="6817.5994857425385" y="2216.0" />
+      <point x="94.82758620689674" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.OrderService" target="pl.edu.ug.model.Order">
+      <point x="0.0" y="-72.0" />
+      <point x="9481.202140569143" y="1310.0" />
+      <point x="9345.498164649838" y="1310.0" />
+      <point x="79.63636363636397" y="248.5" />
+    </edge>
+    <edge source="pl.edu.ug.service.ScoreService" target="pl.edu.ug.model.Album">
+      <point x="-117.0" y="-126.5" />
+      <point x="3563.822880360723" y="2106.0" />
+      <point x="3473.941875232635" y="2106.0" />
+      <point x="3473.941875232635" y="623.0" />
+      <point x="3924.754873673573" y="623.0" />
+      <point x="-45.5625" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.model.Album" target="pl.edu.ug.model.Comment">
+      <point x="15.1875" y="-112.5" />
+      <point x="3985.504873673573" y="218.0" />
+      <point x="5908.292373673573" y="218.0" />
+      <point x="-84.375" y="99.0" />
+    </edge>
+    <edge source="pl.edu.ug.java.EmailSender" target="pl.edu.ug.model.Order">
+      <point x="102.0" y="-207.5" />
+      <point x="8792.868807235809" y="2306.0" />
+      <point x="8975.846079963081" y="2306.0" />
+      <point x="8975.846079963081" y="1320.0" />
+      <point x="9239.316346468018" y="1320.0" />
+      <point x="-26.54545454545496" y="248.5" />
+    </edge>
+    <edge source="pl.edu.ug.controller.PictureController" target="pl.edu.ug.service.PictureService">
+      <point x="-261.1875" y="-234.5" />
+      <point x="1975.875" y="2981.0" />
+      <point x="994.125" y="2981.0" />
+      <point x="53.25" y="86.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.UserController" target="pl.edu.ug.service.SecurityService">
+      <point x="-199.35000000000036" y="-369.5" />
+      <point x="3801.9293752326344" y="3657.0" />
+      <point x="344.0" y="3657.0" />
+      <point x="72.75" y="45.0" />
+    </edge>
+    <edge source="pl.edu.ug.dao.AlbumDao" target="pl.edu.ug.model.User">
+      <point x="92.5" y="-72.0" />
+      <point x="4665.5673736735735" y="2196.0" />
+      <point x="6618.461554708056" y="2196.0" />
+      <point x="-104.31034482758605" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.dao.ScoreDao" target="pl.edu.ug.model.Score">
+      <point x="0.0" y="-45.0" />
+      <point x="3301.322880360723" y="2126.0" />
+      <point x="4051.6650895183493" y="2126.0" />
+      <point x="4051.6650895183493" y="1300.0" />
+      <point x="4948.632305194805" y="1300.0" />
+      <point x="-55.63636363636397" y="72.0" />
+    </edge>
+    <edge source="pl.edu.ug.model.User" target="pl.edu.ug.model.Album">
+      <point x="-48.125" y="-343.0" />
+      <point x="6674.646899535642" y="1250.0" />
+      <point x="5229.496258349518" y="1250.0" />
+      <point x="5229.496258349518" y="573.0" />
+      <point x="4076.629873673573" y="573.0" />
+      <point x="106.3125" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.controller.PictureController" target="pl.edu.ug.model.User">
+      <point x="186.5625" y="-234.5" />
+      <point x="2423.625" y="2891.0" />
+      <point x="6304.777508349518" y="2891.0" />
+      <point x="6304.777508349518" y="2226.0" />
+      <point x="6646.9098305701245" y="2226.0" />
+      <point x="-75.86206896551721" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.CommentController" target="pl.edu.ug.model.Album">
+      <point x="-200.9375" y="-194.0" />
+      <point x="5339.558758349518" y="2841.0" />
+      <point x="4996.4736236735735" y="2841.0" />
+      <point x="4996.4736236735735" y="2056.0" />
+      <point x="3978.8525895183493" y="2056.0" />
+      <point x="3978.8525895183493" y="663.0" />
+      <point x="3975.379873673573" y="663.0" />
+      <point x="5.0625" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.controller.ScoreController" target="pl.edu.ug.service.AlbumService">
+      <point x="80.28571428571468" y="-126.5" />
+      <point x="3665.3482142857147" y="2841.0" />
+      <point x="4132.924516530716" y="2841.0" />
+      <point x="-85.14285714285734" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.model.Role" target="pl.edu.ug.model.User">
+      <point x="0.0" y="86.5" />
+      <point x="7515.193430069634" y="1270.0" />
+      <point x="6798.396899535642" y="1270.0" />
+      <point x="75.625" y="-343.0" />
+    </edge>
+    <edge source="pl.edu.ug.dao.CommentDao" target="pl.edu.ug.model.Comment">
+      <point x="0.0" y="-45.0" />
+      <point x="6096.277508349518" y="288.0" />
+      <point x="5998.292373673573" y="288.0" />
+      <point x="5.625" y="99.0" />
+    </edge>
+    <edge source="pl.edu.ug.dao.OrderDao" target="pl.edu.ug.model.Order">
+      <point x="0.0" y="-18.0" />
+      <point x="9689.702140569143" y="1290.0" />
+      <point x="9398.589073740746" y="1290.0" />
+      <point x="132.72727272727298" y="248.5" />
+    </edge>
+    <edge source="pl.edu.ug.dao.CommentDao" target="pl.edu.ug.model.Album">
+      <point x="-132.0" y="-45.0" />
+      <point x="5964.277508349518" y="2146.0" />
+      <point x="5197.371258349518" y="2146.0" />
+      <point x="5197.371258349518" y="603.0" />
+      <point x="4046.254873673573" y="603.0" />
+      <point x="75.9375" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.controller.ScoreController" target="pl.edu.ug.model.User">
+      <point x="160.57142857142844" y="-126.5" />
+      <point x="3745.6339285714284" y="2911.0" />
+      <point x="6323.743025590898" y="2911.0" />
+      <point x="6323.743025590898" y="2246.0" />
+      <point x="6665.875347811504" y="2246.0" />
+      <point x="-56.89655172413768" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.search.UserSpecification" target="pl.edu.ug.search.SearchOperation">
+      <point x="-67.375" y="-59.5" />
+      <point x="10039.158331547467" y="1330.0" />
+      <point x="10054.815173217825" y="1330.0" />
+      <point x="-46.375" y="113.0" />
+    </edge>
+    <edge source="pl.edu.ug.dao.RoleDao" target="pl.edu.ug.model.Role">
+      <point x="0.0" y="-18.0" />
+      <point x="8239.094381948453" y="1270.0" />
+      <point x="7542.193430069634" y="1270.0" />
+      <point x="27.0" y="86.5" />
+    </edge>
+    <edge source="pl.edu.ug.service.CommentServiceImpl" target="pl.edu.ug.model.User">
+      <point x="142.79999999999995" y="-127.0" />
+      <point x="6239.077508349518" y="2951.0" />
+      <point x="6548.579230433302" y="2951.0" />
+      <point x="6548.579230433302" y="2276.0" />
+      <point x="6694.323623673573" y="2276.0" />
+      <point x="-28.44827586206884" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.CommentServiceImpl" target="pl.edu.ug.dao.CommentDao">
+      <point x="0.0" y="-127.0" />
+      <point x="0.0" y="45.0" />
+    </edge>
+    <edge source="pl.edu.ug.search.SearchCriteria" target="pl.edu.ug.search.SearchOperation">
+      <point x="99.25" y="-72.5" />
+      <point x="10485.783331547467" y="1320.0" />
+      <point x="10240.315173217825" y="1320.0" />
+      <point x="139.125" y="113.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.UsersManageController" target="pl.edu.ug.service.UserService">
+      <point x="-139.875" y="-99.5" />
+      <point x="7662.850784211587" y="3617.0" />
+      <point x="6895.704230433301" y="3617.0" />
+      <point x="6895.704230433301" y="2991.0" />
+      <point x="6926.249684978755" y="2991.0" />
+      <point x="31.363636363636033" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.validator.ScoreValidator" target="pl.edu.ug.model.Score">
+      <point x="0.0" y="-45.0" />
+      <point x="4490.415089518349" y="1330.0" />
+      <point x="4990.359577922078" y="1330.0" />
+      <point x="-13.909090909090992" y="72.0" />
+    </edge>
+    <edge source="pl.edu.ug.model.Order" target="pl.edu.ug.model.User">
+      <point x="-79.63636363636397" y="248.5" />
+      <point x="9186.22543737711" y="1300.0" />
+      <point x="6839.646899535642" y="1300.0" />
+      <point x="116.875" y="-343.0" />
+    </edge>
+    <edge source="pl.edu.ug.model.User" target="pl.edu.ug.model.Score">
+      <point x="-116.875" y="-343.0" />
+      <point x="6605.896899535642" y="1300.0" />
+      <point x="5045.995941558442" y="1300.0" />
+      <point x="41.727272727272975" y="72.0" />
+    </edge>
+    <edge source="pl.edu.ug.dao.ScoreDao" target="pl.edu.ug.model.Album">
+      <point x="-122.66666666666697" y="-45.0" />
+      <point x="3178.656213694056" y="2106.0" />
+      <point x="3287.1134155728746" y="2106.0" />
+      <point x="3287.1134155728746" y="613.0" />
+      <point x="3914.629873673573" y="613.0" />
+      <point x="-55.6875" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.service.UserServiceImpl" target="pl.edu.ug.dao.UserDao">
+      <point x="0.0" y="-181.0" />
+      <point x="7847.886048615119" y="2991.0" />
+      <point x="7801.330930069635" y="2991.0" />
+      <point x="-68.25" y="45.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.ScoreController" target="pl.edu.ug.service.ScoreService">
+      <point x="-160.57142857142844" y="-126.5" />
+      <point x="3424.4910714285716" y="2801.0" />
+      <point x="3680.822880360723" y="2801.0" />
+      <point x="0.0" y="126.5" />
+    </edge>
+    <edge source="pl.edu.ug.controller.CommentController" target="pl.edu.ug.model.Comment">
+      <point x="40.1875" y="-194.0" />
+      <point x="5580.683758349518" y="2871.0" />
+      <point x="5679.621258349518" y="2871.0" />
+      <point x="5679.621258349518" y="278.0" />
+      <point x="5975.792373673573" y="278.0" />
+      <point x="-16.875" y="99.0" />
+    </edge>
+    <edge source="pl.edu.ug.java.EmailSender" target="pl.edu.ug.model.User">
+      <point x="-102.0" y="-207.5" />
+      <point x="8588.868807235809" y="2196.0" />
+      <point x="6836.565002983917" y="2196.0" />
+      <point x="113.79310344827536" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.search.RsqlVisitor" target="pl.edu.ug.search.RsqlSpecificationsBuilder">
+      <point x="98.0" y="-86.5" />
+      <point x="115.25" y="58.5" />
+    </edge>
+    <edge source="pl.edu.ug.model.Comment" target="pl.edu.ug.model.User">
+      <point x="39.375" y="99.0" />
+      <point x="6032.042373673573" y="258.0" />
+      <point x="6692.271899535642" y="258.0" />
+      <point x="6692.271899535642" y="1220.0" />
+      <point x="6715.896899535642" y="1220.0" />
+      <point x="-6.875" y="-343.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.CommentController" target="pl.edu.ug.service.UserService">
+      <point x="281.3125" y="-194.0" />
+      <point x="5821.808758349518" y="2981.0" />
+      <point x="6800.795139524211" y="2981.0" />
+      <point x="-94.09090909090901" y="140.0" />
+    </edge>
+    <edge source="pl.edu.ug.search.UserSpecificationsBuilder" target="pl.edu.ug.search.SearchCriteria">
+      <point x="107.25" y="-73.0" />
+      <point x="10251.240870418484" y="2981.0" />
+      <point x="10397.533331547467" y="2981.0" />
+      <point x="10397.533331547467" y="2296.0" />
+      <point x="10465.933331547467" y="2296.0" />
+      <point x="79.39999999999964" y="72.5" />
+    </edge>
+    <edge source="pl.edu.ug.validator.OrderValidator" target="pl.edu.ug.model.Order">
+      <point x="0.0" y="-45.0" />
+      <point x="9201.368807235809" y="1330.0" />
+      <point x="9265.861801013474" y="1330.0" />
+      <point x="0.0" y="248.5" />
+    </edge>
+    <edge source="pl.edu.ug.service.PictureService" target="pl.edu.ug.model.Picture">
+      <point x="0.0" y="-86.0" />
+      <point x="940.875" y="268.0" />
+      <point x="2067.2974873099365" y="268.0" />
+      <point x="-58.36363636363649" y="99.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.CommentController" target="pl.edu.ug.validator.CommentValidator">
+      <point x="120.5625" y="-194.0" />
+      <point x="5661.058758349518" y="2881.0" />
+      <point x="5887.777508349518" y="2881.0" />
+      <point x="0.0" y="45.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.UserDetailsServiceImpl" target="pl.edu.ug.dao.UserDao">
+      <point x="-117.33333333333303" y="-45.5" />
+      <point x="8130.052715281787" y="2961.0" />
+      <point x="7937.830930069635" y="2961.0" />
+      <point x="68.25" y="45.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.ScoreServiceImpl" target="pl.edu.ug.model.Album">
+      <point x="-140.4000000000001" y="-140.5" />
+      <point x="2591.6625" y="2761.0" />
+      <point x="2772.035380360723" y="2761.0" />
+      <point x="2772.035380360723" y="573.0" />
+      <point x="3874.129873673573" y="573.0" />
+      <point x="-96.1875" y="112.5" />
+    </edge>
+    <edge source="pl.edu.ug.service.AlbumService" target="pl.edu.ug.model.User">
+      <point x="74.5" y="-140.0" />
+      <point x="4292.5673736735735" y="2186.0" />
+      <point x="6608.9787960873655" y="2186.0" />
+      <point x="-113.79310344827627" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.model.User" target="pl.edu.ug.model.Comment">
+      <point x="-20.625" y="-343.0" />
+      <point x="6702.146899535642" y="1230.0" />
+      <point x="6681.271899535642" y="1230.0" />
+      <point x="6681.271899535642" y="268.0" />
+      <point x="6020.792373673573" y="268.0" />
+      <point x="28.125" y="99.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.PictureController" target="pl.edu.ug.validator.PictureValidator">
+      <point x="-111.9375" y="-234.5" />
+      <point x="0.0" y="86.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.OrderController" target="pl.edu.ug.validator.OrderValidator">
+      <point x="0.0" y="-248.0" />
+      <point x="0.0" y="45.0" />
+    </edge>
+    <edge source="pl.edu.ug.service.UserDetailsServiceImpl" target="pl.edu.ug.model.User">
+      <point x="0.0" y="-45.5" />
+      <point x="8247.38604861512" y="2951.0" />
+      <point x="8108.705930069635" y="2951.0" />
+      <point x="8108.705930069635" y="2236.0" />
+      <point x="6798.633968501159" y="2236.0" />
+      <point x="75.86206896551721" y="343.0" />
+    </edge>
+    <edge source="pl.edu.ug.controller.UserController" target="pl.edu.ug.validator.UserValidator">
+      <point x="110.75" y="-369.5" />
+      <point x="4112.029375232634" y="3597.0" />
+      <point x="6728.704230433301" y="3597.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="2840.0" y="1794.5" />
+  <SelectedNodes>
+    <node>pl.edu.ug.controller.ScoreController</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>Project Files</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

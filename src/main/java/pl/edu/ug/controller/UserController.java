@@ -138,7 +138,7 @@ public class UserController {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search(@RequestParam(value = "query") String search, Model model) {
-        Node rootNode = new RSQLParser().parse("name==*" + search.trim() + "*,city==*" + search.trim() + "*");
+        Node rootNode = new RSQLParser().parse("username==*" + search.trim() + "*,city==*" + search.trim() + "*");
         Specification<User> spec = rootNode.accept(new RsqlVisitor<User>());
         List<User> users = userService.search(spec);
 

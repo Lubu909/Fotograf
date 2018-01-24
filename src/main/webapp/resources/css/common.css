@@ -79,7 +79,7 @@ body {
 }
 
 .alert-success, .order-list, .add-photo, .add-photo-form, .edit-delete-buttons, .album-description, .alert-danger,
-.order-view {
+.order-view, .photographer-view {
     margin-top: 15px;
 }
 
@@ -116,4 +116,8 @@ body {
 
 #orderForm > .form-group {
     margin-bottom: 1px;
+}
+
+.btn-profile {
+    margin-right: 5px;
 }
